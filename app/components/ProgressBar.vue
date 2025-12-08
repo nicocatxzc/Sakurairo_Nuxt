@@ -9,28 +9,30 @@ const load = useLoadStore();
 
 <template>
     <div class="progress-bars">
-        <ElProgress
-            :percentage="scroll.progress"
-            :show-text="false"
-            :text-inside="true"
-            :color="
-                darkmode.state
-                    ? themeConfig.activeColorDark
-                    : themeConfig.activeColor
-            "
-            class="scroll-progress progress"
-        />
-        <ElProgress
-            :v-show="
-                load.loadState == 'loading' ||
-                load.loadState == 'success' ||
-                load.loadState == 'error'
-            "
-            :percentage="load.progress"
-            :show-text="false"
-            :text-inside="true"
-            class="load-progress progress"
-        />
+        <ClientOnly >
+            <ElProgress
+                :percentage="scroll.progress"
+                :show-text="false"
+                :text-inside="true"
+                :color="
+                    darkmode.state
+                        ? themeConfig.activeColorDark
+                        : themeConfig.activeColor
+                "
+                class="scroll-progress progress"
+            />
+            <ElProgress
+                :v-show="
+                    load.loadState == 'loading' ||
+                    load.loadState == 'success' ||
+                    load.loadState == 'error'
+                "
+                :percentage="load.progress"
+                :show-text="false"
+                :text-inside="true"
+                class="load-progress progress"
+            />
+        </ClientOnly>
     </div>
 </template>
 
