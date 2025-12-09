@@ -125,12 +125,9 @@ onMounted(() => {
             </nav>
         </div>
 
-        <div class="avata">
-            <el-avatar
-                size="default"
-                src="https://nicocat.cc/wp-content/uploads/2025/11/avatar.png"
-            />
-        </div>
+        <ElAvatar size="default" class="avatar">
+            <NuxtImg src="https://nicocat.cc/wp-content/uploads/2025/11/avatar.png" alt="navbar avatar"/>
+        </ElAvatar>
     </header>
 </template>
 
@@ -256,5 +253,12 @@ li .sub-menu li:last-child {
 li .sub-menu a {
     display: block;
     font-size: 14px;
+}
+
+.avatar {
+    height: 2.5rem;
+    width: 2.5rem;
+    min-width: 2.5rem;
+    min-height: 2.5rem;
 }
 </style>
