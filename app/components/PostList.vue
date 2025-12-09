@@ -37,22 +37,19 @@ onMounted(() => {
 
     let stopwatch = watch(
         () => pagination.value,
-        () => {
-            if (pagination.value) {
-                observer.observe(pagination.value);
-                stopwatch();
+        (newValue) => {
+            if (newValue) {
+                // 当元素可用时，开始观察
+                observer.observe(newValue);
             }
+        },
+        {
+            immediate: true,
         }
     );
 
-    nextTick(() => {
-        if (pagination.value) {
-            observer.observe(pagination.value);
-            if (stopwatch) stopwatch();
-        }
-    });
-
     onUnmounted(() => {
+        stopwatch()
         observer.disconnect();
     });
 });
