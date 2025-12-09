@@ -65,7 +65,6 @@ function usePostQuery(settings, query = {}) {
             }
         }
     `;
-    console.log(GetPosts);
     return useWPGraphql(GetPosts);
 }
 
