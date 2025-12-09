@@ -18,38 +18,20 @@ export const useDarkmodeStore = defineStore("darkmode", () => {
         const isNightTime = hours >= 18 || hours < 6;
 
         state.value = isNightTime;
-
-        // 可选：同时更新 HTML 的 class 用于 CSS
-        if (isNightTime) {
-            document.documentElement.classList.add("dark");
-            document.documentElement.classList.remove("light");
-        } else {
-            document.documentElement.classList.add("light");
-            document.documentElement.classList.remove("dark");
-        }
     };
 
     // 设置状态函数
-    type mode = "auto" | "true" | "false"
-    const setState = (mode:mode) => {
+    type mode = "auto" | "true" | "false";
+    const setState = (mode: mode) => {
         if (mode === "auto") {
             auto.value = true;
 
             setTimeout(() => {
                 check();
             }, 1);
-
         } else {
             auto.value = false;
             state.value = mode === "true";
-
-            if (mode === "true") {
-                document.documentElement.classList.add("dark");
-                document.documentElement.classList.remove("light");
-            } else {
-                document.documentElement.classList.add("light");
-                document.documentElement.classList.remove("dark");
-            }
         }
         saveToStorage();
     };
@@ -86,21 +68,24 @@ export const useDarkmodeStore = defineStore("darkmode", () => {
 
         try {
             const data = JSON.parse(raw);
-            if (typeof data.auto === "boolean") auto.value = data.auto;
-            if (typeof data.state === "boolean") state.value = data.state;
-
+            if (typeof data.state === "boolean")
+                setState(data.state ? "true" : "false");
+            if (typeof data.auto === "boolean") {
+                if (data.auto) setState("auto");
+            }
         } catch (_) {}
     };
 
-    // 载入时恢复
-    if (import.meta.client) {
-        loadFromStorage();
+    const mountCheck = () => {
+        if (import.meta.client) {
+            loadFromStorage();
 
-        // 如果是 auto，立刻校正一次状态
-        if (auto.value) {
-            setTimeout(check, 1);
+            // 如果是 auto，立刻校正一次状态
+            if (auto) {
+                setTimeout(check, 1);
+            }
         }
-    }
+    };
 
     // 自动检查
     const startAutoCheck = () => {
@@ -115,5 +100,7 @@ export const useDarkmodeStore = defineStore("darkmode", () => {
         setState,
         toggleMode,
         startAutoCheck,
+        loadFromStorage,
+        mountCheck,
     };
 });

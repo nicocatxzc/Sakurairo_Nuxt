@@ -3,10 +3,21 @@ import { ThemeConfig } from './types/themeConfig';
 const { data: themeConfig } = await useFetch("/api/theme-config");
 useState("themeConfig").value = toRaw(themeConfig.value ?? {});
 const darkmode = useDarkmodeStore();
+onBeforeMount(() => {
+    // 立即初始化
+    darkmode.mountCheck();
+});
+onMounted(() => {
+    // 自动更新主题
+    watch(
+        () => darkmode.state,
+        () => {
+            document.documentElement.classList.toggle("dark");
+        },
+        { immediate: true }
+    );
+});
 useHead({
-    htmlAttrs: {
-        class: computed(() => (darkmode.state ? "dark" : "light")),
-    },
     style: [
         {
             innerHTML: `
