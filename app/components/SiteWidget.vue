@@ -1,6 +1,8 @@
 <script lang="ts" setup>
 let isPanelShow = ref(false);
 let darkmode = useDarkmodeStore();
+let scroll = useScrollStore();
+
 const darkmodeToggleIcon = computed(() =>
     darkmode.auto
         ? "mdi:sun-moon-stars"
@@ -8,6 +10,14 @@ const darkmodeToggleIcon = computed(() =>
         ? "line-md:moon-loop"
         : "line-md:sun-rising-loop"
 );
+onMounted(() => {
+    watch(
+        () => scroll.progress,
+        () => {
+            isPanelShow.value = false;
+        }
+    );
+});
 </script>
 
 <template>
@@ -16,15 +26,19 @@ const darkmodeToggleIcon = computed(() =>
             <button id="goToTop" title="回到顶部">
                 <Icon class="icon" name="fa7-solid:sort-up" />
             </button>
-            <button id="widgetToggle" title="小工具" @click="isPanelShow = !isPanelShow">
+            <button
+                id="widgetToggle"
+                title="小工具"
+                @click="isPanelShow = !isPanelShow"
+            >
                 <Icon class="icon" name="fa7-solid:drafting-compass" />
             </button>
         </div>
-        <div class="panel" :class="{hide: !isPanelShow}">
+        <div class="panel" :class="{ hide: !isPanelShow }">
             <div class="theme-controls widget-groups">
                 <div class="darkmode group">
                     <button class="darkmodeToggle" @click="darkmode.toggleMode">
-                        <Icon :name="darkmodeToggleIcon" />
+                        <Icon class="icon" :name="darkmodeToggleIcon" />
                     </button>
                 </div>
 
@@ -146,11 +160,19 @@ const darkmodeToggleIcon = computed(() =>
     height: 3.125rem;
     line-height: 3.125rem;
 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     background-color: rgba(255, 255, 255, 0.8);
     box-shadow: 0 0.1rem 2rem -0.25rem #e8e8e8;
     border-radius: 0.5rem;
-    border: 0.1rem solid #FFFFFF;
+    border: 0.1rem solid #ffffff;
 
     flex-grow: 1;
+}
+.group button .icon {
+    width: 1.5rem;
+    height: 1.5rem;
 }
 </style>
