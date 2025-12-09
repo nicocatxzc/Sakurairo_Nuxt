@@ -19,7 +19,7 @@ const api = computed(() => {
         option: {
             promise: true,
             fetchOptions: {
-                query
+                query,
             },
         },
     };
@@ -34,24 +34,24 @@ let postList = computed(() => {
 </script>
 
 <template>
-    <div class="taxonomy-header">
+    <div class="page-taxonomy">
         <ContentContainer>
-            <header class="taxonomy-title">
+            <header class="taxonomy-header">
                 <h1>{{ props.page?.title }}</h1>
                 <p>{{ props.page?.description }}</p>
             </header>
-            <PostList :post-list="postList" :api="api"/>
+            <PostList :post-list="postList" :api="api" />
         </ContentContainer>
     </div>
 </template>
 
 <style scoped>
-.taxonomy-header {
+.page-taxonomy {
     position: relative;
     overflow: hidden;
     padding-top: 8rem;
 }
-.taxonomy-title {
+.taxonomy-header {
     position: relative;
     text-align: center;
     margin-bottom: 6.5%;

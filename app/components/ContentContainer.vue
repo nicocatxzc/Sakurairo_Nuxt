@@ -1,26 +1,26 @@
 <script lang="ts" setup></script>
 
 <template>
-    <div class="page">
-        <div class="content">
+    <div class="content">
+        <div class="container">
             <slot />
         </div>
     </div>
 </template>
 
 <style scoped>
-.page {
-  width: 100vw;
-  display: flex;
-  justify-content: center;
-}
 .content {
-  max-width: 860px;
-  width: 100%;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
 }
-@media (max-width:860px) {
-  .content {
-    padding: 0 4%;
-  }
+.container {
+    max-width: 860px;
+    width: 100%;
+}
+@media (max-width: 860px) {
+    .container {
+        padding: 0 4%;
+    }
 }
 </style>

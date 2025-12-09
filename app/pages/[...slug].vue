@@ -27,14 +27,14 @@ let page = computed(()=>{
 </script>
 
 <template>
-    <div v-if="page != null && page?.type != '404'" class="page-container">
+    <section v-if="page != null && page?.type != '404'" class="main-container">
         <PagePost
             v-if="page.type === 'single' || page.type === 'page'"
             :page = "page"
         />
         <PageTaxonomy v-if="page.type==='category' || page.type === 'tag'" :page="page"/>
         <PageAuthor v-if="page.type==='author'" :page="page"/>
-    </div>
+    </section>
 </template>
 
 <style scoped></style>
