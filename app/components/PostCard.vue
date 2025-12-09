@@ -11,7 +11,7 @@ let { post } = defineProps({
     <article class="post-card">
         <div class="post-thumb">
             <nuxt-link :to="post.uri">
-                <nuxt-img :src="post.featuredImage?.node.sourceUrl"></nuxt-img>
+                <nuxt-img :src="post.featuredImage?.node.sourceUrl" :alt="`featured image for post ${post.title}`" ></nuxt-img>
             </nuxt-link>
         </div>
 
@@ -20,11 +20,11 @@ let { post } = defineProps({
         </div>
 
         <div class="post-meta">
-            <span>{{ post.slug }}</span>
+            <a v-if="post.categories?.nodes[0]" :href="post.categories?.nodes[0].uri"><span>{{ post.categories?.nodes[0].name }}</span></a>
         </div>
 
         <div class="post-title">
-          <nuxt-link :to="post.uri">
+          <nuxt-link :to="post.uri" :aria-label="`link to post ${post.title}`">
             <h3>{{ post.title }}</h3>
           </nuxt-link>
         </div>
