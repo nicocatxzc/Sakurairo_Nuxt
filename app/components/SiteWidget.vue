@@ -18,11 +18,17 @@ onMounted(() => {
         }
     );
 });
+console.log(scroll.progress)
 </script>
 
 <template>
     <div class="site-widget">
-        <div class="control">
+        <div
+            class="control"
+            :class="{
+                hide: scroll.progress==0,
+            }"
+        >
             <button id="goToTop" title="回到顶部">
                 <Icon class="icon" name="fa7-solid:sort-up" />
             </button>
@@ -76,6 +82,9 @@ onMounted(() => {
     align-items: flex-end;
     gap: 0.5rem;
 }
+.site-widget * {
+    transition: all 0.5s cubic-bezier(0.07, 0.53, 0.65, 0.95);
+}
 </style>
 
 <style>
@@ -86,9 +95,13 @@ onMounted(() => {
 }
 .control button {
     font-size: 1.1rem;
-    background-color: rgba(255, 255, 255, 0.65);
+    background-color: var(--widget-background-color);
     border-radius: 0.5rem;
-    border: 0.1rem solid #ffffff;
+    border: var(--border);
+    cursor: pointer;
+}
+.control.hide button {
+    transform: scale(0);
 }
 #goToTop {
     padding: 0.2rem 0.8rem;
@@ -108,7 +121,14 @@ onMounted(() => {
     height: 1.5rem;
 }
 .icon {
-    background-color: #7d7d7d;
+    background-color: var(--secondary-word-color);
+}
+.control button:hover {
+    color: var(--main-word-color-reverse);
+    box-shadow: var(--widget-shine);
+}
+.control button:hover .icon {
+    background-color: var(--active-color);
 }
 
 @keyframes rotateY {
@@ -150,7 +170,7 @@ onMounted(() => {
     padding: 0.3rem;
     flex-grow: 1;
 
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: var(--widget-background-color);
     border-radius: 0.5rem;
     max-width: 8rem;
 }
@@ -164,15 +184,23 @@ onMounted(() => {
     justify-content: center;
     align-items: center;
 
-    background-color: rgba(255, 255, 255, 0.8);
-    box-shadow: 0 0.1rem 2rem -0.25rem #e8e8e8;
+    background-color: var(--widget-background-color);
+    box-shadow: var(--widget-shadow);
     border-radius: 0.5rem;
-    border: 0.1rem solid #ffffff;
+    border: var(--border);
+    color: var(--main-word-color);
 
     flex-grow: 1;
+
+    cursor: pointer;
 }
 .group button .icon {
     width: 1.5rem;
     height: 1.5rem;
+}
+.group button:hover {
+    color: var(--main-word-color-reverse);
+    box-shadow: var(--widget-shine);
+    background-color: var(--active-color);
 }
 </style>

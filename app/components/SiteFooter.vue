@@ -32,4 +32,8 @@ let config = useThemeConfig();
     margin-left: auto;
     margin-right: auto;
 }
+.site-footer,
+.theme-info a {
+    color: var(--secondary-word-color);
+}
 </style>

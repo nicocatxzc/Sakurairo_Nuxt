@@ -7,11 +7,13 @@ export default defineEventHandler(async () => {
         seoDesc: "", // seo描述
 
         // 主题配色
-        wordColor: "#505050", // 文字颜色
+        mainWordColor: "#505050", // 主要文字颜色
+        secondaryWordColor:"#00000080", // 次要文字颜色
         activeColor: "#00b0f0", // 链接悬浮颜色
         widgetTransparency: 0.8, // 组件透明度
         backgroundTransparency: 0.8, // 背景透明度
-        wordColorDark: "#CCCCCC", // 深色模式文字颜色
+        mainWordColorDark: "#CCCCCC", // 深色模式主要文字颜色
+        secondaryWordColorDark:"#7d7d7d",// 深色模式次要文字颜色
         activeColorDark: "#FCCD00", // 深色模式链接悬浮颜色
         widgetTransparencyDark: 0.8, // 深色模式组件透明度
         backgroundTransparencyDark: 0.7, // 深色模式背景透明度

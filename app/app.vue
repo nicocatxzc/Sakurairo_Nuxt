@@ -12,7 +12,11 @@ onMounted(() => {
     watch(
         () => darkmode.state,
         () => {
-            document.documentElement.classList.toggle("dark");
+            if (darkmode.state) {
+                document.documentElement.classList.add("dark");
+            } else {
+                document.documentElement.classList.remove("dark");
+            }
         },
         { immediate: true }
     );
@@ -26,17 +30,25 @@ useHead({
                 --global-font-weight:${themeConfig.value.globalFontWeight};
             }
             :root {
-                --word-color: ${themeConfig.value.wordColor};
+                --main-word-color: ${themeConfig.value.mainWordColor};
+                --secondary-word-color:${themeConfig.value.secondaryWordColor};
                 --active-color: ${themeConfig.value.activeColor};
                 --widget-transparency: ${themeConfig.value.widgetTransparency};
                 --background-transparency: ${themeConfig.value.backgroundTransparency};
             }
             :root.dark {
-                --word-color: ${themeConfig.value.wordColorDark};
+                --main-word-color: ${themeConfig.value.mainWordColorDark};
+                --secondary-word-color:${themeConfig.value.secondaryWordColorDark};
                 --active-color: ${themeConfig.value.activeColorDark};
                 --widget-transparency: ${themeConfig.value.widgetTransparencyDark};
                 --background-transparency: ${themeConfig.value.backgroundTransparencyDark};
                 --image-bright:${themeConfig.value.imgBrightDark};
+            }
+            :root {
+                --main-word-color-reverse:${themeConfig.value.mainWordColorDark};
+            }
+            :root.dark {
+                --main-word-color-reverse:${themeConfig.value.mainWordColor};
             }
             `,
             type: "text/css",
@@ -54,12 +66,27 @@ useHead({
 <style>
 :root {
     --border-color: rgba(255, 255, 255, 0.8);
-    --shadow-color: ;
+    --border: 0.06rem solid var(--border-color);
+    --widget-background: 255, 255, 255;
+    --widget-background-color: rgba(255, 255, 255, var(--widget-transparency));
+    --widget-shadow: 0 0.1rem 1.2rem -0.25rem #e8e8e8;
+    --widget-shine: 0 0.1rem 2rem 0.7rem #e8e8e8;
+    --page-background-color: rgba(
+        255,
+        255,
+        255,
+        var(--background-transparency)
+    );
 }
 
 :root.dark {
     --border-color: #7d7d7d30;
-    --shadow-color: ;
+    --border: 0.06rem solid var(--border-color);
+    --widget-background: 26, 26, 26;
+    --widget-background-color: rgba(26, 26, 26, var(--widget-transparency));
+    --widget-shadow: 0 0.1rem 1.2rem -0.25rem rgba(26, 26, 26, 0.8);
+    --widget-shine: 0 0.1rem 2rem -0.25rem var(--active-color);
+    --page-background-color: rgba(51, 51, 51, var(--background-transparency));
 }
 
 html {
@@ -92,14 +119,14 @@ html {
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: var(--word-color);
+    background-color: var(--main-word-color);
     border-radius: 25px;
 }
 
 body {
     margin: 0;
     text-shadow: 0 0 0.06rem rgba(0, 0, 0, 0.1);
-    color: var(--word-color, #505050);
+    color: var(--main-word-color, #505050);
     line-height: 1.5;
     font-size: 0.95rem;
     background-attachment: fixed;
@@ -112,7 +139,7 @@ body {
 a {
     background-color: transparent;
     text-decoration: none;
-    color: var(--word-color, #505050);
+    color: var(--main-word-color, #505050);
     outline: 0;
     transition: all 0.2s ease-in-out;
     word-break: break-word;
