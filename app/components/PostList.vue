@@ -110,7 +110,10 @@ const posts = computed(() => postList.value?.nodes);
 
 <template>
     <div class="post-list">
-        <post-card v-for="(post, index) in posts" :key="index" :post="post" />
+        <template v-for="(post, index) in posts" :key="index">
+            <PostCardWithImage v-if="post.featuredImage?.node?.sourceUrl" :post="post"></PostCardWithImage>
+            <PostCardSimple v-else :post="post" />
+        </template>
         <div v-if="api" ref="pagination" class="pagination">
             <button v-if="haveMore" @click="loadMore(true)">
                 <a>{{ message }}</a>

@@ -5,9 +5,11 @@ let { post } = defineProps({
         required: true,
     },
 });
+console.log(post)
 </script>
 
 <template>
+    <!-- eslint-disable vue/no-v-html -->
     <article class="post-card">
         <div class="post-thumb">
             <nuxt-link :to="post.uri">
@@ -16,7 +18,7 @@ let { post } = defineProps({
         </div>
 
         <div class="post-date">
-            <span>更新于:{{ post.modifiedGmt }}</span>
+            <time :datetime="post.modifiedGmt">更新于:{{ post.modifiedGmt }}</time>
         </div>
 
         <div class="post-meta">
@@ -29,21 +31,15 @@ let { post } = defineProps({
           </nuxt-link>
         </div>
         <div class="post-excerpt">
-          <span>{{ post.excerpt }}</span>
+          <span v-html="post.excerpt" />
         </div>
     </article>
 </template>
 
 <style scoped>
 .post-card {
-    --shadow:0 0.07rem 2rem -0.25rem #e8e8e8;
-    --title-background:#ffffffbd;
     --meta-background:#33333360;
     --meta-color:rgba(255,255,255,0.8);
-}
-:root.dark{
-    --title-background:rgba(51,51,51,0.7);
-    --shadow:0 0.01rem 2rem -0.5rem rgba(26,26,26,0.7);
 }
 * {
     transition: all 0.4s cubic-bezier(0.07, 0.53, 0.65, 0.95);
@@ -54,12 +50,13 @@ let { post } = defineProps({
     height: 18.75rem;
     margin: 1rem 0;
     position: relative;
-    background-color: rgba(255,255,255,0.95);
-    box-shadow: var(--shadow);
+    background-color: var(--widget-background-color);
+    box-shadow: var(--widget-shadow);
     border-radius: 0.62rem;
     overflow: hidden;
 }
 .post-card:hover {
+    box-shadow: var(--widget-shine);
     transform: translateY(-0.35rem);
 }
 .post-thumb {
@@ -100,6 +97,9 @@ let { post } = defineProps({
     overflow: hidden;
     text-overflow: ellipsis;
 }
+.post-meta a:not(:hover) {
+    color: var(--meta-color);
+}
 .post-title {
     position: absolute;
     bottom: 22%;
@@ -109,7 +109,8 @@ let { post } = defineProps({
     max-height: 34%;
     max-width: 80%;
     padding: 0.63rem 1rem;
-    background-color: var(--title-background);
+    color: var(--main-word-color);
+    background-color: rgba(var(--widget-background),0.7);
     border: 0.01rem solid var(--border-color);
     border-radius:0.4rem ;
     backdrop-filter: saturate(180%) blur(0.75px);
@@ -122,7 +123,7 @@ let { post } = defineProps({
     height: fit-content;
     margin-top: 0.3rem;
     padding: 0 0.63rem;
-    color: rgba(0,0,0,0.66);
+    color: var(--main-word-color);
     overflow: hidden;
 }
 
