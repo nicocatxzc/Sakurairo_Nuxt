@@ -78,7 +78,6 @@ let { post } = defineProps({
 }
 .post-title {
     font-size: 1.4rem;
-    color: var(--main-word-color);
 }
 .post-excerpt {
     color: var(--main-word-color);
