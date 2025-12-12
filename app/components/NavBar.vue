@@ -149,7 +149,7 @@ onMounted(() => {
 }
 .site-header.bg,
 .site-header:hover {
-    border-bottom: var(--boarder);
+    border-bottom: var(--border);
     background: var(--widget-background-color);
     backdrop-filter: saturate(180%) blur(10px);
     transition: border-bottom 0.5s ease, all 0.5s ease;

@@ -77,7 +77,7 @@ useHead({
         255,
         var(--background-transparency)
     );
-    --code-background:#e1e4e8;
+    --code-background: #e1e4e8;
 }
 
 :root.dark {
@@ -88,7 +88,7 @@ useHead({
     --widget-shadow: 0 0.1rem 1.2rem -0.25rem rgba(26, 26, 26, 0.8);
     --widget-shine: 0 0.1rem 2rem -0.25rem var(--active-color);
     --page-background-color: rgba(51, 51, 51, var(--background-transparency));
-    --code-background:#24292e;
+    --code-background: #24292e;
 }
 
 html {
@@ -151,6 +151,10 @@ a:hover,
 a:active,
 a:focus {
     transition: all 0.2s ease-in-out;
+}
+
+button {
+    cursor:pointer;
 }
 
 a:hover {

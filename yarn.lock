@@ -744,6 +744,13 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/retry/-/retry-0.4.3.tgz#c2b9d2e374ee62c586d3adbea87199b1d7a7a6ba"
   integrity sha512-bV0Tgo9K4hfPCek+aMAn81RppFKv2ySDQeMoSZuvTASywNTnVJCArCZE2FWqpvIatKu7VMRLWlR1EazvVhDyhQ==
 
+"@iconify-json/fa7-solid@^1.2.3":
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/@iconify-json/fa7-solid/-/fa7-solid-1.2.3.tgz#bcc887a62e4eb4916b1c234baca40b23cbf5137c"
+  integrity sha512-QMpjaoljKlJ33jnwIlvE/BF449AD+aVUe2o46Wl8oKUHCy+M2E4GRM4LvRaGdCOTUSE3VIQlXkqkYBug8WHEVQ==
+  dependencies:
+    "@iconify/types" "*"
+
 "@iconify/collections@^1.0.608":
   version "1.0.621"
   resolved "https://registry.yarnpkg.com/@iconify/collections/-/collections-1.0.621.tgz#ab9937351d2c02445fd3059bb002693c7e5b0653"
