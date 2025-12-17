@@ -1,4 +1,5 @@
-<script setup></script>
+<script setup>
+</script>
 
 <template>
     <div class="background">
@@ -11,6 +12,7 @@
         <SiteFooter class="site-footer" />
         <ClientOnly>
             <SiteWidget class="site-widget" />
+            <SiteModels />
         </ClientOnly>
     </div>
 </template>
@@ -40,5 +42,8 @@
 }
 .site-widget {
     z-index: 10;
+}
+.login-form {
+    z-index: 12;
 }
 </style>

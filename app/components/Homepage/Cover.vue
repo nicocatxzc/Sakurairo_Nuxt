@@ -99,7 +99,7 @@ onMounted(() => {
     flex-direction: column;
     justify-content: center;
 
-    color: var(--main-word-color);
+    color: var(--word-color-first);
     background-color: rgb(var(--widget-background), 0.6);
     border: var(--border);
     backdrop-filter: saturate(180%) blur(10px);

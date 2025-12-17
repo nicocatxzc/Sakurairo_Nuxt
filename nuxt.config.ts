@@ -1,7 +1,13 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
+import { randomBytes } from "crypto";
+
 let wordpressURL = process.env.wordpressURL as string;
 
-const WPendpoint = (new URL(wordpressURL)).host;
+const captchaSecret = randomBytes(32).toString("hex");
+const commSecret = randomBytes(32).toString("hex");
+console.log("验证码种子", captchaSecret);
+console.log("通用种子", commSecret);
+const WPendpoint = new URL(wordpressURL).host;
+
 export default defineNuxtConfig({
     compatibilityDate: "2025-07-15",
     devtools: { enabled: true },
@@ -10,17 +16,21 @@ export default defineNuxtConfig({
         wordpressURL: wordpressURL,
         wordpressUserName: process.env.wordpressUserName,
         wordpressAuthToken: process.env.wordpressAuthToken,
+
+        // totp种子
+        captchaSecret,
+        commSecret,
         // 公开配置
         public: {
             apiBase: "/api",
         },
     },
     image: {
-        provider: 'ipx',
+        provider: "ipx",
         domains: [WPendpoint],
         alias: {
-            wp:WPendpoint
-        }
+            wp: WPendpoint,
+        },
     },
     modules: [
       "@nuxt/eslint",
@@ -31,5 +41,7 @@ export default defineNuxtConfig({
       "@nuxt/scripts",
       "@element-plus/nuxt",
       "@pinia/nuxt",
+      "@vueuse/nuxt",
+      "pinia-plugin-persistedstate/nuxt",
     ],
 });
