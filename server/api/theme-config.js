@@ -51,9 +51,9 @@ export default defineEventHandler(async () => {
         topLoadingProgress: true, // 顶部加载进度条
         pageAutoLoad: 3, // 文章列表自动加载等待时间
         missingImgPlaceholder:
-            "https://files.moecat.cc/sakurairo/basic/friendlink.jpg", // 丢失图片占位
+            "https://files.moecat.cc/sakurairo/basic/image-404.png", // 丢失图片占位
         missingAvatarPlaceholder:
-            "https://files.moecat.cc/sakurairo/basic/image-404.png", // 丢失头像占位
+            "https://files.moecat.cc/sakurairo/basic/friendlink.jpg", // 丢失头像占位
         paginationAnimation: "", // 分页加载动画
         loadingAnimation: "", // 图片加载动画
 

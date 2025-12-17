@@ -99,11 +99,11 @@ let postList = computed(() => {
     border-radius: 0.3rem;
     font-size: 0.75rem;
     color: var(--active-color);
-    box-shadow: var(--widget-shadow);
+    box-shadow: var(--widget-shadow-shine);
     background: var(--widget-background-color);
     padding: 0.12rem 0.5rem;
     border-radius: 1rem;
-    border: var(--border);
+    border: var(--border-color-shine);
     backdrop-filter: saturate(180%) blur(10px);
 }
 .author-desc {

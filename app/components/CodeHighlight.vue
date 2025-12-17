@@ -61,8 +61,8 @@ pre code {
     margin:0.5rem;
 
     opacity: 0;
-    border: var(--border);
-    background: var(--main-word-color);
+    border: var(--widget-shadow-shine);
+    background: var(--word-color-first);
 }
 pre.code:hover .copy-button {
     opacity: 1;

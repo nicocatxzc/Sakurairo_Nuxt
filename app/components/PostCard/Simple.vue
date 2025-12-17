@@ -68,19 +68,19 @@ let { post } = defineProps({
     gap: 0.3rem;
 
     background-color: var(--widget-background-color);
-    box-shadow: var(--widget-shadow);
+    box-shadow: var(--widget-shadow-shine);
     border-radius: 0.62rem;
     overflow: hidden;
 }
 .post-card:hover {
-    box-shadow: var(--widget-shine);
+    box-shadow: var(--widget-shadow-shining);
     transform: translateY(-0.35rem);
 }
 .post-title {
     font-size: 1.4rem;
 }
 .post-excerpt {
-    color: var(--main-word-color);
+    color: var(--word-color-first);
     overflow: hidden;
     text-overflow: ellipsis;
 }

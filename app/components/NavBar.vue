@@ -1,12 +1,15 @@
 <script setup>
 import { useScrollStore } from "@/stores/progress";
+import { useAuth } from "@/stores/auth";
 
+const authStore = useAuth();
+const user = computed(() => authStore.user);
+const openLoginForm = authStore.openLoginForm;
 const themeConfig = useThemeConfig();
-
 const scroll = useScrollStore();
 
 // 从api获取菜单
-const { data: menuData } = await useCachedFetch("navbar","/api/menu")
+const { data: menuData } = await useCachedFetch("navbar", "/api/menu");
 
 const menuItems = computed(() => menuData.value?.items || []);
 
@@ -73,7 +76,10 @@ onMounted(() => {
 </script>
 
 <template>
-    <header class="site-header" :class="(scroll.progress>=5 || scroll.direction == `down`) ? `bg` : ''">
+    <header
+        class="site-header"
+        :class="scroll.progress >= 5 || scroll.direction == `down` ? `bg` : ''"
+    >
         <div class="site-branding">
             <NuxtImg
                 :src="`https://nicocat.cc/wp-content/uploads/2025/11/avatar.png`"
@@ -125,9 +131,38 @@ onMounted(() => {
             </nav>
         </div>
 
-        <ElAvatar size="default" class="avatar">
-            <NuxtImg src="https://nicocat.cc/wp-content/uploads/2025/11/avatar.png" alt="navbar avatar"/>
-        </ElAvatar>
+        <ClientOnly>
+            <div class="user">
+                <ElAvatar size="default" class="avatar">
+                    <NuxtImg
+                        :src="
+                            user?.avatar?.url_96 ||
+                            user?.avatar?.url_150 ||
+                            user?.avatar?.url_300 ||
+                            user?.avatar ||
+                            themeConfig.missingAvatarPlaceholder
+                        "
+                        alt="navbar avatar"
+                    />
+                </ElAvatar>
+                <div class="user-menu">
+                    <div class="user-menu-info">
+                        <span class="name">{{
+                            user?.role ? user.name : "游客"
+                        }}</span>
+                    </div>
+                    <div v-if="user?.role" class="user-menu-option">
+                        <a v-if="user?.management?.admin" :href="user?.management?.admin" target="_blank">管理后台</a>
+                        <a v-if="user?.management?.newpost" :href="user?.management?.newpost" target="_blank">撰写文章</a>
+                        <a target="_blank">个人资料</a>
+                        <a target="_top" @click="authStore.clearAuth()">退出登录</a>
+                    </div>
+                    <div v-else class="user-menu-option">
+                        <a @click="openLoginForm">登录</a>
+                    </div>
+                </div>
+            </div>
+        </ClientOnly>
     </header>
 </template>
 
@@ -149,14 +184,13 @@ onMounted(() => {
 }
 .site-header.bg,
 .site-header:hover {
-    border-bottom: var(--border);
+    border-bottom: var(--border-shine);
     background: var(--widget-background-color);
     backdrop-filter: saturate(180%) blur(10px);
     transition: border-bottom 0.5s ease, all 0.5s ease;
 }
 
 .site-branding {
-    border-radius: 0;
     background: transparent;
     border: 0;
     height: 100%;
@@ -177,7 +211,7 @@ onMounted(() => {
     display: flex;
     white-space: nowrap;
     width: auto;
-    color: var(--theme-skin);
+    color: var(--word-color-first);
     font-weight: 400;
     white-space: nowrap;
     padding: 0.32rem 0.64rem;
@@ -192,11 +226,12 @@ onMounted(() => {
     display: flex;
 }
 
-.menu li {
+.menu li,
+.user-menu-option a {
     position: relative;
     list-style: none;
     margin: 0 0.9rem;
-    padding: 10px 0;
+    padding: 0.6rem 0;
 }
 
 nav > ul > li > a:after {
@@ -215,7 +250,8 @@ nav > ul > li > a:hover:after {
     max-width: 100%;
 }
 
-li .sub-menu {
+li .sub-menu,
+.user .user-menu {
     position: absolute;
     display: flex;
     flex-direction: column;
@@ -233,7 +269,8 @@ li .sub-menu {
     transition: all 0.4s ease-in-out;
 }
 
-li:hover > .sub-menu {
+li:hover > .sub-menu,
+.user:hover .user-menu {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
@@ -258,5 +295,26 @@ li .sub-menu a {
     width: 2.5rem;
     min-width: 2.5rem;
     min-height: 2.5rem;
+}
+
+.user .user-menu {
+    padding: 0.5rem 0.5rem;
+    transform: translateY(-0.63rem) translateX(-20%);
+}
+.user:hover .user-menu {
+    transform: translateY(0) translateX(-20%);
+}
+
+.user,
+.user-menu-info,
+.user-menu-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.user-menu-info *,
+.user-menu-option * {
+    margin: 0 0.3rem;
 }
 </style>

@@ -96,7 +96,7 @@ onMounted(() => {
     font-size: 1.1rem;
     background-color: var(--widget-background-color);
     border-radius: 0.5rem;
-    border: var(--border);
+    border: var(--border-shine);
     cursor: pointer;
 }
 .control.hide button {
@@ -120,11 +120,11 @@ onMounted(() => {
     height: 1.5rem;
 }
 .icon {
-    background-color: var(--secondary-word-color);
+    background-color: var(--word-color-second);
 }
 .control button:hover {
-    color: var(--main-word-color-reverse);
-    box-shadow: var(--widget-shine);
+    color: var(--word-color-first-reverse);
+    box-shadow: var(--widget-shadow-shine);
 }
 .control button:hover .icon {
     background-color: var(--active-color);
@@ -142,9 +142,11 @@ onMounted(() => {
 
 <style scoped>
 .panel {
+    position: absolute;
+    right: 4rem;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
+    align-items: flex-end;
     transition: all 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 .panel.hide {
@@ -161,7 +163,6 @@ onMounted(() => {
 }
 .group {
     display: flex;
-    flex-wrap: wrap;
     justify-content: space-between;
     flex-direction: row;
     text-align: center;
@@ -184,10 +185,10 @@ onMounted(() => {
     align-items: center;
 
     background-color: var(--widget-background-color);
-    box-shadow: var(--widget-shadow);
+    box-shadow: var(--widget-shadow-shine);
     border-radius: 0.5rem;
-    border: var(--border);
-    color: var(--main-word-color);
+    border: var(--border-color-shine);
+    color: var(--word-color-first);
 
     flex-grow: 1;
 
@@ -198,8 +199,8 @@ onMounted(() => {
     height: 1.5rem;
 }
 .group button:hover {
-    color: var(--main-word-color-reverse);
-    box-shadow: var(--widget-shine);
+    color: var(--word-color-first-reverse);
+    box-shadow: var(--widget-shadow-shine);
     background-color: var(--active-color);
 }
 </style>

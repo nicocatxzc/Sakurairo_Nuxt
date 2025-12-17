@@ -34,6 +34,6 @@ let config = useThemeConfig();
 }
 .site-footer,
 .theme-info a {
-    color: var(--secondary-word-color);
+    color: var(--word-color-third);
 }
 </style>

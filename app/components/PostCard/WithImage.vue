@@ -50,12 +50,12 @@ let { post } = defineProps({
     margin: 1rem 0;
     position: relative;
     background-color: var(--widget-background-color);
-    box-shadow: var(--widget-shadow);
+    box-shadow: var(--widget-shadow-shine);
     border-radius: 0.62rem;
     overflow: hidden;
 }
 .post-card:hover {
-    box-shadow: var(--widget-shine);
+    box-shadow: var(--widget-shadow-shining);
     transform: translateY(-0.35rem);
 }
 .post-thumb {
@@ -108,9 +108,9 @@ let { post } = defineProps({
     max-height: 34%;
     max-width: 80%;
     padding: 0.63rem 1rem;
-    color: var(--main-word-color);
+    color: var(--word-color-first);
     background-color: rgba(var(--widget-background),0.7);
-    border: 0.01rem solid var(--border-color);
+    border: 0.01rem solid var(--border-shine);
     border-radius:0.4rem ;
     backdrop-filter: saturate(180%) blur(0.75px);
 }
@@ -122,7 +122,7 @@ let { post } = defineProps({
     height: fit-content;
     margin-top: 0.3rem;
     padding: 0 0.63rem;
-    color: var(--main-word-color);
+    color: var(--word-color-first);
     overflow: hidden;
 }
 

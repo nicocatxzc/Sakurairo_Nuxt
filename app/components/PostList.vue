@@ -125,16 +125,6 @@ const posts = computed(() => postList.value?.nodes);
 
 <style scoped>
 .post-list {
-    --button-color: rgba(255, 255, 255, 0.5);
-    --shadow: 0 0.1rem 2rem -0.25rem #ffffff;
-    --border: 0.1rem solid #ffffff;
-}
-:root.dark .post-list {
-    --button-color: rgba(26, 26, 26, 0.6);
-    --shadow: 0 0.1rem 2rem -0.25rem rgba(26, 26, 26, 0.8);
-    --border: 0.1rem solid #7d7d7d30;
-}
-.post-list {
     display: flex;
     flex-direction: column;
 }
@@ -147,9 +137,9 @@ const posts = computed(() => postList.value?.nodes);
 }
 .pagination button {
     padding: 0.8rem 2rem;
-    background-color: var(--button-color);
-    box-shadow: var(--shadow);
-    border: var(--border);
+    background-color: var(--widget-background-color);
+    box-shadow: var(--widget-shadow-shine);
+    border: var(--border-shine);
     border-radius: 3rem;
 }
 </style>
