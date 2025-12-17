@@ -84,6 +84,7 @@ const pageList = computed(() => {
 </script>
 
 <template>
+    <h3 class="comment-list-title">Comments</h3>
     <ul v-if="Boolean(props.postId)" class="comment-list">
         <CommentCard
             v-for="(comment, index) in comments"
@@ -91,7 +92,7 @@ const pageList = computed(() => {
             :comment="comment"
         />
     </ul>
-    <div class="comment-pagination">
+    <div v-if="pageList.pages.length !=1" class="comment-pagination">
         <!-- 跳到首页 -->
         <span v-if="page !== 1" class="page-item" @click="page = 1">
             {{ "<" }}
@@ -120,6 +121,11 @@ const pageList = computed(() => {
 </template>
 
 <style scoped>
+.comment-list-title {
+    margin: 2rem auto;
+    font-size: 1.25rem;
+    font-weight: bold;
+}
 .comment-list {
     list-style: none;
 }

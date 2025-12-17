@@ -30,9 +30,11 @@ let post = computed(() => {
             <div class="post-content">
                 <PostRender v-if="post.content" :html="post.content" />
             </div>
-            <CommentList :post-id="props.page.id" />
         </ContentContainer>
     </article>
+    <ContentContainer>
+        <CommentList :post-id="props.page.id" />
+    </ContentContainer>
 </template>
 
 <style scoped></style>

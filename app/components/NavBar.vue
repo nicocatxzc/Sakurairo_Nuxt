@@ -218,6 +218,9 @@ onMounted(() => {
     letter-spacing: 1px;
     font-size: 1.2rem;
 }
+.site-title:hover {
+    color:var(--active-color)
+}
 
 .menu-wrapper,
 .menu-wrapper nav,
