@@ -48,14 +48,14 @@ function useCommentQuery(query = {}) {
                             }
                         }
                     }
-                    replies(first: 1) {
-                        nodes {
-                            databaseId
+                    parent {
+                        node {
                             author {
                                 name
                             }
+                            databaseId
                         }
-                    }
+                }
                     uri
                 }
                 pageInfo {
