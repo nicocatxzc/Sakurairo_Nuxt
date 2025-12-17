@@ -110,6 +110,7 @@ html {
     }
 
     ::-webkit-scrollbar {
+        height: 6px;
         width: 6px;
     }
     ::-webkit-scrollbar-track {
@@ -174,6 +175,7 @@ html {
     ul,
     ol {
         padding-inline-start: unset;
+        list-style-position: inside
     }
 
     dialog {
