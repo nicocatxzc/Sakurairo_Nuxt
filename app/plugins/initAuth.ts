@@ -14,6 +14,7 @@ export default defineNuxtPlugin(async (nuxtApp) => {
             auth.updateUser(res);
             console.log("登录信息验证成功");
             auth.secret = res.token;
+            auth.needCaptcha = false;
             console.log("令牌更新成功");
             authorized = true;
         } else {

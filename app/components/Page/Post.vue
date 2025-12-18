@@ -33,7 +33,7 @@ let post = computed(() => {
         </ContentContainer>
     </article>
     <ContentContainer>
-        <CommentList :post-id="props.page.id" />
+        <CommentList :post-id="props.page.id" :comments-count="post.commentCount" :could-comment="post.commentStatus"/>
     </ContentContainer>
 </template>
 

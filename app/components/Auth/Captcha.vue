@@ -12,7 +12,6 @@ let inputRef = useTemplateRef("captchaInput");
 
 onMounted(async () => {
     if (!auth.needCaptcha) {
-        captchaContainer.value.style.display="none"
         return;
     }
     await getCaptcha();

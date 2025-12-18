@@ -1,10 +1,11 @@
 import useWP from "./useWP";
 
-export default async function (query: string,variables?:Record<string, any>) {
+export default async function (query: string,variables?:Record<string, any>,data?:Record<string,any>) {
     try {
         let res = await useWP.post("/graphql", {
             query: query,
             variables: variables,
+            ...data,
         });
         delete res.data.extensions;
         return res.data;

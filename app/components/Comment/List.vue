@@ -4,7 +4,18 @@ const props = defineProps({
         type: Number,
         required: true,
     },
+    commentsCount: {
+        type: Number,
+        required: true,
+    },
+    couldComment: {
+        type: String,
+        default: "open",
+    },
 });
+const couldComment = computed(() =>
+    props.couldComment == "open" ? true : false
+);
 let comments = ref([]); // 评论列表
 let after = ref(null); // 供查询的索引
 let page = ref(1); // 当前页
@@ -63,10 +74,10 @@ onUnmounted(() => {
 
 const pageList = computed(() => {
     let loaded;
-    if(hasNextPage.value) {
-        loaded = cursor.value.length -1;
+    if (hasNextPage.value) {
+        loaded = cursor.value.length - 1;
     } else {
-        loaded = cursor.value.length
+        loaded = cursor.value.length;
     }
 
     const lastPage = hasNextPage.value ? loaded + 1 : loaded;
@@ -84,40 +95,50 @@ const pageList = computed(() => {
 </script>
 
 <template>
-    <h3 class="comment-list-title">Comments</h3>
-    <ul v-if="Boolean(props.postId)" class="comment-list">
-        <CommentCard
-            v-for="(comment, index) in comments"
-            :key="index"
-            :comment="comment"
-        />
-    </ul>
-    <div v-if="pageList.pages.length !=1" class="comment-pagination">
-        <!-- 跳到首页 -->
-        <span v-if="page !== 1" class="page-item" @click="page = 1">
-            {{ "<" }}
-        </span>
+    <template v-if="couldComment">
+        <h3 class="comment-list-title">
+            Comments
+            <span class="comment-count"
+                >{{ props.commentsCount || 0 }} 条评论</span
+            >
+        </h3>
+        <ul v-if="Boolean(props.postId)" class="comment-list">
+            <CommentCard
+                v-for="(comment, index) in comments"
+                :key="index"
+                :comment="comment"
+            />
+        </ul>
+        <div v-if="pageList.pages.length != 1" class="comment-pagination">
+            <!-- 跳到首页 -->
+            <span v-if="page !== 1" class="page-item" @click="page = 1">
+                {{ "<" }}
+            </span>
 
-        <!-- 页码 -->
-        <span
-            v-for="p in pageList.pages"
-            :key="p"
-            class="page-item"
-            :class="{ active: p === page }"
-            @click="page = p"
-        >
-            {{ p }}
-        </span>
+            <!-- 页码 -->
+            <span
+                v-for="p in pageList.pages"
+                :key="p"
+                class="page-item"
+                :class="{ active: p === page }"
+                @click="page = p"
+            >
+                {{ p }}
+            </span>
 
-        <!-- 跳到末页 -->
-        <span
-            v-if="page !== pageList.lastPage"
-            class="page-item"
-            @click="page = pageList.lastPage"
-        >
-            {{ ">" }}
-        </span>
-    </div>
+            <!-- 跳到末页 -->
+            <span
+                v-if="page !== pageList.lastPage"
+                class="page-item"
+                @click="page = pageList.lastPage"
+            >
+                {{ ">" }}
+            </span>
+        </div>
+        <ClientOnly>
+            <CommentForm />
+        </ClientOnly>
+    </template>
 </template>
 
 <style scoped>
@@ -125,6 +146,11 @@ const pageList = computed(() => {
     margin: 2rem auto;
     font-size: 1.25rem;
     font-weight: bold;
+}
+.comment-count {
+    font-size: 0.8rem;
+    color: #707070;
+    margin-left: 0.65rem;
 }
 .comment-list {
     list-style: none;
