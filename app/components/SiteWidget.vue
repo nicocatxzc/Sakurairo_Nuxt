@@ -18,6 +18,9 @@ onMounted(() => {
         }
     );
 });
+function scrollToTop() {
+    scrollTo(0,0)
+}
 </script>
 
 <template>
@@ -28,7 +31,7 @@ onMounted(() => {
                 hide: scroll.progress==0,
             }"
         >
-            <button id="goToTop" title="回到顶部">
+            <button @click="scrollToTop" id="goToTop" title="回到顶部">
                 <Icon class="icon" name="fa7-solid:sort-up" />
             </button>
             <button
