@@ -93,6 +93,7 @@ html {
     overflow-x: hidden;
     box-sizing: border-box;
     font-size: 16px;
+    scroll-behavior: smooth;
 }
 
 @layer rest {
