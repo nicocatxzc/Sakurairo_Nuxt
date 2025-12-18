@@ -147,7 +147,7 @@ onMounted(() => {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    transition: all 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    transition: all .8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 .panel.hide {
     transform: translateY(200%);
