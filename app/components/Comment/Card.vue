@@ -5,12 +5,24 @@ const { comment } = defineProps({
         required: true,
     },
 });
+const emit = defineEmits(["reply"]);
 </script>
 
 <!-- eslint-disable vue/no-v-html -->
 <template>
     <li :id="`comment-${comment.databaseId}`" class="comment-card">
         <div class="comment">
+            <button
+                class="reply-button"
+                @click="
+                    emit('reply', {
+                        id: comment.databaseId,
+                        name: comment.author.node.name,
+                    })
+                "
+            >
+                回复
+            </button>
             <section class="comment-infos">
                 <ElAvatar size="default" class="author-avatar">
                     <NuxtImg
@@ -23,17 +35,21 @@ const { comment } = defineProps({
                         comment.author.node.name
                     }}</span>
                     <div class="comment-meta-list">
-                        <time :datetime="comment.date"
-                            >发布于 {{ comment.date }}</time
-                        >
+                        <time :datetime="comment.date">
+                            发布于 {{ comment.date }}
+                        </time>
                     </div>
                 </div>
             </section>
             <section class="comment-content">
-                <a v-if="comment.parent?.node" :href="`#comment-${comment.parent.node.databaseId}`" class="reply">
+                <a
+                    v-if="comment.parent?.node"
+                    :href="`#comment-${comment.parent.node.databaseId}`"
+                    class="reply"
+                >
                     @{{ comment.parent.node.author.name }}
                 </a>
-                <span v-html="comment.content"/>
+                <span v-html="comment.content" />
             </section>
         </div>
     </li>
@@ -41,6 +57,7 @@ const { comment } = defineProps({
 
 <style scoped>
 .comment-card {
+    position: relative;
     width: 100%;
     margin: 0 auto 1.5rem;
     padding: 1.6rem;
@@ -60,7 +77,28 @@ const { comment } = defineProps({
     flex-direction: column;
     justify-content: center;
 }
-.comment-content .reply{
-    color:var(--active-color)
+.comment-content .reply {
+    color: var(--active-color);
+}
+.reply-button {
+    font-size: 0.8rem;
+
+    position: absolute;
+    right: 1.6rem;
+    top: 1.6rem;
+    padding: 0.1rem 0.5rem;
+    border-radius: 0.3rem;
+    opacity: 0;
+
+    color: rgb(var(--widget-background));
+    background-color: var(--active-color);
+    border: var(--border-shine);
+    border-color: var(--active-color);
+    transition: all 0.2s ease;
+
+    will-change: opacity;
+}
+.comment-card:hover .reply-button {
+    opacity: 1;
 }
 </style>

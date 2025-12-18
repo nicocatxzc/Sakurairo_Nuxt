@@ -25,6 +25,7 @@ export const useAuth = defineStore(
                 name: userInfo?.name,
                 avatar: userInfo?.avatar,
                 description: userInfo?.description,
+                email: userInfo?.email,
                 id: userInfo.id,
                 role: userInfo.roles[0],
                 slug: userInfo.slug,

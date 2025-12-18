@@ -21,7 +21,9 @@ let after = ref(null); // 供查询的索引
 let page = ref(1); // 当前页
 let cursor = ref([null]); // 分页索引
 const hasNextPage = ref(false);
+let firstloaded = false; // 初次加载标记，防止初次加载也滚动到评论区
 
+const commentsListTitle = useTemplateRef("comments-list-title"); // 翻到顶部用
 let stopwatch = watch(
     () => [page.value],
     async () => {
@@ -44,7 +46,6 @@ let stopwatch = watch(
             }
         );
         await promise;
-        console.log(data.value);
         if (error.value) {
             ElMessage.error("评论加载出错");
         }
@@ -62,6 +63,10 @@ let stopwatch = watch(
                 // 不允许推进
                 after.value = null;
             }
+            if(firstloaded) {
+                commentsListTitle.value?.scrollIntoView();
+            }
+            firstloaded = true
         }
     },
     {
@@ -92,11 +97,20 @@ const pageList = computed(() => {
         lastPage,
     };
 });
+
+let reply = ref({}); // 来自卡片的回复信息，传递给子组件
+function getReply(replyData) {
+    reply.value = replyData;
+}
+function getSubmit(comment) {
+    // 向当前列表插入成功提交的评论
+    comments.value = [...comments.value, comment];
+}
 </script>
 
 <template>
     <template v-if="couldComment">
-        <h3 class="comment-list-title">
+        <h3 ref="comments-list-title" class="comment-list-title">
             Comments
             <span class="comment-count"
                 >{{ props?.commentsCount || 0 }} 条评论</span
@@ -107,6 +121,7 @@ const pageList = computed(() => {
                 v-for="(comment, index) in comments"
                 :key="index"
                 :comment="comment"
+                @reply="getReply"
             />
         </ul>
         <div v-if="pageList.pages.length != 1" class="comment-pagination">
@@ -136,7 +151,11 @@ const pageList = computed(() => {
             </span>
         </div>
         <ClientOnly>
-            <CommentForm />
+            <CommentForm
+                :post-id="props.postId"
+                :reply="reply"
+                @submit="getSubmit"
+            />
         </ClientOnly>
     </template>
 </template>
@@ -159,6 +178,7 @@ const pageList = computed(() => {
     width: 100%;
     display: flex;
     justify-content: center;
+    margin-bottom: 1rem;
 }
 .page-item {
     font-size: 1rem;

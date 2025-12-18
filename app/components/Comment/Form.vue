@@ -1,19 +1,53 @@
 <script setup>
 import md5 from "md5";
-let config = useThemeConfig();
+const { postId, reply } = defineProps({
+    postId: {
+        type: Number,
+        required: true,
+    },
+    reply: {
+        type: Object,
+        default: () => {},
+    },
+});
+const emit = defineEmits(["submit"]);
 
+let config = useThemeConfig();
+const auth = useAuth();
 let comment = ref("");
 let name = ref("");
 let email = ref("");
 let link = ref("");
 let avatar = ref(config?.missingAvatarPlaceholder);
+const form = useTemplateRef("commentForm");
 
+let replyTarget = ref({});
+onMounted(() => {
+    const stopwatch = watch(
+        () => reply,
+        () => {
+            replyTarget.value = reply;
+            if(reply?.id) {
+                form.value.scrollIntoView();
+            }
+        }
+    );
+    if (auth.user?.role) {
+        name.value = auth.user?.name;
+        email.value = auth.user?.email;
+    }
+    onUnmounted(() => {
+        stopwatch();
+    });
+});
+
+function checkEmail(email) {
+    return email.match(
+        /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/
+    );
+}
 function setAvatar(email, size = 80) {
-    if (
-        !email.match(
-            /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/
-        )
-    ) {
+    if (!checkEmail(email)) {
         avatar.value = config?.missingAvatarPlaceholder;
         return;
     }
@@ -26,24 +60,58 @@ function setAvatar(email, size = 80) {
 }
 
 async function submit() {
-    let payload = {
-        comment: comment.value,
-        name: name.value,
-        email: email.value,
-        link: link.value,
-    };
-    const data = await useEncrypt(JSON.stringify(payload));
-    const res = await $fetch("/api/comment", {
-        method: "PUT",
-        body: data,
-    });
-    console.log(res);
+    try {
+        if (!checkEmail(email.value)) {
+            ElMessage.error("请输入有效的邮箱地址");
+            return;
+        }
+        let payload = {
+            postId,
+            comment: comment.value,
+            name: name.value,
+            email: email.value,
+            link: link.value,
+            parent: replyTarget.value?.id ?? "",
+        };
+        const data = await useEncrypt(JSON.stringify(payload));
+        const res = await $fetch("/api/comment", {
+            method: "PUT",
+            body: data,
+        });
+        if (res?.comment) {
+            emit("submit", {
+                ...res.comment,
+                author: {
+                    node: {
+                        name: auth.user?.name,
+                        avatar: {
+                            url: auth.user?.avatar?.url_96 || auth.user?.avatar,
+                        },
+                    },
+                },
+            });
+            ElMessage.success("评论提交成功");
+            comment.value = "";
+            replyTarget.value = {};
+        }
+    } catch (error) {
+        ElMessage.error(`评论提交失败,详细信息${error}`);
+    }
 }
 </script>
 
 <template>
     <div class="comment-form">
-        <form id="comment-form" @submit.prevent="submit">
+        <form id="comment-form" ref="commentForm" @submit.prevent="submit">
+            <span v-if="replyTarget?.id" class="reply">
+                正在回复给
+                <a class="reply-target" :href="`#comment-${replyTarget.id}`">
+                    @{{ replyTarget?.name }}
+                </a>
+                <a href="javascript:void()" @click="replyTarget = {}">
+                    取消回复?</a
+                >
+            </span>
             <textarea
                 v-model="comment"
                 name="comment"
@@ -52,7 +120,7 @@ async function submit() {
                 placeholder="要来留个评论吗?"
                 class="comment-input"
             />
-            <div class="infos">
+            <div v-if="!auth.user?.role" class="infos">
                 <ElAvatar size="default" class="avatar">
                     <NuxtImg alt="navbar avatar" :src="avatar" />
                 </ElAvatar>
@@ -111,6 +179,9 @@ async function submit() {
     display: flex;
     width: 100%;
     flex-direction: column;
+}
+.reply-target {
+    color: var(--active-color);
 }
 .comment-input {
     font-size: 0.9rem;

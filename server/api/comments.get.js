@@ -36,7 +36,6 @@ function useCommentQuery(query = {}) {
                     databaseId
                     parentId
                     date
-                    approved
                     content
                     author {
                         node {

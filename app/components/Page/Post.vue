@@ -15,7 +15,6 @@ const props = defineProps({
     },
 });
 let post = computed(() => {
-    console.log(props.page)
     return props.page.content;
 });
 </script>
