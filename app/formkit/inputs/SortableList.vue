@@ -60,8 +60,6 @@ function render(field, item) {
         }),
     });
 }
-
-console.log(props.context);
 </script>
 
 <template>
@@ -91,7 +89,7 @@ console.log(props.context);
                 </div>
             </div>
         </VueDraggable>
-        <ElButton type="button" @click="handleAdd">新增</ElButton>
+        <ElButton @click="handleAdd">新增</ElButton>
     </div>
 </template>
 

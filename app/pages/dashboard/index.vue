@@ -7,12 +7,13 @@ definePageMeta({
 const themeSettings = useThemeSettingsStore();
 const formData = ref(themeSettings.settings); // 表单数据
 const groups = formSchema;
-let current = ref("word");
+let current = ref("basicSettings");
 let title = ref("");
 let expand = ref(true);
 
 function saveSettings() {
     console.log(formData.value);
+    themeSettings.settings = formData.value;
 }
 
 function navigateBack() {
@@ -28,120 +29,130 @@ function navigateBack() {
 </script>
 
 <template>
-    <div class="dashboard">
-        <div
-            class="settings"
-            :class="{
-                expand: expand == true,
-            }"
-        >
-            <div class="settings-info">
-                <ElButton class="back" type="button" @click="navigateBack">
-                    <Icon class="icon" :name="'fa7-solid:angle-left'" />
-                </ElButton>
-                <span class="info">
-                    正在编辑:<br />
-                    <h2>{{ title || "主题" }}</h2>
-                </span>
-                <div class="controls">
-                    <ElButton class="button" type="button" @click="saveSettings"
-                        >保存</ElButton
-                    >
-                    <ElButton
-                        class="button"
-                        type="button"
-                        @click="expand = !expand"
-                        >{{ expand ? "<<<" : ">>>" }}</ElButton
-                    >
+    <ClientOnly>
+        <div class="dashboard">
+            <div
+                class="settings"
+                :class="{
+                    expand: expand == true,
+                }"
+            >
+                <div class="settings-info">
+                    <ElButton class="back" @click="navigateBack">
+                        <Icon class="icon" :name="'fa7-solid:angle-left'" />
+                    </ElButton>
+                    <span class="info">
+                        正在编辑:<br />
+                        <h2>{{ title || "主题" }}</h2>
+                    </span>
+                    <div class="controls">
+                        <ElButton class="button" @click="saveSettings"
+                            >保存</ElButton
+                        >
+                        <ElButton class="button" @click="expand = !expand">{{
+                            expand ? "<<<" : ">>>"
+                        }}</ElButton>
+                    </div>
                 </div>
-            </div>
-            <div class="settings-form">
-                <aside
-                    class="settings-menu"
-                    :class="{
-                        show: title == '' || expand == true,
-                    }"
-                >
-                    <ElMenu
-                        class="navigate"
-                        :default-active="current"
-                        unique-opened
-                        @select="
-                            (key) => {
-                                showForm = true;
-                                current = key;
-                            }
-                        "
+                <div class="settings-form">
+                    <aside
+                        class="settings-menu"
+                        :class="{
+                            show: title == '' || expand == true,
+                        }"
                     >
-                        <template v-for="group in groups" :key="group.key">
-                            <!-- 有子分组 -->
-                            <ElSubMenu v-if="group.subGroup" :index="group.key">
-                                <template #title>
-                                    {{ group.title }}
-                                </template>
+                        <ElMenu
+                            class="navigate"
+                            :default-active="current"
+                            unique-opened
+                            @select="
+                                (key) => {
+                                    showForm = true;
+                                    current = key;
+                                }
+                            "
+                        >
+                            <template v-for="group in groups" :key="group.key">
+                                <!-- 有子分组 -->
+                                <ElSubMenu
+                                    v-if="group.subGroup"
+                                    :index="group.key"
+                                >
+                                    <template #title>
+                                        {{ group.title }}
+                                    </template>
 
+                                    <ElMenuItem
+                                        v-for="sub in group.subGroup"
+                                        :key="sub.key"
+                                        :index="sub.key"
+                                        @click="title = sub.title"
+                                    >
+                                        {{ sub.title }}
+                                    </ElMenuItem>
+                                </ElSubMenu>
+
+                                <!-- 无子分组 -->
                                 <ElMenuItem
-                                    v-for="sub in group.subGroup"
-                                    :key="sub.key"
-                                    :index="sub.key"
-                                    @click="title = sub.title"
+                                    v-else
+                                    :index="group.key"
+                                    @click="title = group.title"
                                 >
-                                    {{ sub.title }}
+                                    {{ group.title }}
                                 </ElMenuItem>
-                            </ElSubMenu>
-
-                            <!-- 无子分组 -->
-                            <ElMenuItem
-                                v-else
-                                :index="group.key"
-                                @click="title = group.title"
-                            >
-                                {{ group.title }}
-                            </ElMenuItem>
-                        </template>
-                    </ElMenu>
-                </aside>
-                <div
-                    class="settings-area"
-                    :class="{
-                        show: title != '' || expand == true,
-                    }"
-                >
-                    <FormKit v-model="formData" type="form" :actions="false">
-                        <template v-for="group in groups" :key="group.key">
-                            <!-- 顶层 -->
-                            <div
-                                v-if="group.schema"
-                                v-show="current === group.key"
-                            >
-                                <FormKitSchema :schema="group.schema" />
-                            </div>
-
-                            <!-- 子分组 -->
-                            <template v-if="group.subGroup">
-                                <div
-                                    v-for="sub in group.subGroup"
-                                    v-show="current === sub.key"
-                                    :key="sub.key"
-                                >
-                                    <FormKitSchema :schema="sub.schema" />
-                                </div>
                             </template>
-                        </template>
-                        <pre>{{ current }} {{ formData }}</pre>
-                    </FormKit>
+                        </ElMenu>
+                    </aside>
+                    <div
+                        class="settings-area"
+                        :class="{
+                            show: title != '' || expand == true,
+                        }"
+                    >
+                        <FormKit
+                            v-model="formData"
+                            type="form"
+                            :actions="false"
+                        >
+                            <template v-for="group in groups" :key="group.key">
+                                <!-- 顶层 -->
+                                <div
+                                    v-if="group.schema"
+                                    v-show="
+                                        current === group.key
+                                    "
+                                >
+                                    <FormKitSchema :schema="group.schema" />
+                                </div>
+
+                                <!-- 子分组 -->
+                                <template v-if="group.subGroup">
+                                    <div
+                                        v-for="sub in group.subGroup"
+                                        v-show="
+                                            current === sub.key
+                                        "
+                                        :key="sub.key"
+                                    >
+                                        <FormKitSchema :schema="sub.schema" />
+                                    </div>
+                                </template>
+                            </template>
+                            <pre>{{ current }} {{ formData }}</pre>
+                        </FormKit>
+                    </div>
                 </div>
             </div>
+            <iframe
+                class="preview"
+                src="/"
+                frameborder="0"
+                :class="{
+                    show: expand !== true,
+                }"
+            />
         </div>
-        <iframe
-            class="preview"
-            src="/"
-            frameborder="0"
-            :class="{
-                show: expand !== true,
-            }"
-        />
-    </div>
+    </ClientOnly>
 </template>
 
 <style scoped>
@@ -195,32 +206,35 @@ function navigateBack() {
     position: relative;
     display: flex;
     height: 100%;
-    overflow: auto;
+    overflow-x: hidden;
 }
 .settings-menu,
 .settings-area {
     position: absolute;
     width: 100%;
     background-color: whitesmoke;
-    overflow: hidden;
+    overflow: auto;
     transition: all 0.5s ease;
 }
 .settings-menu {
     transform: translateX(-100%);
 }
 .settings-area {
+    height: 100%;
+    overflow-y: auto;
     transform: translateX(20dvw);
 }
 .settings-menu.show,
 .settings-area.show {
     transform: translateX(0);
-    overflow: auto;
 }
 .expand .settings-menu.show {
     max-width: 20dvw;
 }
 .expand .settings-area.show {
     transform: translateX(20dvw);
+    width: 80dvw;
+    max-width: 80dvw;
 }
 .settings-area.show {
     padding: 3%;

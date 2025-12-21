@@ -67,50 +67,6 @@ export default defineEventHandler(async () => {
                 icon: "https://files.nicocat.cc/sakurairo/display_icon/flat_colorful/bilibili.webp",
                 url: "https://www.bilibili.com",
             },
-            {
-                icon: "https://files.nicocat.cc/sakurairo/display_icon/flat_colorful/bilibili.webp",
-                url: "https://www.bilibili.com",
-            },
-            {
-                icon: "https://files.nicocat.cc/sakurairo/display_icon/flat_colorful/bilibili.webp",
-                url: "https://www.bilibili.com",
-            },
-            {
-                icon: "https://files.nicocat.cc/sakurairo/display_icon/flat_colorful/bilibili.webp",
-                url: "https://www.bilibili.com",
-            },
-            {
-                icon: "https://files.nicocat.cc/sakurairo/display_icon/flat_colorful/bilibili.webp",
-                url: "https://www.bilibili.com",
-            },
-            {
-                icon: "https://files.nicocat.cc/sakurairo/display_icon/flat_colorful/bilibili.webp",
-                url: "https://www.bilibili.com",
-            },
-            {
-                icon: "https://files.nicocat.cc/sakurairo/display_icon/flat_colorful/bilibili.webp",
-                url: "https://www.bilibili.com",
-            },
-            {
-                icon: "https://files.nicocat.cc/sakurairo/display_icon/flat_colorful/bilibili.webp",
-                url: "https://www.bilibili.com",
-            },
-            {
-                icon: "https://files.nicocat.cc/sakurairo/display_icon/flat_colorful/bilibili.webp",
-                url: "https://www.bilibili.com",
-            },
-            {
-                icon: "https://files.nicocat.cc/sakurairo/display_icon/flat_colorful/bilibili.webp",
-                url: "https://www.bilibili.com",
-            },
-            {
-                icon: "https://files.nicocat.cc/sakurairo/display_icon/flat_colorful/bilibili.webp",
-                url: "https://www.bilibili.com",
-            },
-            {
-                icon: "https://files.nicocat.cc/sakurairo/display_icon/flat_colorful/bilibili.webp",
-                url: "https://www.bilibili.com",
-            },
         ],
     };
 });
