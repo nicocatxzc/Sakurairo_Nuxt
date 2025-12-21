@@ -1,19 +1,26 @@
 <script setup>
 import formSchema from "@/formkit/config";
-import { useThemeSettingsStore } from "#imports";
+import { useThemeConfigStore } from "#imports";
 definePageMeta({
     layout: false,
 });
-const themeSettings = useThemeSettingsStore();
-const formData = ref(themeSettings.settings); // 表单数据
+const themeConfig = useThemeConfigStore();
+const formData = ref(themeConfig.tempConfig); // 表单数据
 const groups = formSchema;
 let current = ref("basicSettings");
 let title = ref("");
 let expand = ref(true);
 
-function saveSettings() {
-    console.log(formData.value);
-    themeSettings.settings = formData.value;
+async function saveSettings() {
+    // try {
+        let data = await useEncrypt(JSON.stringify(toRaw(formData.value)))
+        await $fetch("/api/themeConfig",{
+            method:"PUT",
+            body:data
+        })
+    // } catch (error) {
+    //     ElMessage.error(`保存失败,错误详情${error}`)
+    // }
 }
 
 function navigateBack() {

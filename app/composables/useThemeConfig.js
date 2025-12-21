@@ -1,4 +1,6 @@
+import { useThemeConfigStore } from "#imports";
+
 export const useThemeConfig = () => {
-  const state = useState('themeConfig')
-  return { ...state.value }
-}
+    const {config} = storeToRefs(useThemeConfigStore())
+    return config
+};

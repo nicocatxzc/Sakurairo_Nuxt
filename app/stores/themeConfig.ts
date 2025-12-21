@@ -1,14 +1,15 @@
 import { defineStore } from "pinia";
 
-export const useThemeSettingsStore = defineStore(
-    "themeSettings",
+export const useThemeConfigStore = defineStore(
+    "themeConfig",
     () => {
-        let settings = ref({});
-        return { settings };
+        let config = ref({});
+        let tempConfig = ref({});
+        return { config,tempConfig };
     },
     {
         persist: {
-            pick: ["settings"],
+            pick: ["config","tempConfig"],
             storage: {
                 getItem: (key) =>
                     import.meta.client ? localStorage.getItem(key) : null,

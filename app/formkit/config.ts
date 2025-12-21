@@ -64,7 +64,7 @@ export default [
                     },
                     {
                         $formkit: elColorPicker,
-                        name: "WordColorSecond",
+                        name: "wordColorSecond",
                         label: "次要文字颜色",
                         value: "#00000080",
                     },
