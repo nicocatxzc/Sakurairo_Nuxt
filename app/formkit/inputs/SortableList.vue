@@ -25,22 +25,6 @@ function remove(index) {
     list.value.splice(index, 1);
 }
 
-function createFakeContext({ value, onInput, attrs = {} }) {
-    return {
-        value,
-        _value: value,
-        attrs,
-        disabled: false,
-        handlers: {
-            blur() {},
-        },
-        node: {
-            input: onInput,
-        },
-        classes: {},
-    };
-}
-
 function render(field, item) {
     const Comp =
         field.$formkit?.library && Object.values(field.$formkit.library)[0];
@@ -53,11 +37,16 @@ function render(field, item) {
     });
 
     return h(Comp, {
-        context: createFakeContext({
+        context: {
             value: model.value,
-            onInput: (v) => (model.value = v),
-            attrs: field,
-        }),
+            handlers: {
+                blur() {},
+            },
+            node: {
+                input: (v) => (model.value = v),
+            },
+            classes: {},
+        },
     });
 }
 </script>
@@ -85,7 +74,11 @@ function render(field, item) {
                     </template>
                 </div>
                 <div class="trash">
-                    <Icon :name="'fa7-solid:trash'" class="icon" @click="remove(index)"/>
+                    <Icon
+                        :name="'fa7-solid:trash'"
+                        class="icon"
+                        @click="remove(index)"
+                    />
                 </div>
             </div>
         </VueDraggable>
@@ -98,7 +91,7 @@ function render(field, item) {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    margin-bottom: .5rem;
+    margin-bottom: 0.5rem;
 }
 .group {
     margin: 0 0.1rem;
@@ -122,7 +115,7 @@ function render(field, item) {
 .trash {
     display: flex;
     align-items: center;
-    outline:gray;
+    outline: gray;
 
     cursor: pointer;
 }
