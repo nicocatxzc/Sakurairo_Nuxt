@@ -24,12 +24,6 @@ onMounted(() => {
     );
 });
 useHead({
-    meta: [
-        { name: "description", content: themeConfig.value?.siteSeoDesc },
-        { name: "keywords", content: themeConfig.value?.siteSeoKeyword },
-        { property: "og:title", content: "" },
-        { property: "og:description", content: "" },
-    ],
     style: [
         {
             innerHTML: /*css*/ `

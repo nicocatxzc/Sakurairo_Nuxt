@@ -30,6 +30,16 @@ let postList = computed(() => {
         return { nodes: [] };
     }
 });
+
+// 准备SEO信息
+useHead({
+    title:`作者:${author.value}`,
+    meta: [
+        { property: "og:title", content: `作者:${author.value}` },
+        { property: "og:image", content: author.value.avatar?.url_300 },
+        { property: "og:type", content: 'profile' },
+    ]
+});
 </script>
 
 <template>

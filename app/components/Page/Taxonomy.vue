@@ -31,6 +31,15 @@ let postList = computed(() => {
         return { nodes: [] };
     }
 });
+
+// 准备SEO信息
+useHead({
+    title:`分类:${props.page?.title}`,
+    meta: [
+        { property: "og:title", content: `分类:${props.page?.title}` },
+        { name: "description", content: props.page?.description },
+    ]
+});
 </script>
 
 <template>

@@ -1,7 +1,12 @@
 export default defineEventHandler(async () => {
     try {
         let config = await useWP.get("/wp-json/hachimi/v1/config");
-        return config.data;
+        let siteConfig = await useWPsettings();
+        return { 
+            siteName:siteConfig?.site_name,
+            siteDesc:siteConfig?.site_description,
+            ...config.data
+         };
     } catch (error) {
         throw createError({
             statusCode: 500,
