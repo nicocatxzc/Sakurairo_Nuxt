@@ -86,7 +86,7 @@ onMounted(() => {
                 alt="site logo"
             />
             <NuxtLink :to="'/'">
-                <span class="site-title">站点标题</span>
+                <span class="site-title">{{ themeConfig?.navTitle }}</span>
             </NuxtLink>
         </div>
 
@@ -95,8 +95,8 @@ onMounted(() => {
                 <ul
                     class="menu"
                     :style="{
-                        justifyContent: themeConfig.navbar.distribution,
-                        margin: `0 ${themeConfig.navbar.margin}px`,
+                        justifyContent: themeConfig?.navbarDistribution,
+                        margin: `0 ${themeConfig?.navbarOptionMargin}px`,
                     }"
                 >
                     <template v-for="item in menuItems" :key="item.id">
@@ -140,7 +140,7 @@ onMounted(() => {
                             user?.avatar?.url_150 ||
                             user?.avatar?.url_300 ||
                             user?.avatar ||
-                            themeConfig.missingAvatarPlaceholder
+                            themeConfig?.missingAvatarPlaceholder
                         "
                         alt="navbar avatar"
                     />

@@ -6,10 +6,12 @@ let config = useThemeConfig();
 const typedRef = useTemplateRef("typedRef");
 
 onMounted(() => {
-    const typed = new Typed(typedRef.value, {
-        strings: ["<i>First</i> sentence.", "&amp; a second sentence."],
-        typeSpeed: 50,
-    });
+    let typed
+    try{
+        typed = new Typed(typedRef.value, JSON.parse(config.value.typedjs));
+    } catch(e) {
+        ElMessage.error(`typedjs初始化失败,错误详情${e}`)
+    }
 
     onUnmounted(() => {
         typed.destroy();
@@ -30,10 +32,10 @@ onMounted(() => {
                     <h1
                         class="cover-title"
                         :style="{
-                            fontSize: `${config.cover_title_font_size}rem`,
+                            fontSize: `${config?.cover_title_font_size}rem`,
                         }"
                     >
-                        {{ config.cover_title }}
+                        {{ config?.cover_title }}
                     </h1>
                     <div class="socials">
                         <div class="typed-container">
@@ -43,7 +45,7 @@ onMounted(() => {
                         </div>
                         <div class="signature">
                             <p>
-                                我的心都碎成二维码了，可扫出来还是我好喜欢你呜呜呜
+                                {{ config?.coverSignature }}
                             </p>
                         </div>
                         <HomepageSocialLinks />

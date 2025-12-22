@@ -1,6 +1,6 @@
 <script setup>
 let config = useThemeConfig();
-const socials = config.cover_socials || [];
+const socials = config.value?.socialLinks || [];
 
 let group = ref(8);
 let pagerRef = null;
@@ -104,8 +104,8 @@ class Pager {
                     next: state == 'next',
                 }"
             >
-                <a :href="item?.url || '/'" target='_blank'>
-                    <NuxtImg :src="item.icon" class="social-img" />
+                <a :href="item?.linkUrl || '/'" target='_blank'>
+                    <NuxtImg :src="item?.iconUrl" class="social-img" />
                 </a>
             </div>
         </div>
