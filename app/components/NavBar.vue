@@ -135,13 +135,7 @@ onMounted(() => {
             <div class="user">
                 <ElAvatar size="default" class="avatar">
                     <NuxtImg
-                        :src="
-                            user?.avatar?.url_96 ||
-                            user?.avatar?.url_150 ||
-                            user?.avatar?.url_300 ||
-                            user?.avatar ||
-                            themeConfig?.missingAvatarPlaceholder
-                        "
+                        :src="getUserAvatar(user?.avatar)"
                         alt="navbar avatar"
                     />
                 </ElAvatar>
