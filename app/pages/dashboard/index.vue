@@ -15,15 +15,18 @@ onMounted(()=>{
     formData.value = themeConfig.config
 })
 async function saveSettings() {
-    // try {
+    try {
         let data = await useEncrypt(JSON.stringify(toRaw(formData.value)))
-        await $fetch("/api/themeConfig",{
+        let res = await $fetch("/api/themeConfig",{
             method:"PUT",
             body:data
         })
-    // } catch (error) {
-    //     ElMessage.error(`保存失败,错误详情${error}`)
-    // }
+        if(res.success) {
+            ElMessage.success("配置已成功保存")
+        }
+    } catch (error) {
+        ElMessage.error(`保存失败,错误详情${error}`)
+    }
 }
 
 function navigateBack() {
