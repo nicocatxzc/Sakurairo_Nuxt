@@ -82,7 +82,7 @@ const list = themeConfig.value?.showAreaContent;
     mask-image: linear-gradient(180deg, #000000 20%, #0000004d);
     backdrop-filter: blur(4px);
 
-    z-index: 3;
+    z-index: 1;
 }
 .title h3 {
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
@@ -120,7 +120,7 @@ const list = themeConfig.value?.showAreaContent;
         transparent 100%
     );
     transform: translateY(1rem);
-    z-index: 2;
+    z-index: 1;
 }
 .showcard .title,
 .card-desc {

@@ -47,5 +47,6 @@ onMounted(() => {
 .model-background.show {
     visibility: visible;
     backdrop-filter: blur(0.5rem);
+    z-index: 10;
 }
 </style>

@@ -75,6 +75,7 @@ async function submitLogin() {
 <style scoped>
 .login-form {
     transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    z-index: 10;
 }
 .login-form {
     position: fixed;
@@ -128,6 +129,7 @@ async function submitLogin() {
 }
 .input :deep(.el-input__wrapper) {
     background-color: transparent;
+    box-shadow: none;
 }
 .input :deep(.el-input-group__prepend) {
     padding: 0;
