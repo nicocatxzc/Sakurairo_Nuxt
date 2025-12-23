@@ -11,7 +11,7 @@ const scroll = useScrollStore();
 // 从api获取菜单
 const { data: menuData } = await useCachedFetch("navbar", "/api/menu");
 
-const menuItems = computed(() => menuData.value?.items || []);
+const menuItems = computed(() => Array.isArray(menuData.value) ? menuData.value : []);
 
 // 转换为相对链接
 const convertWpUrl = (wpUrl) => {
