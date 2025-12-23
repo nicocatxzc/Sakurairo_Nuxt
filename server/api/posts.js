@@ -1,6 +1,3 @@
-import useWPsettings from "../utils/useWPsettings";
-import useWPGraphql from "../utils/useWPGraphql";
-
 function usePostQuery(settings, query = {}) {
     let queryPart = "";
     if (query?.after || query?.search) {
@@ -31,7 +28,7 @@ function usePostQuery(settings, query = {}) {
                             ? `notIn: [${settings.sticky_post_ids.join(",")}]`
                             : ""
                     }
-                    ${query?.tagId ? "tagId:" + Number(query.tagId) : ""}
+                    ${query?.tagId ? `tagId:"` + Number(query.tagId) + `"` : ``}
                     ${
                         query?.categoryId
                             ? "categoryId:" + Number(query.categoryId)
