@@ -20,7 +20,7 @@ const postPreviewConfig = useDebounceFn(() => {
         },
         "*"
     );
-},100);
+},10);
 
 onMounted(() => {
     Object.assign(
