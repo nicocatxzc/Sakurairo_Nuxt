@@ -1,6 +1,3 @@
-import { useWP } from "#imports";
-import { getVerifyPair } from "../../utils/jwtTool";
-
 export default defineEventHandler(async (event) => {
     let auth;
     try {

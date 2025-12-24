@@ -1,5 +1,3 @@
-import useWP from "./useWP";
-
 export default async function (query: string,variables?:Record<string, any>,data?:Record<string,any>) {
     try {
         let res = await useWP.post("/graphql", {

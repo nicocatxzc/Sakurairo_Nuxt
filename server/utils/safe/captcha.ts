@@ -1,5 +1,4 @@
 import bcrypt from "bcryptjs";
-import { createTotp } from "./totp";
 import svgCaptcha from "svg-captcha";
 
 export async function generateCaptcha(secret: string) {

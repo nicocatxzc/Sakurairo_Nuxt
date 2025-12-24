@@ -1,6 +1,3 @@
-import { generateCaptcha, verifyCaptcha } from "../../utils/captcha";
-import { getVerifyPair } from "../../utils/jwtTool";
-
 export default defineEventHandler(async (event) => {
     const method = event.method;
     const config = useRuntimeConfig();
