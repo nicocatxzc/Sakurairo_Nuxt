@@ -2,46 +2,56 @@
 const route = useRoute();
 const themeConfig = useThemeConfig();
 
-const { data, promise ,error } = await useCachedFetch(route.path, "/api/page-content", {
-    promise: true,
-    fetchOptions: {
-        query: {
-            path: route.path,
+const { data, promise, error } = await useCachedFetch(
+    route.path,
+    "/api/page-content",
+    {
+        promise: true,
+        fetchOptions: {
+            query: {
+                path: route.path,
+            },
         },
-    },
-});
+    }
+);
 await promise;
-if(error.value) {
+if (error.value) {
     throw createError({
         statusCode: 404,
         statusMessage: "Not found",
     });
 }
 
-let page = computed(()=>{
+let page = computed(() => {
     if (data.value?.type == "404") {
         showError({ statusCode: 404, statusMessage: "页面不存在" });
     }
     let canonical;
-    if(data.value?.canonical) {
-        canonical = useSiteOrigin()+data.value.canonical
+    if (data.value?.canonical) {
+        canonical = useSiteOrigin() + data.value.canonical;
     } else {
-        canonical = useSiteOrigin()+route.path
+        canonical = useSiteOrigin() + route.path;
     }
-    return {...data.value,
-        canonical
-    }
-})
+    return { ...data.value, canonical };
+});
 
-// 准备SEO信息
+// 准备SEO信息和头部样式
 useHead({
     meta: [
-        { property: "og:url", content:page.value.canonical},
-        { property: "og:site_name", content: themeConfig.value?.siteName || "未命名" },
+        { property: "og:url", content: page.value.canonical },
+        {
+            property: "og:site_name",
+            content: themeConfig.value?.siteName || "未命名",
+        },
     ],
-    link:[{
-        rel:"canonical",href:page.value.canonical
-    }]
+    link: [
+        {
+            rel: "canonical",
+            href: page.value.canonical,
+        },
+        ...(page.value?.styles?.link ?? []),
+    ],
+    style: [...(page.value?.styles?.style ?? [])],
 });
 </script>
 

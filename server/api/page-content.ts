@@ -57,40 +57,50 @@ export default defineEventHandler(async (event) => {
                 };
 
             case "taxonomy":
-            // 获取大类文章列表 ?
-            // content =  await $fetch("/api/posts",{
-            //     query: {
-            //         author:page.author_id
-            //     }
-            // })
-            // return {
-            //     ...page,
-            //     content:content.data.posts
-            // }
+                // 获取大类文章列表 ?
+                // content =  await $fetch("/api/posts",{
+                //     query: {
+                //         author:page.author_id
+                //     }
+                // })
+                // return {
+                //     ...page,
+                //     content:content.data.posts
+                // }
                 break;
-            case "single":
-                // 获取文章内容
+            case "single": // 获取文章内容
+            {
                 content = await $fetch("/api/content/post", {
                     query: {
                         id: page.id,
                     },
                 });
+
+                const styles = await useWPPageStyles(path);
+
                 return {
                     ...page,
                     content: content.post,
+                    styles,
                 };
+            }
 
-            case "page":
-                // 获取页面内容
+            case "page": // 获取页面内容
+            {
                 content = await $fetch("/api/content/page", {
                     query: {
                         id: page.id,
                     },
                 });
+
+                const styles = await useWPPageStyles(path);
+
                 return {
                     ...page,
                     content: content.page,
+                    styles,
                 };
+            }
             case "404":
                 // 404无信息
                 return page;

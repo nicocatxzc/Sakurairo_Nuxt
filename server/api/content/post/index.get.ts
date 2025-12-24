@@ -11,7 +11,6 @@ const GetPost = /* GraphQL */ `
                 }
             }
             content(format: RENDERED)
-            gutenbergStyles
             featuredImage {
                 node {
                     sourceUrl
