@@ -11,7 +11,9 @@ const scroll = useScrollStore();
 // 从api获取菜单
 const { data: menuData } = await useCachedFetch("navbar", "/api/content/menu");
 
-const menuItems = computed(() => Array.isArray(menuData.value) ? menuData.value : []);
+const menuItems = computed(() =>
+    Array.isArray(menuData.value) ? menuData.value : []
+);
 
 // 转换为相对链接
 const convertWpUrl = (wpUrl) => {
@@ -23,52 +25,38 @@ const convertWpUrl = (wpUrl) => {
     }
 };
 
-onMounted(() => {
+const menuRef = useTemplateRef("menu");
+const activeSubMenu = ref(null);
+onMounted(async () => {
     //防止子菜单量子叠加
-    const menuItems = document.querySelectorAll("nav .menu > li");
-    let activeSubMenu = null;
+    await nextTick();
+    const nav = menuRef.value;
 
-    menuItems.forEach((item) => {
+    if (!nav) return;
+
+    const items = nav.querySelectorAll("li");
+
+    items.forEach((item) => {
         const subMenu = item.querySelector(".sub-menu");
-
         if (!subMenu) return;
 
-        //鼠标移入时激活子菜单
-        item.addEventListener("mouseenter", () => {
-            if (activeSubMenu && activeSubMenu !== subMenu) {
-                //有且仅有一个激活
-                activeSubMenu.classList.remove("active");
-            }
-
-            //更新并激活当前子菜单
-            subMenu.classList.add("active");
-            activeSubMenu = subMenu;
-        });
-    });
-    //放叠加结束
-
-    //子菜单对齐
-    const subMenus = document.querySelectorAll("nav .menu > li .sub-menu");
-
-    subMenus.forEach((subMenu) => {
-        const MainMenu = subMenu.parentElement;
-
-        // 获取渲染后的宽度
-        const MainMenuWidth = MainMenu.getBoundingClientRect().width;
+        const mainMenu = item;
+        const MainMenuWidth = mainMenu.getBoundingClientRect().width;
         const subMenuWidth = subMenu.getBoundingClientRect().width;
-
-        // 偏移计算，确保子菜单居中
         const offsetX = (subMenuWidth - MainMenuWidth) / 2;
-
-        // 设置初始样式
         const BasicSubMenuStyle = `translateY(-10px) translateX(-${offsetX}px)`;
         subMenu.style.transform = BasicSubMenuStyle;
 
-        // 设置偏移量
-        MainMenu.addEventListener("mouseenter", () => {
+        // 鼠标事件
+        mainMenu.addEventListener("mouseenter", () => {
+            if (activeSubMenu.value && activeSubMenu.value !== subMenu) {
+                activeSubMenu.value.classList.remove("active");
+            }
+            subMenu.classList.add("active");
             subMenu.style.transform = `translateY(0) translateX(-${offsetX}px)`;
+            activeSubMenu.value = subMenu;
         });
-        MainMenu.addEventListener("mouseleave", () => {
+        mainMenu.addEventListener("mouseleave", () => {
             subMenu.style.transform = BasicSubMenuStyle;
         });
     });
@@ -93,6 +81,7 @@ onMounted(() => {
         <div class="menu-wrapper">
             <nav>
                 <ul
+                    ref="menu"
                     class="menu"
                     :style="{
                         justifyContent: themeConfig?.navbarDistribution,
@@ -146,10 +135,26 @@ onMounted(() => {
                         }}</span>
                     </div>
                     <div v-if="user?.role" class="user-menu-option">
-                        <a v-if="user?.management?.admin" :href="user?.management?.admin" target="_blank">管理后台</a>
-                        <NuxtLink v-if="user?.role == 'administrator'" :to="'/dashboard'">主题设置</NuxtLink>
-                        <a v-if="user?.management?.newpost" :href="user?.management?.newpost" target="_blank">撰写文章</a>
-                        <a target="_top" @click="authStore.clearAuth()">退出登录</a>
+                        <a
+                            v-if="user?.management?.admin"
+                            :href="user?.management?.admin"
+                            target="_blank"
+                            >管理后台</a
+                        >
+                        <NuxtLink
+                            v-if="user?.role == 'administrator'"
+                            :to="'/dashboard'"
+                            >主题设置</NuxtLink
+                        >
+                        <a
+                            v-if="user?.management?.newpost"
+                            :href="user?.management?.newpost"
+                            target="_blank"
+                            >撰写文章</a
+                        >
+                        <a target="_top" @click="authStore.clearAuth()"
+                            >退出登录</a
+                        >
                     </div>
                     <div v-else class="user-menu-option">
                         <a @click="openLoginForm">登录</a>
@@ -213,7 +218,7 @@ onMounted(() => {
     font-size: 1.2rem;
 }
 .site-title:hover {
-    color:var(--active-color)
+    color: var(--active-color);
 }
 
 .menu-wrapper,
