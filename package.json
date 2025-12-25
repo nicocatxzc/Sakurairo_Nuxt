@@ -46,6 +46,7 @@
     "otpauth": "^9.4.1",
     "pinia": "^3.0.4",
     "pinia-plugin-persistedstate": "^4.7.1",
+    "sass-embedded": "^1.97.1",
     "svg-captcha": "^1.4.0",
     "typed.js": "^2.1.0",
     "vue": "^3.5.25",
