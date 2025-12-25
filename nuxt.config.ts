@@ -54,7 +54,6 @@ export default defineNuxtConfig({
             include: [
                 "element-plus",
                 "@element-plus/icons-vue",
-                "lodash-es",
                 "dayjs",
                 "@vueuse/core",
                 "pinia",
