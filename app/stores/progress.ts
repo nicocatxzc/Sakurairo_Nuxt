@@ -1,9 +1,10 @@
 import { defineStore } from "pinia";
+type scrollDirectron = 'down' | 'up' | 'none'
 
 // 滚动进度
 export const useScrollStore = defineStore("scroll", () => {
     let progress = ref(0);
-    let direction = ref("down"); // down up none
+    let direction = ref<scrollDirectron>("down"); // down up none
     let lastScrollY = ref(0);
 
     function update(scrollY:number, winHeight:number, docHeight:number) {

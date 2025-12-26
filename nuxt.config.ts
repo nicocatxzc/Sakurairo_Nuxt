@@ -48,6 +48,7 @@ export default defineNuxtConfig({
         "pinia-plugin-persistedstate/nuxt",
         "@formkit/nuxt",
         "nuxt-monaco-editor",
+        "motion-v/nuxt",
     ],
     vite: {
         optimizeDeps: {

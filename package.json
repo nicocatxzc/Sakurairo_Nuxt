@@ -40,6 +40,7 @@
         "lodash-es": "^4.17.22",
         "md5": "^2.3.0",
         "monaco-editor": "^0.55.1",
+        "motion-v": "^1.7.4",
         "nuxt": "^4.2.2",
         "nuxt-monaco-editor": "1.4.0",
         "otpauth": "^9.4.1",

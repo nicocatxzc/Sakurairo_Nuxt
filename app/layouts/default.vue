@@ -1,5 +1,4 @@
-<script setup>
-</script>
+<script setup></script>
 
 <template>
     <div class="background">
@@ -8,6 +7,7 @@
             <ProgressBar class="progress-bar" />
         </ClientOnly>
         <NavBar class="nav-bar" />
+        <NavBarMobile class="nav-bar-mobile" />
         <slot class="layout-slot" />
         <SiteFooter class="site-footer" />
         <ClientOnly>
@@ -45,5 +45,17 @@
 }
 .login-form {
     z-index: 12;
+}
+.nav-bar-mobile {
+    display: none;
+    z-index: 10;
+}
+@media screen and (max-width: 860px) {
+    .nav-bar {
+        display: none;
+    }
+    .nav-bar-mobile {
+        display: flex;
+    }
 }
 </style>
