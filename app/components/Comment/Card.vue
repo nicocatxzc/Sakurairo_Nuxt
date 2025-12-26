@@ -92,8 +92,7 @@ const emit = defineEmits(["reply"]);
 
     color: rgb(var(--widget-background));
     background-color: var(--active-color);
-    border: var(--border-shine);
-    border-color: var(--active-color);
+    border: var(--border-active);
     transition: all 0.2s ease;
 
     will-change: opacity;
