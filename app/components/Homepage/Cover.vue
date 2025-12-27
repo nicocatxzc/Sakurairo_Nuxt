@@ -3,13 +3,20 @@ import Typed from "typed.js";
 
 let config = useThemeConfig();
 
+const coverPc = useNuxtImg(
+    config.value?.randomPicUrlPc || config.value?.randomPicUrlMb || ""
+);
+const coverMb = useNuxtImg(
+    config.value?.randomPicUrlMb || config.value?.randomPicUrlPc || ""
+);
+
 const typedRef = useTemplateRef("typedRef");
 onMounted(() => {
-    let typed
-    try{
+    let typed;
+    try {
         typed = new Typed(typedRef.value, JSON.parse(config.value.typedjs));
-    } catch(e) {
-        ElMessage.error(`typedjs初始化失败,错误详情${e}`)
+    } catch (e) {
+        ElMessage.error(`typedjs初始化失败,错误详情${e}`);
     }
 
     onUnmounted(() => {
@@ -20,18 +27,22 @@ onMounted(() => {
 
 <template>
     <div class="homepage-cover">
-        <figure class="cover">
-            <NuxtImg
-                src="https://moeapi.moecat.cc/imgs/pc/img/s22.webp"
-                alt="homepage cover"
-                class="cover-image"
-            />
+        <figure
+            class="cover"
+            :class="{
+                transparent:config?.coverAsBackground || false
+            }"
+            :style="{
+                '--background-img-pc': `url(${coverPc})`,
+                '--background-img-mb': `url(${coverMb})`,
+            }"
+        >
             <div class="cover-info">
                 <div class="center">
                     <h1
                         class="cover-title"
                         :style="{
-                            fontFamily:config?.coverTitleFont,
+                            fontFamily: config?.coverTitleFont,
                             fontSize: `${config?.coverTitleFontSize}rem`,
                         }"
                     >
@@ -56,16 +67,30 @@ onMounted(() => {
     </div>
 </template>
 
-<style scoped>
+<style>
+body {
+    background-image: url("https://files.nicocat.cc/wp-content/uploads/2024/10/1729668103-433.webp");
+}
+</style>
+
+<style lang="scss" scoped>
 .homepage-cover,
 .cover,
-.cover-image,
 .cover-info {
     height: 100dvh;
     width: 100dvw;
 }
-.cover-image {
-    object-fit: cover;
+.cover {
+    background: var(--background-img-pc);
+    background-size: cover;
+}
+@media (max-width: 860px) {
+    .cover {
+        background: var(--background-img-mb);
+    }
+}
+.cover.transparent {
+    background: transparent;
 }
 .cover-info {
     position: absolute;
@@ -90,7 +115,7 @@ onMounted(() => {
 }
 </style>
 
-<style>
+<style scoped>
 .cover-info .socials {
     width: 65%;
     padding: 1rem;

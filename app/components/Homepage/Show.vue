@@ -18,9 +18,10 @@ const list = themeConfig.value?.showAreaContent;
             >
                 <div class="card-image">
                     <NuxtPicture
+                    class="nuxtpic"
                         format="webp"
                         :quality="100"
-                        :alt="'image'"
+                        :alt="'showcard-image'"
                         :src="item?.imageUrl"
                         loading="lazy"
                     />
@@ -98,12 +99,10 @@ const list = themeConfig.value?.showAreaContent;
 
     position: absolute;
 }
-.card-image picture,
-.card-image :deep(img) {
+.card-image .nuxtpic {
     display: block;
     height: 100%;
     width: 100%;
-    object-fit: cover;
 }
 .card-info {
     width: 100%;

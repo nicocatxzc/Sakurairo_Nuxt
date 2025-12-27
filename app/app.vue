@@ -49,7 +49,7 @@ onMounted(() => {
     </NuxtLayout>
 </template>
 
-<style>
+<style lang="scss">
 html {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
         "Microsoft YaHei", Roboto, Ubuntu, "Helvetica Neue", Arial, sans-serif;
@@ -86,6 +86,8 @@ html {
     }
 
     body {
+        height: 100dvh;
+        width: 100dvw;
         margin: 0;
         text-shadow: 0 0 0.06rem rgba(0, 0, 0, 0.1);
         color: var(--word-color-first, #505050);
@@ -95,7 +97,6 @@ html {
         background-position: center;
         scrollbar-width: 6px;
         font-weight: var(--global-font-weight);
-        background-image: url("https://files.nicocat.cc/wp-content/uploads/2024/10/1729668103-433.webp");
     }
 
     a {
@@ -156,6 +157,14 @@ html {
         border: 0;
         height: auto;
         max-width: 100%;
+    }
+    .nuxtpic {
+        display: block;
+        img {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+        }
     }
 }
 </style>

@@ -34,7 +34,6 @@ useHead({
 
 <template>
     <div>
-        <HomepageCover />
         <ContentContainer>
             <h2 class="block-title">展栏</h2>
             <HomepageShow />
