@@ -1,5 +1,5 @@
 <script setup>
-import { useScrollStore } from "@/stores/progress";
+import { useScrollStore } from "~/stores/progress";
 import { useAuth } from "@/stores/auth";
 
 const authStore = useAuth();
@@ -8,10 +8,9 @@ const openLoginForm = authStore.openLoginForm;
 const themeConfig = useThemeConfig();
 const scroll = useScrollStore();
 
-const headerBg = computed(() => {
-    console.log(scroll.direction)
-    return scroll.progress >= 5 || scroll.direction == `down`;
-});
+const headerBg = computed(
+    () => scroll.progress >= 5 || scroll.direction == `down`
+);
 
 const menuRef = useTemplateRef("menu");
 const activeSubMenu = ref(null);
@@ -66,7 +65,6 @@ const convertWpUrl = (wpUrl) => {
         return wpUrl;
     }
 };
-
 </script>
 
 <template>

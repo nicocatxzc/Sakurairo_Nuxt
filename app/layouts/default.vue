@@ -1,4 +1,9 @@
-<script setup></script>
+<script setup>
+const headerKey = ref(0) // 在父级使用key重建容易水合失败的组件，防止失联
+onMounted(()=>{
+    headerKey.value=1
+})
+</script>
 
 <template>
     <div class="background">
@@ -6,8 +11,8 @@
         <ClientOnly>
             <ProgressBar class="progress-bar" />
         </ClientOnly>
-        <NavBar class="nav-bar" />
-        <NavBarMobile class="nav-bar-mobile" />
+            <NavBar :key="headerKey" class="nav-bar" />
+            <NavBarMobile :key="headerKey" class="nav-bar-mobile" />
         <slot class="layout-slot" />
         <SiteFooter class="site-footer" />
         <ClientOnly>
