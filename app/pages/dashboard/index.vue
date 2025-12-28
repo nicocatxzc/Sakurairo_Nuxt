@@ -25,7 +25,7 @@ const postPreviewConfig = useDebounceFn(() => {
 onMounted(() => {
     Object.assign(
         themeConfig.tempConfig,
-        structuredClone(toRaw(themeConfig.config))
+        JSON.parse(JSON.stringify(toRaw(themeConfig.config)))
     );
     const stopwatch = watch(
         () => themeConfig.tempConfig,
