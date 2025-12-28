@@ -130,7 +130,7 @@ function collpase() {
         <div class="site-branding flex-center">
             <NuxtPicture
             class="nuxtpic flex-center"
-                :src="`https://nicocat.cc/wp-content/uploads/2025/11/avatar.png`"
+                :src="themeConfig?.navLogo || ''"
                 alt="site logo"
             />
             <NuxtLink :to="'/'">

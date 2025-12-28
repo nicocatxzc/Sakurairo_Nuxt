@@ -76,7 +76,7 @@ const convertWpUrl = (wpUrl) => {
     >
         <div class="site-branding flex-center">
             <NuxtImg
-                :src="`https://nicocat.cc/wp-content/uploads/2025/11/avatar.png`"
+                :src="themeConfig?.navLogo || ''"
                 alt="site logo"
             />
             <NuxtLink :to="'/'">
