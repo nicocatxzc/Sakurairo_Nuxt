@@ -4,9 +4,10 @@
     "private": true,
     "scripts": {
         "build": "nuxt build",
+        "build:linux": "cross-env npm_config_platform=linux npm_config_arch=x64 pnpm run build",
         "dev": "nuxt dev",
         "generate": "nuxt generate",
-        "preview": "nuxt build && nuxt preview",
+        "preview": "nuxt preview",
         "postinstall": "nuxt prepare"
     },
     "dependencies": {
