@@ -1,3 +1,5 @@
+import getSitemap from "../utils/sitemap/getSitemap";
+
 export default defineEventHandler(async (event) => {
     const url = getRequestURL(event);
     const pathname = url.pathname;
@@ -19,10 +21,11 @@ export default defineEventHandler(async (event) => {
     }
 
     // sitemap
-    if (pathname === "/sitemap.xml") {
-        const wpUrl = "/sitemap.xml" + url.search;
-        const res = await useWP.get(wpUrl);
+    if (pathname.startsWith("/sitemap")) {
+        // const wpUrl = pathname + url.search;
+        // const res = await useWP.get(wpUrl);
+        const sitemap = await getSitemap(pathname,event)
         setHeader(event, "Content-Type", "application/xml");
-        return res.data;
+        return sitemap;
     }
 });
