@@ -12,12 +12,21 @@
 - 登录支持
 - 内建验证码支持
 - 可视化设置支持
+- 站点地图
+- IPX图像优化
 
 ## 如何使用
 
 你需要为你的WordPress安装该插件:[hachimi_rest](https://github.com/nicocatxzc/hachimi_rest)
 
 然后编辑项目中的.env.example,将其中的配置项改为你的WordPress连接信息,并保存为.env
+或者随后在你的运行环境添加以下变量,其中对应的值换成你自己的站点连接信息,管理员名称,以及管理员的应用程序密码:
+
+```env
+NUXT_WORDPRESS_URL="https://your.wordpress.site/"
+NUXT_WORDPRESS_USER_NAME="administrator"
+NUXT_WORDPRESS_AUTH_TOKEN="yourAdminToken"
+```
 
 你可以在WordPress后台的编辑个人资料页面的底部找到应用程序密码设置,你可以在这里创建一个应用程序密码
 
