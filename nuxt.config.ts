@@ -1,19 +1,16 @@
 import { randomBytes } from "crypto";
 
-let wordpressURL = process.env.wordpressURL as string;
-
 const captchaSecret = randomBytes(32).toString("hex");
 const commSecret = randomBytes(32).toString("hex");
 console.log("验证码种子", captchaSecret);
 console.log("通用种子", commSecret);
-const WPendpoint = new URL(wordpressURL).host;
 
 export default defineNuxtConfig({
     compatibilityDate: "2025-07-15",
     devtools: { enabled: true },
     runtimeConfig: {
         // 私有配置
-        wordpressURL: wordpressURL,
+        wordpressURL: process.env.wordpressURL,
         wordpressUserName: process.env.wordpressUserName,
         wordpressAuthToken: process.env.wordpressAuthToken,
 
@@ -30,11 +27,11 @@ export default defineNuxtConfig({
         inject: true,
         format: ["webp"],
         quality: 100,
-        providers:{
-            'hachimi':{
-                provider:'~/providers/hachimi'
-            }
-        }
+        providers: {
+            hachimi: {
+                provider: "~/providers/hachimi",
+            },
+        },
     },
     formkit: {
         autoImport: true,
