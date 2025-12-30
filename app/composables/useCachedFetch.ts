@@ -44,7 +44,7 @@ export function useCachedFetch<T>(
         return useAsyncData<T>(
             `Async-${key}`,
             async () => {
-                try {
+                // try {
                     if (!refresh && state.value) return state.value;
                     const data = await $fetch<T>(url, fetchOptions);
                     if (!data || data?.type == "404") {
@@ -55,9 +55,9 @@ export function useCachedFetch<T>(
                     }
                     state.value = data;
                     return data;
-                } catch (err) {
-                    throw err;
-                }
+                // } catch (err) {
+                //     throw err;
+                // }
             },
             action
         );

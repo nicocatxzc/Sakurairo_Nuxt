@@ -30,7 +30,8 @@ onMounted(() => {
             show: showBackground,
         }"
     />
-    <AuthLogin />
+    <AuthLogin class="form login-form"/>
+    <SearchModel class="form search-form"/>
 </template>
 
 <style scoped>
@@ -48,5 +49,8 @@ onMounted(() => {
     visibility: visible;
     backdrop-filter: blur(0.5rem);
     z-index: 10;
+}
+.form {
+    z-index: 12;
 }
 </style>

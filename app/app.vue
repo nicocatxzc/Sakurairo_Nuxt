@@ -141,6 +141,7 @@ html {
     ol {
         padding-inline-start: unset;
         list-style-position: inside;
+        margin: 0;
     }
 
     dialog {
