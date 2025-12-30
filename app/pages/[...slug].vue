@@ -42,10 +42,11 @@ if (page.value.type === "static" && page.value.file_path) {
         // SSR 环境
         const event = useRequestEvent();
         event.node.res.writeHead(302, { Location: staticUrl });
-        event.node.res.end()
+        event.node.res.end();
     } else {
         // 客户端，打开新标签页
         window.open(staticUrl, "_blank");
+        window.history.back();
     }
 }
 

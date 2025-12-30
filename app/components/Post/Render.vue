@@ -4,6 +4,7 @@
         :components-map="componentsMap"
         container-tag="article"
     />
+    <NuxtLink to=""></NuxtLink>
 </template>
 
 <script setup>
@@ -16,12 +17,6 @@ const { html } = defineProps({
 });
 
 const htmlContent = html ? html : "";
-
-// swiper占位
-const SwiperGallery = {
-    props: ["node"],
-    template: `<div style="border:1px dashed #555;padding:6px">[Swiper placeholder] <slot/></div>`,
-};
 
 const ShortcodeRenderer = {
     props: ["node", "attrs", "inner"],
@@ -83,23 +78,42 @@ const componentsMap = {
             return {
                 code: codeText,
                 lang: detectedLang,
-                ...node.attrs
+                ...node.attrs,
             };
         },
     },
 
-    // 图库
-    gallery: {
+    // 链接
+    alink: {
         conditions(node) {
             return (
                 node.type === "tag" &&
-                node.name === "div" &&
-                (node.attrs?.class || "").includes("wp-block-gallery")
+                node.name === "a" &&
+                typeof node.attrs?.href === "string" &&
+                node.attrs.href.startsWith("/")
             );
         },
-        component: SwiperGallery,
+        component: "a",
         propsMapper(node) {
-            return { node };
+            return {
+                href: node.attrs.href,
+                onClick: (e) => {
+                    // 修饰键 / 新标签 / 右键菜单，全部放行
+                    if (
+                        e.defaultPrevented ||
+                        e.metaKey ||
+                        e.ctrlKey ||
+                        e.shiftKey ||
+                        e.altKey ||
+                        e.button !== 0
+                    ) {
+                        return;
+                    }
+
+                    e.preventDefault();
+                    navigateTo(node.attrs.href);
+                },
+            };
         },
     },
 
