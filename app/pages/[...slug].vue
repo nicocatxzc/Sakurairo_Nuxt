@@ -35,6 +35,20 @@ let page = computed(() => {
     return { ...data.value, canonical };
 });
 
+if (page.value.type === "static" && page.value.file_path) {
+    const staticUrl = "/static/" + page.value.file_path.replace(/^\/+/, "");
+
+    if (import.meta.server) {
+        // SSR 环境
+        const event = useRequestEvent();
+        event.node.res.writeHead(302, { Location: staticUrl });
+        event.node.res.end()
+    } else {
+        // 客户端，打开新标签页
+        window.open(staticUrl, "_blank");
+    }
+}
+
 // 准备SEO信息和头部样式
 useHead({
     meta: [

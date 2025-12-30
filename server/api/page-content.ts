@@ -68,8 +68,8 @@ export default defineEventHandler(async (event) => {
                 //     content:content.data.posts
                 // }
                 break;
-            case "single": // 获取文章内容
-            {
+            case "single": {
+                // 获取文章内容
                 content = await $fetch("/api/content/post", {
                     query: {
                         id: page.id,
@@ -85,8 +85,8 @@ export default defineEventHandler(async (event) => {
                 };
             }
 
-            case "page": // 获取页面内容
-            {
+            case "page": {
+                // 获取页面内容
                 content = await $fetch("/api/content/page", {
                     query: {
                         id: page.id,
@@ -101,6 +101,14 @@ export default defineEventHandler(async (event) => {
                     styles,
                 };
             }
+
+            case "static": {
+                // 静态文件
+                return {
+                    ...page,
+                };
+            }
+
             case "404":
                 // 404无信息
                 return page;

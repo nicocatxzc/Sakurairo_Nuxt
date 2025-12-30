@@ -39,6 +39,26 @@ export default defineEventHandler(async (event) => {
         });
     }
 
+    // 代理静态文件
+    if (pathname.startsWith("/static/")) {
+        // 屏蔽危险路径
+        const blacklist = ["/wp-json", "/graphql", "/wp-admin"];
+        if (blacklist.some((p) => pathname.startsWith(p))) return;
+
+        // 只代理带后缀名的文件
+        if (!/\.[a-zA-Z0-9]+$/.test(pathname) || pathname.endsWith(".php")) {
+            return;
+        }
+
+        // 代理到 WordPress 根目录
+        const target =
+            nuxtconfig.wordpressURL +
+            "/" +
+            pathname.replace(/^\/static\//, "") +
+            url.search;
+        return proxyRequest(event, target);
+    }
+
     // sitemap
     if (pathname.startsWith("/sitemap")) {
         // const wpUrl = pathname + url.search;
