@@ -8,6 +8,7 @@ export default function replaceDomain(input: string | object) {
         result = result.replaceAll(`${wpUrl}/wp-includes`, "/includes");
         result = result.replaceAll(`${wpUrl}/wp-content`, "/content");
         result = result.replaceAll(`${wpUrl}/sitemap`, "/sitemap");
+        result = result.replaceAll(`${wpUrl}/`,"/");
         return result;
     };
 

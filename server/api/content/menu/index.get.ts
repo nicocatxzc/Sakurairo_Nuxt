@@ -1,7 +1,8 @@
 export default defineEventHandler(async (event) => {
     try {
         let res = await useWP.get("/wp-json/hachimi/v1/navigation");
-        return res.data;
+        res = replaceWP(res.data)
+        return res;
     } catch (error) {
         throw createError({
             statusCode: 500,

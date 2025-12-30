@@ -56,16 +56,6 @@ const { data: menuData } = await useCachedFetch("navbar", "/api/content/menu");
 const menuItems = computed(() =>
     Array.isArray(menuData.value) ? menuData.value : []
 );
-
-// 转换为相对链接
-const convertWpUrl = (wpUrl) => {
-    try {
-        const url = new URL(wpUrl);
-        return url.pathname;
-    } catch {
-        return wpUrl;
-    }
-};
 </script>
 
 <template>
@@ -109,7 +99,7 @@ const convertWpUrl = (wpUrl) => {
                                 margin: `0 ${themeConfig?.navbarOptionMargin}px`,
                             }"
                         >
-                            <NuxtLink :to="convertWpUrl(item.url)">
+                            <NuxtLink :to="item.url">
                                 {{ item.title }}
                             </NuxtLink>
 
@@ -120,7 +110,7 @@ const convertWpUrl = (wpUrl) => {
                                     :index="child.id + ''"
                                     class="flex-center"
                                 >
-                                    <NuxtLink :to="convertWpUrl(child.url)">
+                                    <NuxtLink :to="child.url">
                                         {{ child.title }}
                                     </NuxtLink>
                                 </li>
@@ -128,7 +118,7 @@ const convertWpUrl = (wpUrl) => {
                         </li>
 
                         <li v-else :index="item.id + ''">
-                            <NuxtLink :to="convertWpUrl(item.url)">
+                            <NuxtLink :to="item.url">
                                 {{ item.title }}
                             </NuxtLink>
                         </li>
