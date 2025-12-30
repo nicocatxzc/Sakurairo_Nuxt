@@ -73,6 +73,7 @@ const emit = defineEmits(["reply"]);
     gap: 0.5rem;
 }
 .comment-metas {
+    align-items: start;
     flex-direction: column;
 }
 .comment-content .reply {
