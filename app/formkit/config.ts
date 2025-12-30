@@ -300,6 +300,25 @@ export default [
                 ],
             },
             {
+                key: "search",
+                title: "搜索设置",
+                schema: [
+                    {
+                        $formkit: elSwitch,
+                        name: "navbarSearch",
+                        label: "导航栏搜索按钮",
+                        value: true,
+                    },
+                    {
+                        $formkit: elSwitch,
+                        name: "liveSearchLocalIndex",
+                        label: "实时搜索功能",
+                        help:"启用本功能会发送全部文章数据到用户客户端,如果文章数据过多会严重浪费流量",
+                        value: true,
+                    },
+                ],
+            },
+            {
                 key: "others",
                 title: "其他设置",
                 schema: [

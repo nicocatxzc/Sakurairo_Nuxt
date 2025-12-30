@@ -1,5 +1,6 @@
 <script setup>
 import { Search } from "@element-plus/icons-vue";
+const config = useThemeConfig()
 const modelStore = useModelStore();
 const form = useTemplateRef("searchModel");
 const keyword = ref("");
@@ -25,6 +26,7 @@ function gotoSearch() {
 let inited = false;
 async function initData() {
     if (inited) return;
+    if (!config?.liveSearchLocalIndex) return
     localSearch = await useLocalSearch();
     inited = true;
 }

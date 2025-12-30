@@ -126,7 +126,7 @@ const menuItems = computed(() =>
                 </ul>
             </nav>
         </div>
-        <div class="button search flex-center" @click="modelStore.search = true">
+        <div v-if="themeConfig?.navbarSearch || true" class="button search flex-center" @click="modelStore.search = true">
             <Icon :name="'fa7-solid:search'" class="icon" />
         </div>
 

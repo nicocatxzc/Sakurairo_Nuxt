@@ -147,7 +147,7 @@ function collpase() {
         </div>
 
         <nav ref="menuScope" class="menu-wrapper">
-            <div class="search-form">
+            <div v-if="themeConfig?.navbarSearch || true" class="search-form">
                 <ElInput
                     v-model="searchKeyword"
                     class="search-input"
