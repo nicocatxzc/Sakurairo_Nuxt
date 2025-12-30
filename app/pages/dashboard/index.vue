@@ -20,7 +20,7 @@ const postPreviewConfig = useDebounceFn(() => {
         },
         "*"
     );
-},10);
+}, 10);
 
 onMounted(() => {
     Object.assign(
@@ -188,100 +188,130 @@ function navigateBack() {
     </ClientOnly>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 .dashboard {
     display: flex;
-    height: 100dvh;
     width: 100dvw;
+    height: 100dvh;
+    overflow: hidden;
 }
 .settings {
-    height: 100%;
-    width: 20%;
-
+    position: relative;
     display: flex;
     flex-direction: column;
-    position: relative;
 
-    background-color: whitesmoke;
-    transition: all 0.5s ease;
-}
-.settings.expand {
-    width: 100dvw;
+    width: 20dvw;
+    height: 100%;
+
+    background: whitesmoke;
+    transition: width 0.5s ease;
+
+    &.expand {
+        width: 100dvw;
+    }
 }
 .settings-info {
-    height: 4.5rem;
-    top: 0;
-    display: flex;
     position: sticky;
+    top: 0;
+    z-index: 10;
+
+    display: flex;
+    align-items: stretch;
+
+    height: 4.5rem;
+    background: inherit;
 }
-.settings-info .back {
-    height: 100%;
+.back {
     width: 3rem;
-    max-width: 3rem;
+    min-width: 3rem;
+    height: 100%;
+
+    .icon {
+        transform: scale(1.5);
+    }
 }
-.back .icon {
-    transform: scale(1.5);
+.info {
+    flex: 1;
+    padding: 0.5rem 1rem;
+
+    h2 {
+        margin: 0;
+        font-size: 1.1rem;
+    }
 }
-.settings-info .info {
-    width: 100%;
-}
-.settings-info .controls {
+.controls {
     width: 5rem;
     display: flex;
     flex-direction: column;
-}
-.controls .button {
-    width: 100%;
-    margin: 0;
-}
 
+    .button {
+        width: 100%;
+        margin: 0;
+    }
+}
 .settings-form {
     position: relative;
-    display: flex;
-    height: 100%;
-    overflow-x: hidden;
+    flex: 1;
+    overflow: hidden;
 }
 .settings-menu,
 .settings-area {
     position: absolute;
+    top: 0;
+    left: 0;
+
     width: 100%;
-    background-color: whitesmoke;
+    height: 100%;
+
     overflow: auto;
-    transition: all 0.5s ease;
+    background: whitesmoke;
+
+    transition: transform 0.5s ease, width 0.5s ease;
 }
 .settings-menu {
     transform: translateX(-100%);
+
+    &.show {
+        transform: translateX(0);
+    }
 }
 .settings-area {
+    transform: translateX(100%);
+    padding: 0;
+
+    &.show {
+        transform: translateX(0);
+        padding: 3%;
+    }
+}
+.settings.expand {
+    .settings-menu.show {
+        width: 20dvw;
+        transform: translateX(0);
+    }
+
+    .settings-area.show {
+        width: 80dvw;
+        transform: translateX(20dvw);
+    }
+}
+.preview {
+    flex: 1;
     height: 100%;
-    overflow-y: auto;
-    transform: translateX(20dvw);
-}
-.settings-menu.show,
-.settings-area.show {
-    transform: translateX(0);
-}
-.expand .settings-menu.show {
-    max-width: 20dvw;
-}
-.expand .settings-area.show {
-    transform: translateX(20dvw);
-    width: 80dvw;
-    max-width: 80dvw;
-}
-.settings-area.show {
-    padding: 3%;
+    width: 0;
+
+    border: none;
+    transition: width 0.5s ease;
+
+    &.show {
+        width: auto;
+    }
 }
 :deep(.el-collapse-item__content) {
     padding: 0;
 }
-.preview {
-    height: 100%;
-    width: 0;
-    flex: 1;
-    transition: all 0.5s ease;
-}
-.preview.show {
-    width: unset;
+:deep(.formkit-help){
+    font-size: .8rem;
+    color: grey;
 }
 </style>
