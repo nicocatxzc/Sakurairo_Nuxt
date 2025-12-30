@@ -84,7 +84,7 @@ async function initData() {
 
     flex-direction: column;
 
-    background-color: var(--widget-background-color);
+    background-color: rgba(var(--widget-background),.9);
 
     transform: scale(0.9);
     transition: all .3s ease-in-out;
