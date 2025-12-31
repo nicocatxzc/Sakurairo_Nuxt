@@ -11,6 +11,14 @@ export default defineEventHandler(async (event) => {
 
     const credentials = Buffer.from(`${username}:${token}`).toString("base64");
 
+    // 站点icon
+    if (pathname.startsWith("/favicon.ico")) {
+        const target =
+            nuxtconfig.wordpressURL + '/favicon.ico'
+
+        return proxyRequest(event, target);
+    }
+
     // 代理wp-includes
     if (pathname.startsWith("/includes/")) {
         const target =
