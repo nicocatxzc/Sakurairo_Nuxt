@@ -119,6 +119,8 @@ html {
 
     p {
         color: var(--word-color-second);
+        margin: 0;
+        padding: 0;
     }
 
     button,
