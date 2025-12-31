@@ -12,10 +12,11 @@ let { post } = defineProps({
     <article class="post-card">
         <div class="post-thumb">
             <nuxt-link :to="post.uri">
-                <nuxt-img
+                <NuxtPicture
                     :src="post.featuredImage?.node.sourceUrl"
                     :alt="`featured image for post ${post.title}`"
-                ></nuxt-img>
+                >
+            </NuxtPicture>
             </nuxt-link>
         </div>
 
