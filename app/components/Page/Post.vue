@@ -115,6 +115,7 @@ article.post {
 }
 .post-content {
     width: 100%;
+    margin-top: 1rem;
 }
 .toc {
     flex-shrink: 0;
