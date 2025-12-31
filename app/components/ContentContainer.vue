@@ -10,9 +10,11 @@
 
 <style scoped>
 .content {
+    position: relative;
     width: 100vw;
 }
 .container {
+    position: relative;
     max-width: 860px;
     width: 100%;
 }

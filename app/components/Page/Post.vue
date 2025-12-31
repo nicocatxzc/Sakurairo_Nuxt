@@ -95,6 +95,9 @@ onMounted(() => {
             <div class="post-content">
                 <PostRender v-if="post.content" :html="post.content" />
             </div>
+            <ClientOnly >
+                <PostToc class="toc" />
+            </ClientOnly>
         </ContentContainer>
     </article>
     <ContentContainer>
@@ -106,12 +109,15 @@ onMounted(() => {
     </ContentContainer>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 article.post {
     width: 100%;
 }
 .post-content {
     width: 100%;
+}
+.toc {
+    flex-shrink: 0;
 }
 </style>
 <style>

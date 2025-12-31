@@ -50,6 +50,7 @@
         "pinia-plugin-persistedstate": "^4.7.1",
         "sass-embedded": "^1.97.1",
         "svg-captcha": "^1.4.0",
+        "tocbot": "^4.36.4",
         "typed.js": "^2.1.0",
         "vue": "^3.5.26",
         "vue-color": "^3.3.3",

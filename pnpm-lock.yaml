@@ -125,6 +125,9 @@ importers:
       svg-captcha:
         specifier: ^1.4.0
         version: 1.4.0
+      tocbot:
+        specifier: ^4.36.4
+        version: 4.36.4
       typed.js:
         specifier: ^2.1.0
         version: 2.1.0
@@ -4962,6 +4965,9 @@ packages:
   to-valid-identifier@1.0.0:
     resolution: {integrity: sha512-41wJyvKep3yT2tyPqX/4blcfybknGB4D+oETKLs7Q76UiPqRpUJK3hr1nxelyYO0PHKVzJwlu0aCeEAsGI6rpw==}
     engines: {node: '>=20'}
+
+  tocbot@4.36.4:
+    resolution: {integrity: sha512-ffznkKnZ1NdghwR1y8hN6W7kjn4FwcXq32Z1mn35gA7jd8dt2cTVAwL3d0BXXZGPu0Hd0evverUvcYAb/7vn0g==}
 
   toidentifier@1.0.1:
     resolution: {integrity: sha512-o5sSPKEkg/DIQNmH43V0/uerLrpzVedkUh8tGNvaeXpfpuwjKenlSox/2O/BTlZUtEe+JG7s5YhEz608PlAHRA==}
@@ -10915,6 +10921,8 @@ snapshots:
     dependencies:
       '@sindresorhus/base62': 1.0.0
       reserved-identifiers: 1.2.0
+
+  tocbot@4.36.4: {}
 
   toidentifier@1.0.1: {}
 
