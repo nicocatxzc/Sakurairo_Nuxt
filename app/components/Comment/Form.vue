@@ -27,7 +27,7 @@ onMounted(() => {
         () => reply,
         () => {
             replyTarget.value = reply;
-            if(reply?.id) {
+            if (reply?.id) {
                 form.value.scrollIntoView();
             }
         }
@@ -112,14 +112,15 @@ async function submit() {
                     取消回复?</a
                 >
             </span>
-            <textarea
-                v-model="comment"
-                name="comment"
-                rows="5"
-                tabindex="4"
-                placeholder="要来留个评论吗?"
-                class="comment-input"
-            />
+            <div class="comment-input">
+                <textarea
+                    v-model="comment"
+                    name="comment"
+                    rows="5"
+                    tabindex="4"
+                /><span class="placeholder">要来留个评论吗?</span>
+            </div>
+
             <div v-if="!auth.user?.role" class="infos">
                 <ElAvatar size="default" class="avatar">
                     <NuxtImg alt="navbar avatar" :src="avatar" />
@@ -146,7 +147,7 @@ async function submit() {
                     class="input link"
                 />
             </div>
-            <div class="checks"><AuthCaptcha class="captcha"/></div>
+            <div class="checks"><AuthCaptcha class="captcha" /></div>
             <div class="functions">
                 <button type="submit" class="submit">留言</button>
             </div>
@@ -154,7 +155,7 @@ async function submit() {
     </div>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 .comment-form,
 .comment-form * {
     transition: all 0.4s ease-in-out;
@@ -171,75 +172,98 @@ async function submit() {
 
     border-radius: 1rem;
     will-change: box-shadow;
-}
-.comment-form:hover {
-    box-shadow: 0 0.1rem 0.6rem -0.2rem var(--active-color);
-}
-#comment-form {
-    display: flex;
-    width: 100%;
-    flex-direction: column;
-}
-.reply-target {
-    color: var(--active-color);
-}
-.comment-input {
-    font-size: 0.9rem;
+    &:hover {
+        box-shadow: 0 0.1rem 0.6rem -0.2rem var(--active-color);
+    }
+    #comment-form {
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+    }
+    .reply-target {
+        color: var(--active-color);
+    }
+    .comment-input {
+        height: 10rem;
+        margin-bottom: 1rem;
+        position: relative;
 
-    background-color: rgba(var(--widget-background), 0.5);
+        textarea {
+            font-size: 0.9rem;
+            width: 100%;
+            height: 100% !important;
 
-    border-radius: 0.6rem;
-    border: var(--border-shine);
-    box-shadow: var(--widget-shadow-shine);
-    padding: 1.2rem;
-    height: 10rem;
-    margin-bottom: 1.2rem;
-    resize: vertical;
+            background-color: rgba(var(--widget-background), 0.5);
 
-    outline: none;
-}
-.comment-input:focus {
-    border: var(--border-sketch);
-}
-.infos {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 2em;
-}
-.infos .input {
-    width: 25%;
-    padding: 0.5rem;
-    outline: none;
-    border: var(--border-shine);
-}
-.infos .input:focus {
-    border: var(--border-sketch);
-}
-.checks .captcha {
-    max-width: 20rem;
-}
-.functions {
-    display: flex;
-    flex-flow: row-reverse;
-}
-.functions .submit {
-    font-size: 1rem;
-    width: 30%;
-    max-width: 8.5rem;
-    height: 2.8rem;
-    margin: 0;
-    padding: 0.6rem 1.25rem;
+            border-radius: 0.6rem;
+            border: var(--border-shine);
+            box-shadow: var(--widget-shadow-shine);
+            padding: 1.2rem;
 
-    color: rgb(var(--widget-background));
-    background: var(--active-color);
+            margin-bottom: 1.2rem;
+            resize: vertical;
 
-    border: 0.1rem solid var(--active-color);
-    border-radius: 0.6rem;
-    will-change: color background-color;
-}
-.functions .submit:hover {
-    color: var(--active-color);
-    background-color: rgb(var(--widget-background));
+            outline: none;
+            &:focus {
+                border: var(--border-sketch);
+            }
+        }
+        .placeholder {
+            padding: .2rem;
+            position: absolute;
+            left: 1rem;
+            top: .8rem;
+        }
+        textarea:focus ~ .placeholder {
+            color: #fff;
+            background-color: var(--word-color-second);
+            transform: scale(0.75) translate(-1rem, -2.2rem);
+            border-radius: 3px;
+        }
+    }
+    .infos {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 2em;
+        .input {
+            width: 25%;
+            padding: 0.5rem;
+            outline: none;
+            border: var(--border-shine);
+            &:focus {
+                border: var(--border-sketch);
+            }
+        }
+    }
+    .checks {
+        .captcha {
+            max-width: 20rem;
+        }
+    }
+
+    .functions {
+        display: flex;
+        flex-flow: row-reverse;
+        .submit {
+            font-size: 1rem;
+            width: 30%;
+            max-width: 8.5rem;
+            height: 2.8rem;
+            margin: 0;
+            padding: 0.6rem 1.25rem;
+
+            color: rgb(var(--widget-background));
+            background: var(--active-color);
+
+            border: 0.1rem solid var(--active-color);
+            border-radius: 0.6rem;
+            will-change: color background-color;
+        }
+        .submit:hover {
+            color: var(--active-color);
+            background-color: rgb(var(--widget-background));
+        }
+    }
 }
 </style>
