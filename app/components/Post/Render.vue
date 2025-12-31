@@ -9,6 +9,7 @@
 
 <script setup>
 import CodeHighlight from "@/components/CodeHighlight.vue";
+import TemplateFriendLink from "@/components/Template/FriendLink.vue";
 const { html } = defineProps({
     html: {
         type: String,
@@ -32,16 +33,6 @@ function mapSrcsetToIPX(srcset) {
         })
         .join(", ");
 }
-
-const ShortcodeRenderer = {
-    props: ["node", "attrs", "inner"],
-    template: `<div style="border:1px solid #aaa;padding:6px">
-    <strong>Shortcode:</strong>
-    <div>attrs: {{ attrs }}</div>
-    <div>inner: {{ inner }}</div>
-    <slot/>
-  </div>`,
-};
 
 /* componentsMap 规则：
  - conditions(node): 判断是否匹配
@@ -197,26 +188,18 @@ const componentsMap = {
         },
     },
 
-    // 短代码解析
-    shortcode: {
+    // 友链模板
+    friendlink: {
         conditions(node) {
-            return (
-                node.type === "text" &&
-                node.text &&
-                node.text.includes("[shortcode")
-            );
+            if (!(node.type === "tag" && node.name === "div")) return false;
+            if (node.attrs.id == "hachimi-friend-link") return true;
+            return false;
         },
-        component: ShortcodeRenderer,
+        component: TemplateFriendLink,
         propsMapper(node) {
-            const m = node.text.match(
-                /\[shortcode\s*([^\]]*)\](.*?)\[\/shortcode\]/s
-            );
-            if (!m) return { node, attrs: {}, inner: node.text };
-            const rawAttrs = m[1] || "";
-            const inner = m[2] || "";
-            const attrs = {};
-            rawAttrs.replace(/(\w+)="([^"]*)"/g, (_, k, v) => (attrs[k] = v));
-            return { node, attrs, inner };
+            return {
+                ...node.attrs,
+            };
         },
     },
 };
