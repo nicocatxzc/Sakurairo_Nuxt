@@ -32,10 +32,21 @@ const post = computed(() => props?.post);
     </div>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 .page-header {
+    height: 25rem;
     position: relative;
     overflow: hidden;
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(#fff0, #00000080);
+        backdrop-filter: saturate(150%) blur(1px);
+    }
 }
 .feature-image {
     width: 100vw;
