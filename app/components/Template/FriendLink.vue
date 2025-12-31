@@ -43,7 +43,7 @@ const categories = computed(() => {
                 v-for="(category, index) in categories"
                 :key="category?.id ?? index"
             >
-                <h3 class="category-title">{{ category.name }}</h3>
+                <h3 :id="category?.name" class="category-title">{{ category?.name }}</h3>
                 <div
                     v-if="category.links.length"
                     :key="category.id"
