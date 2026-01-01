@@ -39,7 +39,7 @@ onMounted(() => {
 <style lang="scss">
 .toc-container {
     position: absolute;
-    top: 20rem;
+    top: 20%;
     height: 100%;
     width: 12rem;
     left: calc(100% + .5rem);
