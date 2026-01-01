@@ -123,7 +123,7 @@ async function submit() {
 
             <div v-if="!auth.user?.role" class="infos">
                 <ElAvatar size="default" class="avatar">
-                    <NuxtImg alt="navbar avatar" :src="avatar" />
+                    <NuxtPicture alt="navbar avatar" :src="avatar" class="nuxtpic"/>
                 </ElAvatar>
                 <input
                     v-model="name"

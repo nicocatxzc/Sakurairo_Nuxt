@@ -10,9 +10,9 @@ const post = computed(() => props?.post);
 
 <template>
     <div v-if="post" class="page-header">
-        <NuxtImg
+        <NuxtPicture
             :src="post.featuredImage?.node.sourceUrl"
-            class="feature-image"
+            class="feature-image nuxtpic"
         />
         <header class="post-header">
             <h1 class="post-title">{{ post?.title }}</h1>

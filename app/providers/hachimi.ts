@@ -90,6 +90,7 @@ export default defineProvider<Partial<IPXOptions>>({
         };
 
         modifiers = { ...defaultModifiers, ...modifiers };
+        if (!modifiers.format) modifiers.format = "webp";
 
         if (modifiers.width && modifiers.height) {
             modifiers.resize = `${modifiers.width}x${modifiers.height}`;

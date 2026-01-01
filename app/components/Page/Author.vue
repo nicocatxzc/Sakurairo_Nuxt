@@ -33,9 +33,9 @@ let postList = computed(() => {
 
 // 准备SEO信息
 useHead({
-    title:`作者:${author.value}`,
+    title:`作者:${author.value?.name}`,
     meta: [
-        { property: "og:title", content: `作者:${author.value}` },
+        { property: "og:title", content: `作者:${author.value?.name}` },
         { property: "og:image", content: author.value.avatar?.url_300 },
         { property: "og:type", content: 'profile' },
     ]
@@ -50,9 +50,10 @@ useHead({
                     class="author-avatar"
                     :style="{ '--post-count': `'${author.post_count}'` }"
                 >
-                    <NuxtImg
+                    <NuxtPicture
                         :src="author.avatar?.url_150"
                         :alt="`avatar of ${author.name}`"
+                        class="nuxtpic"
                     />
                 </ElAvatar>
                 <div class="author-desc">
@@ -97,8 +98,9 @@ useHead({
     top: -2.5rem;
     overflow: visible;
 }
-.author-avatar img {
+.author-avatar :deep(.nuxtpic) {
     border-radius: 50%;
+    overflow: hidden;
 }
 .author-avatar::after {
     content: var(--post-count) "🖊";

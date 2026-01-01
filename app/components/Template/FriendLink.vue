@@ -1,4 +1,5 @@
 <script setup>
+const config = useThemeConfig();
 const res = await useCachedFetch("friend-link", "/api/content/links");
 const linksData = res.data.value;
 
@@ -43,7 +44,9 @@ const categories = computed(() => {
                 v-for="(category, index) in categories"
                 :key="category?.id ?? index"
             >
-                <h3 :id="category?.name" class="category-title">{{ category?.name }}</h3>
+                <h3 :id="category?.name" class="category-title">
+                    {{ category?.name }}
+                </h3>
                 <div
                     v-if="category.links.length"
                     :key="category.id"
@@ -61,8 +64,9 @@ const categories = computed(() => {
                             class="link-content flex-center"
                         >
                             <ElAvatar class="avatar">
-                                <img
+                                <NuxtImg
                                     v-if="link.image"
+                                    :placeholder="config?.missingAvatarPlaceholder ?? ''"
                                     :src="link.image"
                                     alt=""
                                 />
@@ -96,7 +100,7 @@ const categories = computed(() => {
         border-radius: 0.5rem;
         border: var(--border-shine);
         background-color: rgba(var(--widget-background), 0.5);
-        transition: all .5s ease-in-out;
+        transition: all 0.5s ease-in-out;
     }
 }
 .link-content {
@@ -106,16 +110,16 @@ const categories = computed(() => {
         height: 6rem;
         box-shadow: var(--widget-shadow-shadow);
         transform: rotate(0);
-        transition: transform .5s ease-in-out;
+        transition: transform 0.5s ease-in-out;
     }
-    .name{
+    .name {
         font-size: 1.25rem;
-        margin-top: .5rem;
+        margin-top: 0.5rem;
         display: block;
         max-width: calc(100% - 1rem);
     }
     .desc {
-        font-size: .8rem;
+        font-size: 0.8rem;
         max-width: 100%;
         display: block;
         white-space: nowrap;

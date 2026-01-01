@@ -204,9 +204,10 @@ function collpase() {
                 <div class="user-menu-container">
                     <div class="user-menu flex-center">
                         <ElAvatar size="default" class="avatar">
-                            <NuxtImg
+                            <NuxtPicture
                                 :src="getUserAvatar(user?.avatar)"
                                 alt="navbar avatar"
+                                class="nuxtpic"
                             />
                         </ElAvatar>
                         <div class="user-info">

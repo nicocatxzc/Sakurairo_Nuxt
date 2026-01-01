@@ -67,6 +67,7 @@ const menuItems = computed(() =>
     >
         <div class="site-branding flex-center">
             <NuxtPicture
+                :placeholder="themeConfig?.missingImgPlaceholder ?? ''"
                 :src="themeConfig?.navLogo || ''"
                 alt="site logo"
                 class="nuxtpic"
@@ -126,16 +127,24 @@ const menuItems = computed(() =>
                 </ul>
             </nav>
         </div>
-        <div v-if="themeConfig?.navbarSearch || true" class="button search flex-center" @click="modelStore.search = true">
+        <div
+            v-if="themeConfig?.navbarSearch || true"
+            class="button search flex-center"
+            @click="modelStore.search = true"
+        >
             <Icon :name="'fa7-solid:search'" class="icon" />
         </div>
 
         <ClientOnly>
             <div class="user">
                 <ElAvatar size="default" class="avatar">
-                    <NuxtImg
+                    <NuxtPicture
+                        :placeholder="
+                            themeConfig?.missingAvatarPlaceholder ?? ''
+                        "
                         :src="getUserAvatar(user?.avatar)"
                         alt="navbar avatar"
+                        class="nuxtpic"
                     />
                 </ElAvatar>
                 <div class="user-menu">
@@ -331,8 +340,9 @@ li .sub-menu a {
     border-radius: 0.5rem;
     border: 0.15rem solid transparent;
     cursor: pointer;
-    & , * {
-        transition: all .3s ease-in-out;
+    &,
+    * {
+        transition: all 0.3s ease-in-out;
     }
     .icon {
         background-color: var(--word-color-first);

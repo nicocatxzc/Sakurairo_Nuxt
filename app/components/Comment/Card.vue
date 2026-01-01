@@ -25,9 +25,10 @@ const emit = defineEmits(["reply"]);
             </button>
             <section class="comment-infos">
                 <ElAvatar size="default" class="author-avatar">
-                    <NuxtImg
+                    <NuxtPicture
                         alt="comment author avatar"
                         :src="comment.author.node.avatar?.url"
+                        class="nuxtpic"
                     />
                 </ElAvatar>
                 <div class="comment-metas flex-center">

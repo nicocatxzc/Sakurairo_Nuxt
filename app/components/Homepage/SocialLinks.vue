@@ -105,7 +105,7 @@ class Pager {
                 }"
             >
                 <a :href="item?.linkUrl || '/'" target='_blank'>
-                    <NuxtImg :src="item?.iconUrl" class="social-img" />
+                    <NuxtPicture :src="item?.iconUrl" class="social-img nuxtpic" />
                 </a>
             </div>
         </div>
