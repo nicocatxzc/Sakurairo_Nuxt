@@ -1,19 +1,30 @@
 <script setup>
 const config = useThemeConfig();
 const res = await useCachedFetch("friend-link", "/api/content/links");
-const linksData = res.data.value;
+let linksData = ref(res.data.value ?? {});
+onMounted(async()=>{
+    console.log(linksData.value)
+    if(!linksData.value?.categories) {
+        console.log("重新拉取")
+        const {data,promise} = await useCachedFetch("friend-link", "/api/content/links",{
+            promise:true
+        });
+        await promise;
+        linksData.value = data.value;
+    }
+})
 
 const categories = computed(() => {
-    if (!linksData?.categories || !linksData?.links) return [];
+    if (!linksData.value?.categories || !linksData.value?.links) return [];
 
     // 构建分类映射表
     const categoryMap = {};
-    linksData.categories.forEach((cat) => {
+    linksData.value.categories.forEach((cat) => {
         categoryMap[cat.id] = { ...cat, links: [] };
     });
 
     // 将链接快速分配到对应分类
-    linksData.links.forEach((link) => {
+    linksData.value.links.forEach((link) => {
         link.category_ids.forEach((catId) => {
             if (categoryMap[catId]) {
                 categoryMap[catId].links.push(link);
