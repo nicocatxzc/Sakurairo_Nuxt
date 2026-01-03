@@ -559,8 +559,15 @@ export default [
                     },
 
                     {
+                        $formkit: elSwitch,
+                        name: "coverTypedjs",
+                        label: "封面打字机特效",
+                        value: false,
+                    },
+
+                    {
                         $formkit: CodeEditor,
-                        name: "typedjs",
+                        name: "coverTypedjsConfig",
                         label: "封面打字机配置",
                         /*javascript*/
                         value: `{

@@ -14,13 +14,17 @@ const typedRef = useTemplateRef("typedRef");
 onMounted(() => {
     let typed;
     try {
-        typed = new Typed(typedRef.value, JSON.parse(config.value.typedjs));
+        if(config.value?.coverTypedjs) {
+            typed = new Typed(typedRef.value, JSON.parse(config.value?.coverTypedjsConfig));
+        }
     } catch (e) {
         ElMessage.error(`typedjs初始化失败,错误详情${e}`);
     }
 
     onUnmounted(() => {
-        typed.destroy();
+        if(typed?.destroy()) {
+            typed.destroy();
+        }
     });
 });
 </script>
@@ -49,7 +53,7 @@ onMounted(() => {
                         {{ config?.coverTitle }}
                     </h1>
                     <div class="socials">
-                        <div class="typed-container">
+                        <div v-if="config?.coverTypedjs ?? false" class="typed-container">
                             <Icon :name="'fa7-solid:quote-left'" />
                             <span ref="typedRef" class="typed" />
                             <Icon :name="'fa7-solid:quote-right'" />
