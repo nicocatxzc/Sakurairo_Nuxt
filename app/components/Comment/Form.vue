@@ -118,7 +118,7 @@ async function submit() {
                     name="comment"
                     rows="5"
                     tabindex="4"
-                /><span class="placeholder">要来留个评论吗?</span>
+                /><span class="placeholder">{{config?.commentInputPlaceHolder ?? '要来留个评论吗?'}}</span>
             </div>
 
             <div v-if="!auth.user?.role" class="infos">
@@ -149,7 +149,7 @@ async function submit() {
             </div>
             <div class="checks"><AuthCaptcha class="captcha" /></div>
             <div class="functions">
-                <button type="submit" class="submit">留言</button>
+                <button type="submit" class="submit">{{config?.commentSubmitButtonText ?? '留言'}}</button>
             </div>
         </form>
     </div>

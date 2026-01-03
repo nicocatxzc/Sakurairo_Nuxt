@@ -95,8 +95,16 @@ onMounted(() => {
             <div class="post-content">
                 <PostRender v-if="post.content" :html="post.content" />
             </div>
-            <ClientOnly >
-                <PostToc class="toc" />
+            <ClientOnly>
+                <PostToc
+                    v-if="
+                        (themeConfig?.postTableOfContent &&
+                            props.page.type == 'single') ||
+                        (themeConfig?.pageTableOfContent &&
+                            props.page.type == 'page')
+                    "
+                    class="toc"
+                />
             </ClientOnly>
         </ContentContainer>
     </article>
