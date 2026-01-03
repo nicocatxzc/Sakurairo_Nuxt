@@ -10,24 +10,13 @@ export function startAuthGuard() {
 
     const validate = async () => {
         if (validating) return;
+
         validating = true;
 
         try {
-            const res: any = await $fetch("/api/auth/validate", {
-                method: "POST",
-            });
+            const validate = await validateUserInfo();
 
-            // 无登录信息
-            if (!res || !res.id) {
-                console.log("没有登录信息")
-                return;
-            }
-
-            // 已登录用户,自动更新免验证码
-            auth.updateUser(res);
-            auth.secret = res.token;
-            auth.verify = res.verify;
-            auth.needCaptcha = false;
+            if (!validate) return;
 
             // 登录信息快过期，自动刷新
             const now = Date.now() / 1000;
@@ -47,8 +36,11 @@ export function startAuthGuard() {
             }
         } catch (err: any) {
             // 真正的异常才处理
-            if (err?.statusCode === 401 || err?.statusMessage?.includes("Validate Failed")) {
-                ElMessage.error("登录信息已失效")
+            if (
+                err?.statusCode === 401 ||
+                err?.statusMessage?.includes("Validate Failed")
+            ) {
+                ElMessage.error("登录信息已失效");
                 await auth.clearAuth();
                 stopAuthGuard();
             } else {
@@ -61,7 +53,7 @@ export function startAuthGuard() {
 
     // 立即跑一次
     validate();
-    console.log("登录信息验证成功")
+    console.log("登录信息验证成功");
 
     timer = setInterval(validate, 54_000);
 }
@@ -71,4 +63,24 @@ export function stopAuthGuard() {
         clearInterval(timer);
         timer = null;
     }
+}
+
+export async function validateUserInfo() {
+    const auth = useAuth();
+    const res: any = await $fetch("/api/auth/validate", {
+        method: "POST",
+    });
+
+    // 无登录信息
+    if (!res || !res.id) {
+        console.log("没有登录信息");
+        return false;
+    }
+    // 已登录用户,自动更新免验证码
+    auth.updateUser(res);
+    auth.secret = res.token;
+    auth.verify = res.verify;
+    auth.needCaptcha = false;
+
+    return true;
 }

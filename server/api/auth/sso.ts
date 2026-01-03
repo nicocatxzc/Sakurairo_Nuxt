@@ -19,7 +19,7 @@ export default defineEventHandler(async (event) => {
     } catch (e) {
         throw createError({
             statusCode: 401,
-            statusMessage: "Validate",
+            statusMessage: "Unauthorized",
             message: "认证失败",
         });
     }
