@@ -40,6 +40,7 @@ function switchFont(font = themeStore?.font ?? "") {
             font-family: ${font} !important;
         }
     `;
+    themeStore.font = font
 }
 </script>
 
