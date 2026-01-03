@@ -143,7 +143,7 @@ const menuItems = computed(() =>
                             themeConfig?.missingAvatarPlaceholder ?? ''
                         "
                         :src="getUserAvatar(user?.avatar)"
-                        alt="navbar avatar"
+                        alt="用户头像"
                         class="nuxtpic"
                     />
                 </ElAvatar>
@@ -158,25 +158,38 @@ const menuItems = computed(() =>
                             v-if="user?.management?.admin"
                             :href="user?.management?.admin"
                             target="_blank"
-                            >管理后台</a
                         >
+                            管理后台
+                        </a>
                         <NuxtLink
                             v-if="user?.role == 'administrator'"
                             :to="'/dashboard'"
-                            >主题设置</NuxtLink
                         >
+                            主题设置
+                        </NuxtLink>
                         <a
                             v-if="user?.management?.newpost"
                             :href="user?.management?.newpost"
                             target="_blank"
-                            >撰写文章</a
                         >
-                        <a target="_top" @click="authStore.clearAuth()"
-                            >退出登录</a
+                            撰写文章
+                        </a>
+                        <a
+                            target="_top"
+                            href="#"
+                            @click="authStore.clearAuth()"
                         >
+                            退出登录
+                        </a>
                     </div>
                     <div v-else class="user-menu-option">
-                        <a @click="openLoginForm">登录</a>
+                        <a
+                            href="#"
+                            aria-label="点击登录"
+                            @click="openLoginForm"
+                        >
+                            登录
+                        </a>
                     </div>
                 </div>
             </div>

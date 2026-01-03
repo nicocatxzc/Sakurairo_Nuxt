@@ -67,6 +67,8 @@ function switchFont(font = themeStore?.font ?? "") {
                 <div class="darkmode group">
                     <button
                         class="darkmode-toggle"
+                        aria-label="切换主题深色模式状态"
+                        :title="`切换主题深色模式状态`"
                         @click="darkmode.toggleMode"
                     >
                         <Icon class="icon" :name="darkmodeToggleIcon" />
@@ -86,6 +88,7 @@ function switchFont(font = themeStore?.font ?? "") {
                         :key="index"
                         type="button"
                         class="control-btn-serif selected"
+                        :aria-label="`切换到字体 ${font?.name}`"
                         :title="`切换到字体 ${font?.name}`"
                         data-name="serif"
                         @click="switchFont(font?.name)"

@@ -15,7 +15,7 @@ const menuItems = computed(() =>
     Array.isArray(menuData.value) ? menuData.value : []
 );
 
-const searchKeyword = ref("")
+const searchKeyword = ref("");
 function gotoSearch() {
     navigateTo(`/search?keyword=${searchKeyword.value}`);
 }
@@ -79,9 +79,9 @@ onMounted(() => {
             });
         }
     });
-    document.addEventListener("pjax:complete",()=>{
+    document.addEventListener("pjax:complete", () => {
         collpase();
-    })
+    });
 });
 
 const [menuScope, menuAnimate] = useAnimate();
@@ -242,7 +242,13 @@ function collpase() {
                         </a>
                     </div>
                     <div v-else class="visitor-option flex-center">
-                        <a @click="openLoginForm">登录</a>
+                        <a
+                            href="#"
+                            aria-label="点击登录"
+                            @click="openLoginForm"
+                        >
+                            登录
+                        </a>
                     </div>
                 </div>
             </div>

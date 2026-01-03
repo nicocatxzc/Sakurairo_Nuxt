@@ -9,6 +9,10 @@ const extraFontsCss = getExtraFontsCss();
 const themeCss = getThemeCss();
 const sysConfig = useSysConfig();
 useHead({
+    htmlAttrs: {
+        lang: "zh-CN",
+        dir: "ltr",
+    },
     style: [
         {
             innerHTML: sysConfig.value?.global_style,
@@ -51,7 +55,7 @@ html {
         "Microsoft YaHei", Roboto, Ubuntu, "Helvetica Neue", Arial, sans-serif;
     overflow-x: hidden;
     box-sizing: border-box;
-    font-size: var(--global-font-size,16px);
+    font-size: var(--global-font-size, 16px);
     scroll-behavior: smooth;
 }
 

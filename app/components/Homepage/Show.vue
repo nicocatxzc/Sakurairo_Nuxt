@@ -5,7 +5,7 @@ const themeConfig = useThemeConfig();
 <!-- eslint-disable vue/no-v-html -->
 <template>
     <ul class="showcard-list">
-        <div v-for="(item, index) in themeConfig?.showAreaContent || []" :key="index" class="showcard">
+        <li v-for="(item, index) in themeConfig?.showAreaContent || []" :key="index" class="showcard">
             <div class="title">
                 <h3 v-html="item?.title" />
             </div>
@@ -33,7 +33,7 @@ const themeConfig = useThemeConfig();
                     <p class="card-desc" v-html="item.desc" />
                 </div>
             </NuxtLink>
-        </div>
+        </li>
     </ul>
 </template>
 

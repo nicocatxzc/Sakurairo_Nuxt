@@ -104,8 +104,8 @@ class Pager {
                     next: state == 'next',
                 }"
             >
-                <a :href="item?.linkUrl || '/'" target='_blank'>
-                    <NuxtPicture :src="item?.iconUrl" class="social-img nuxtpic" />
+                <a :href="item?.linkUrl || '/'" target='_blank' :aria-label="`点击访问${item?.linkUrl}`" :title="`点击访问${item?.linkUrl}`">
+                    <NuxtPicture :src="item?.iconUrl" class="social-img nuxtpic" :alt="`${item?.linkUrl}平台`"/>
                 </a>
             </div>
         </div>

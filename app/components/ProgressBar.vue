@@ -18,6 +18,7 @@ const load = useLoadStore();
                     ? themeConfig.activeColorDark
                     : themeConfig.activeColor
             "
+            :aria-label="`您的阅读进度：${scroll.progress}`"
             class="scroll-progress progress"
         />
         <ElProgress
@@ -29,6 +30,7 @@ const load = useLoadStore();
             :percentage="load.progress"
             :show-text="false"
             :text-inside="true"
+            :aria-label="`下一页加载进度：${load.progress}`"
             class="load-progress progress"
         />
     </div>
