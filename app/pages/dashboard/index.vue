@@ -170,7 +170,7 @@ function navigateBack() {
                                     </div>
                                 </template>
                             </template>
-                            <pre>{{ current }} {{ formData }}</pre>
+                            <PageAbout v-show="current === 'about'"/>
                         </FormKit>
                     </div>
                 </div>

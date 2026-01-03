@@ -96,9 +96,16 @@ export default defineEventHandler(async (event) => {
             search: query?.search,
         });
 
+        const comments = (res.data?.comments?.nodes ?? []).map((comment) => {
+            return {
+                ...comment,
+                content: useMarkdown(comment.content),
+            };
+        });
+
         return {
             comments: {
-                nodes: res.data?.comments?.nodes ?? [],
+                nodes: comments,
                 pageInfo: res.data?.comments?.pageInfo ?? {
                     hasNextPage: false,
                     endCursor: null,
