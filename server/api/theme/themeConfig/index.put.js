@@ -1,6 +1,6 @@
 export default defineEventHandler(async (event) => {
     const auth = await useValidate(event);
-    if (auth?.role != "administrator") {
+    if (!auth?.roles.includes("administrator") ) {
         throw new Error("非管理员禁止操作");
     }
 

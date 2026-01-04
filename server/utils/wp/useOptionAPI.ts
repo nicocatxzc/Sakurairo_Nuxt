@@ -28,12 +28,11 @@ export default function useOptionAPI() {
         },
         async set(key: string, event: H3Event<EventHandlerRequest>) {
             try {
-
                 const auth = await useValidate(event);
-                if(auth?.role != "administrator") {
+                if (!auth?.roles.includes("administrator")) {
                     throw new Error("非管理员禁止操作");
                 }
-                
+
                 let put = await readBody(event);
 
                 let req = await useDecrypt(put.verify, put.token, put.payload);
