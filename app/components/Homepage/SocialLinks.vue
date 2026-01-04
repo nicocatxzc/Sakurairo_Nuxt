@@ -91,7 +91,7 @@ class Pager {
 <template>
     <div class="social-links">
         <button v-if="canPagination" class="pagination" @click="prev()">
-            <Icon :name="'fa7-solid:angle-left'" class="icon"/>
+            <Icon :name="'fa7-solid:angle-left'" class="icon" />
         </button>
         <div class="page-container">
             <div
@@ -104,8 +104,18 @@ class Pager {
                     next: state == 'next',
                 }"
             >
-                <a :href="item?.linkUrl || '/'" target='_blank' :aria-label="`点击访问${item?.linkUrl}`" :title="`点击访问${item?.linkUrl}`">
-                    <NuxtPicture :src="item?.iconUrl" class="social-img nuxtpic" :alt="`${item?.linkUrl}平台`"/>
+                <a
+                    :href="item?.linkUrl || '/'"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    :aria-label="`点击访问${item?.linkUrl}`"
+                    :title="`点击访问${item?.linkUrl}`"
+                >
+                    <NuxtPicture
+                        :src="item?.iconUrl"
+                        class="social-img nuxtpic"
+                        :alt="`${item?.linkUrl}平台`"
+                    />
                 </a>
             </div>
         </div>
@@ -134,7 +144,7 @@ class Pager {
 }
 
 .pagination {
-    background:none;
+    background: none;
     border: none;
 }
 .pagination .icon {

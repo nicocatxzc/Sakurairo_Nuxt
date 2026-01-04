@@ -237,7 +237,7 @@ function collpase() {
                         >
                             撰写文章
                         </a>
-                        <a target="_top" @click="authStore.clearAuth()">
+                        <a href="#" target="_top" @click="authStore.clearAuth()">
                             退出登录
                         </a>
                     </div>
