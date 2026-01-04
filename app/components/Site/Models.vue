@@ -32,6 +32,7 @@ onMounted(() => {
     />
     <AuthLogin class="form login-form"/>
     <SearchModel class="form search-form"/>
+    <div id="model-content" class="form"></div>
 </template>
 
 <style scoped>
