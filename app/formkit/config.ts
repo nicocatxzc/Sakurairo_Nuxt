@@ -589,6 +589,7 @@ export default [
                         name: "randomPicUrlPc",
                         label: "PC端封面随机图片地址",
                         value: "https://moeapi.moecat.cc/imgs/pc",
+                        help: "输入图片的url可以实现封面固定的效果",
                         placeholder: "请输入图片链接或api地址",
                     },
 
@@ -604,6 +605,7 @@ export default [
                         $formkit: elSwitch,
                         name: "coverAsBackground",
                         label: "封面与前台背景一体化",
+                        help:"开启后封面会变透明，以实现封面和背景的一体化效果",
                         value: false,
                     },
                 ],
@@ -877,6 +879,7 @@ export default [
                 $formkit: CodeEditor,
                 name: "customHeader",
                 label: "自定义页面header",
+                help:"此处的代码会被插入页面的head中被解释执行，可以用来插入Umami等工具script代码或自定义全局样式，请确保它是安全的",
                 value: "",
                 language: "html",
             },
