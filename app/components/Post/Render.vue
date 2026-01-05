@@ -10,6 +10,7 @@
 <script setup>
 import CodeHighlight from "@/components/CodeHighlight.vue";
 import TemplateFriendLink from "@/components/Template/FriendLink.vue";
+import TemplateBangumi from "@/components/Template/Bangumi.vue"
 const { html } = defineProps({
     html: {
         type: String,
@@ -196,6 +197,20 @@ const componentsMap = {
             return false;
         },
         component: TemplateFriendLink,
+        propsMapper(node) {
+            return {
+                ...node.attrs,
+            };
+        },
+    },
+
+    bangumi: {
+        conditions(node) {
+            if (!(node.type === "tag" && node.name === "div")) return false;
+            if (node.attrs.id == "hachimi-bangumi") return true;
+            return false;
+        },
+        component: TemplateBangumi,
         propsMapper(node) {
             return {
                 ...node.attrs,

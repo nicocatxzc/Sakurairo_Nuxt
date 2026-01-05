@@ -605,7 +605,7 @@ export default [
                         $formkit: elSwitch,
                         name: "coverAsBackground",
                         label: "封面与前台背景一体化",
-                        help:"开启后封面会变透明，以实现封面和背景的一体化效果",
+                        help: "开启后封面会变透明，以实现封面和背景的一体化效果",
                         value: false,
                     },
                 ],
@@ -646,7 +646,7 @@ export default [
                         $formkit: SortableOptions,
                         name: "homepageBlock",
                         label: "首页布局",
-                        value: ["show", "postlist",],
+                        value: ["show", "postlist"],
                         options: [
                             { label: "展示区域", value: "show" },
                             { label: "文章区域", value: "postList" },
@@ -867,7 +867,43 @@ export default [
             {
                 key: "templates",
                 title: "页面模板设置",
-                schema: [],
+                schema: [
+                    {
+                        $formkit: elRadioGroup,
+                        name: "bangumiAPIsource",
+                        label: "文章卡片图片",
+                        value: "bangumi",
+                        options: [
+                            {
+                                label: "bangumi",
+                                value: "bangumi",
+                            },
+                            {
+                                label: "Bilibili",
+                                value: "bilibili",
+                            },
+                        ],
+                    },
+                    {
+                        $formkit: elText,
+                        name: "sysBangumiUserID",
+                        label: "bangumi用户ID",
+                        placeholder: "请输入用户ID(数字)",
+                    },
+                    {
+                        $formkit: elText,
+                        name: "sysBilibiliUserId",
+                        label: "bilibili用户ID",
+                        placeholder: "请输入用户ID(数字)",
+                    },
+                    {
+                        $formkit: elTextarea,
+                        name: "sysBilibiliUserCookie",
+                        label: "bilibili用户cookie",
+                        help:"观看进度和隐私内容需要认证信息查询，请妥善保管cookie",
+                        placeholder: "请输入cookie",
+                    },
+                ],
             },
         ],
     },
@@ -879,7 +915,7 @@ export default [
                 $formkit: CodeEditor,
                 name: "customHeader",
                 label: "自定义页面header",
-                help:"此处的代码会被插入页面的head中被解释执行，可以用来插入Umami等工具script代码或自定义全局样式，请确保它是安全的",
+                help: "此处的代码会被插入页面的head中被解释执行，可以用来插入Umami等工具script代码或自定义全局样式，请确保它是安全的",
                 value: "",
                 language: "html",
             },
