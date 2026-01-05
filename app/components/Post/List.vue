@@ -77,13 +77,12 @@ function loadMore(inst = false) {
         timer = null;
     }, 3000);
     async function loadPosts() {
-        page.value += 1; // 页码递增
         query.value = api.value?.option?.fetchOptions?.query ?? {};
-        query.value.page = page.value; // 查询附上页码
+        query.value.page = page.value + 1; // 查询附上页码
         query.value.after = postList.value.pageInfo.endCursor; // 查询附上游标
 
         let { data, promise, error } = await useCachedFetch(
-            `${api.value?.key}-${page.value}`,
+            `${api.value?.key}-${page.value + 1}`,
             api.value?.url,
             {
                 ...api.value?.option,
@@ -107,6 +106,7 @@ function loadMore(inst = false) {
                     ...data.value.posts.pageInfo, // 使用最新的页码
                 },
             };
+            page.value += 1; // 页码递增
         }
     }
 }
