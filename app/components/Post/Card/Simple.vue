@@ -5,14 +5,14 @@ let { post } = defineProps({
         required: true,
     },
 });
-const localeTime = useLocalTime(post.modifiedGmt).format("LLL")
+const localeTime = useLocalTime(post.modifiedGmt).format("LLL");
 </script>
 
 <!-- eslint-disable vue/no-v-html -->
 <template>
     <article class="post-card">
         <NuxtLink :to="post.uri">
-            <h3 class="post-title" v-html="post.title"/>
+            <h3 class="post-title" v-html="post.title" />
         </NuxtLink>
         <NuxtLink :to="post.uri">
             <span class="post-excerpt" v-html="post.excerpt" />
@@ -20,17 +20,23 @@ const localeTime = useLocalTime(post.modifiedGmt).format("LLL")
         <div class="post-metas">
             <div class="post-meta-date">
                 <Icon :name="'fa7-solid:calendar'" class="icon" />
-                <time :datetime="post.modifiedGmt">更新于:{{ localeTime }}</time>
+                <time :datetime="post.modifiedGmt">
+                    更新于:{{ localeTime }}
+                </time>
             </div>
-            <div v-if="post.categories?.nodes.length != 0" class="post-meta-categories">
+            <div
+                v-if="post.categories?.nodes.length != 0"
+                class="post-meta-categories"
+            >
                 <Icon :name="'fa7-solid:folder-open'" />
                 <NuxtLink
                     v-for="(category, index) in post.categories?.nodes"
                     :key="index"
                     :to="category.uri"
                     class="category"
-                    >{{ category.name }}</NuxtLink
                 >
+                    {{ category.name }}
+                </NuxtLink>
             </div>
             <div v-if="post?.tags.nodes.length != 0" class="post-meta-tags">
                 <Icon :name="'fa7-solid:tags'" class="icon" />
@@ -43,19 +49,32 @@ const localeTime = useLocalTime(post.modifiedGmt).format("LLL")
                     #{{ tag.name }}
                 </NuxtLink>
             </div>
+            <template
+                v-for="meta in config?.postCardMetas ?? ['category', 'views']"
+                :key="meta"
+            >
+                <span v-if="meta == 'author'">
+                    <Icon :name="'fa7-solid:feather-pointed'"></Icon>
+                    {{ post.author.node.nicename ?? "" }}
+                </span>
+                <span v-if="meta == 'commentCounts'">
+                    <Icon :name="'fa7-solid:comment'"></Icon>
+                    {{ post.commentCounts ?? 0 }}
+                </span>
+                <span v-if="meta == 'views'">
+                    <Icon :name="'fa7-solid:eye'"></Icon>
+                    {{ post.views ?? 0 }}
+                </span>
+            </template>
         </div>
     </article>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 .post-card {
     --meta-background: #33333360;
     --meta-color: rgba(255, 255, 255, 0.8);
-}
-* {
-    transition: all 0.4s cubic-bezier(0.07, 0.53, 0.65, 0.95);
-}
-.post-card {
+
     animation: loading-animation 0.5s;
     width: 100%;
     margin: 1rem 0;
@@ -68,40 +87,59 @@ const localeTime = useLocalTime(post.modifiedGmt).format("LLL")
 
     background-color: var(--widget-background-color);
     box-shadow: var(--widget-shadow-shine);
-    border-radius: var(--post-card-border-radius,0.62rem);
+    border-radius: var(--post-card-border-radius, 0.62rem);
     overflow: hidden;
+
+    transition: all 0.4s cubic-bezier(0.07, 0.53, 0.65, 0.95);
+
+    &:hover {
+        box-shadow: var(--widget-shadow-shining);
+        transform: translateY(-0.35rem);
+    }
 }
-.post-card:hover {
-    box-shadow: var(--widget-shadow-shining);
-    transform: translateY(-0.35rem);
-}
+
 .post-title {
     font-size: 1.4rem;
+    line-height: 1.4;
 }
+
 .post-excerpt {
     color: var(--word-color-first);
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
 .post-metas {
     display: flex;
     gap: 1rem;
     margin-top: 0.2rem;
 
     font-size: 0.9rem;
+    color: var(--meta-color);
+
     overflow: hidden;
     text-overflow: ellipsis;
+
+    > div,
+    > span {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3rem;
+        white-space: nowrap;
+    }
 }
-.category,.tag {
+
+.category,
+.tag {
     margin-left: 0.3rem;
 }
 
 @keyframes loading-animation {
-    0% {
+    from {
         opacity: 0;
         transform: translateY(5rem);
     }
-    100% {
+    to {
         opacity: 1;
         transform: translateY(0);
     }

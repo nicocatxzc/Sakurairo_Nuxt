@@ -57,12 +57,14 @@ function usePostQuery(settings, query = {}) {
                     modifiedGmt
                     hasPassword
                     uri
+                    views
                     categories {
                         nodes {
                             name
                             uri
                         }
                     }
+                    commentCount
                     tags {
                         nodes {
                             name

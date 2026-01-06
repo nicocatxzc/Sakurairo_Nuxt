@@ -683,7 +683,7 @@ export default [
                     },
                     {
                         $formkit: elSelect,
-                        label: "区域图标位置",
+                        label: "区域标题位置",
                         name: "blockTitlePosition",
                         value: "left",
                         options: [
@@ -736,7 +736,7 @@ export default [
                         name: "postCardMetas",
                         label: "文章卡片显示信息",
                         help: "点击可反选，长按可排序",
-                        value: ["category", "commentCounts"],
+                        value: ["category", "views"],
                         options: [
                             { label: "作者", value: "author" },
                             { label: "分类", value: "category" },
