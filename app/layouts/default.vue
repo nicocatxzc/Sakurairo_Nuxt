@@ -1,15 +1,15 @@
 <script setup>
 const route = useRoute();
-const config = useThemeConfig()
+const config = useThemeConfig();
 
 const headerKey = ref(0); // 在父级使用key重建容易水合失败的组件，防止失联
 onMounted(() => {
     headerKey.value = 1;
 });
 
-const headHtml = config.value?.customHeader ?? ""
-if(headHtml != "") {
-    useHead(useHeadAst(headHtml))
+const headHtml = config.value?.customHeader ?? "";
+if (headHtml != "") {
+    useHead(useHeadAst(headHtml));
 }
 </script>
 
@@ -42,6 +42,14 @@ if(headHtml != "") {
         </ClientOnly>
     </div>
 </template>
+<style lang="scss">
+:root.dark {
+    img,
+    video {
+        filter: brightness(var(--image-bright));
+    }
+}
+</style>
 
 <style lang="scss" scoped>
 .background {
