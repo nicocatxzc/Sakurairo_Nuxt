@@ -36,7 +36,6 @@ watch(
 );
 
 function handleInputChange(v) {
-    console.log(v);
     try {
         const tc = tinycolor(v);
         if (tc.isValid()) updateValue(v);

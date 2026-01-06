@@ -3,9 +3,7 @@ const config = useThemeConfig();
 const res = await useCachedFetch("friend-link", "/api/content/links");
 let linksData = ref(res.data.value ?? {});
 onMounted(async()=>{
-    console.log(linksData.value)
     if(!linksData.value?.categories) {
-        console.log("重新拉取")
         const {data,promise} = await useCachedFetch("friend-link", "/api/content/links",{
             promise:true
         });

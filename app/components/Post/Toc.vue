@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import tocbot from "tocbot";
 onMounted(() => {
-    console.log("tocmount");
 
     const router = useRouter();
 

@@ -17,7 +17,6 @@ onMounted(() => {
     let stopwatch = watch(
         () => animeCard.value,
         () => {
-            console.log(animeCard.value);
             if (animeCard.value) {
                 onClickOutside(animeCard.value, () => {
                     emit("close");

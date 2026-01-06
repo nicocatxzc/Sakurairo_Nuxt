@@ -3,7 +3,6 @@ import { VueDraggable } from "vue-draggable-plus";
 const props = defineProps({
     context: Object,
 });
-console.log(props);
 const list = computed({
     get() {
         return props.context.value || [];
