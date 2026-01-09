@@ -97,7 +97,7 @@ const bangumiCard = useTemplateRef("bangumi-card");
 </template>
 
 <style>
-.container:has(.post-content) {
+.container:has(.page-bangumi) {
     max-width: 80rem;
 }
 </style>
