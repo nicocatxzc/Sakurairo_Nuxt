@@ -118,12 +118,20 @@ async function submit() {
                     name="comment"
                     rows="5"
                     tabindex="4"
-                /><span class="placeholder">{{config?.commentInputPlaceHolder ?? '要来留个评论吗?'}}</span>
+                />
+                <span class="placeholder">
+                    {{ config?.commentInputPlaceHolder ?? "要来留个评论吗?" }}
+                </span>
             </div>
 
             <div v-if="!auth.user?.role" class="infos">
                 <ElAvatar size="default" class="avatar">
-                    <NuxtPicture alt="navbar avatar" :src="avatar" class="nuxtpic"/>
+                    <NuxtPicture
+                        alt="navbar avatar"
+                        :src="avatar"
+                        :placeholder="config?.missingAvatarPlaceholder ?? ''"
+                        class="nuxtpic"
+                    />
                 </ElAvatar>
                 <input
                     v-model="name"
@@ -149,7 +157,9 @@ async function submit() {
             </div>
             <div class="checks"><AuthCaptcha class="captcha" /></div>
             <div class="functions">
-                <button type="submit" class="submit">{{config?.commentSubmitButtonText ?? '留言'}}</button>
+                <button type="submit" class="submit">
+                    {{ config?.commentSubmitButtonText ?? "留言" }}
+                </button>
             </div>
         </form>
     </div>
@@ -209,10 +219,10 @@ async function submit() {
             }
         }
         .placeholder {
-            padding: .2rem;
+            padding: 0.2rem;
             position: absolute;
             left: 1rem;
-            top: .8rem;
+            top: 0.8rem;
         }
         textarea:focus ~ .placeholder {
             color: #fff;

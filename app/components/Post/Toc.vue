@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import tocbot from "tocbot";
 onMounted(() => {
-
     const router = useRouter();
 
     tocbot.init({
@@ -17,7 +16,8 @@ onMounted(() => {
 
         enableUrlHashUpdateOnScroll: false,
     });
-    router.afterEach(() => { // 修复VUE导航下tocbot在hash锚点下行为异常的问题
+    router.afterEach(() => {
+        // 修复VUE导航下tocbot在hash锚点下行为异常的问题
         setTimeout(() => {
             history.replaceState(
                 null,
@@ -41,7 +41,7 @@ onMounted(() => {
     top: 20%;
     height: 80%;
     width: 12rem;
-    left: calc(100% + .5rem);
+    left: calc(100% + 0.5rem);
     #toc {
         position: sticky;
         top: 12%;
@@ -57,7 +57,7 @@ onMounted(() => {
         border: var(--border-shine);
 
         overflow-y: auto;
-        &:empty{
+        &:empty {
             display: none;
         }
     }
@@ -86,6 +86,11 @@ onMounted(() => {
         &.is-collapsed {
             max-height: 0;
         }
+    }
+}
+@media screen and (min-width: 75rem) {
+    .toc-container {
+        display: none;
     }
 }
 </style>
