@@ -900,7 +900,7 @@ export default [
                         $formkit: elTextarea,
                         name: "sysBilibiliUserCookie",
                         label: "bilibili用户cookie",
-                        help:"观看进度和隐私内容需要认证信息查询，请妥善保管cookie",
+                        help: "观看进度和隐私内容需要认证信息查询，请妥善保管cookie",
                         placeholder: "请输入cookie",
                     },
                 ],
@@ -910,14 +910,48 @@ export default [
     {
         key: "othersFunctions",
         title: "其他设置",
-        schema: [
+        subGroup: [
             {
-                $formkit: CodeEditor,
-                name: "customHeader",
-                label: "自定义页面header",
-                help: "此处的代码会被插入页面的head中被解释执行，可以用来插入Umami等工具script代码或自定义全局样式，请确保它是安全的",
-                value: "",
-                language: "html",
+                key: "globalStatic",
+                title: "全站数据设置",
+                schema: [
+                    {
+                        $formkit: CodeEditor,
+                        name: "customHeader",
+                        label: "自定义页面header",
+                        help: "此处的代码会被插入页面的head中被解释执行，可以用来插入Umami等工具script代码或自定义全局样式，请确保它是安全的",
+                        value: "",
+                        language: "html",
+                    },
+                ],
+            },
+            {
+                key: "globalSafe",
+                title: "安全设置",
+                schema: [
+                    {
+                        $formkit: elSelect,
+                        name: "captchaSelect",
+                        label: "站内人机验证方式",
+                        value: "builtIn",
+                        options: [
+                            { label: "内建", value: "builtIn" },
+                            { label: "cloudflare Turnstile", value: "cloudflare" },
+                        ],
+                    },
+                    {
+                        $formkit: elText,
+                        name: "turnstileSiteKey",
+                        label: "Turnstile Site Key",
+                        placeholder: "请输入key",
+                    },
+                    {
+                        $formkit: elText,
+                        name: "sysTurnstileSecretKey",
+                        label: "Turnstile Secret Key",
+                        placeholder: "请输入key",
+                    },
+                ],
             },
         ],
     },

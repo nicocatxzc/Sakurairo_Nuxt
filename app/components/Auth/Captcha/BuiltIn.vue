@@ -46,12 +46,13 @@ async function getCaptcha() {
     token.value = res.token;
 }
 async function verifyCaptcha(answer) {
-    try {
-        let res = await captcha.verify(answer, token.value, hash.value);
-        auth.setSecret(res.commSecret, res.verifyToken);
-        ElMessage.success("验证通过");
-    } catch (error) {
-        ElMessage.error(`回答错误或验证码已过期,错误详情${error}`);
+    const success = await captcha.verify({
+        answer,
+        token: token.value,
+        hash: hash.value,
+    });
+
+    if (!success) {
         getCaptcha();
     }
 }

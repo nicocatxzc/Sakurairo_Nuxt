@@ -28,9 +28,11 @@ async function submitLogin() {
         });
         auth.updateUser(user);
         auth.loginFormState = false;
-        ElMessage.success("登录成功")
+        ElMessage.success("登录成功");
     } catch (error) {
-        ElMessage.error(`登录失败,请检查用户名或密码是否正确,\r\n详细信息:${error}`)
+        ElMessage.error(
+            `登录失败,请检查用户名或密码是否正确,\r\n详细信息:${error}`
+        );
     }
 }
 </script>
@@ -68,16 +70,17 @@ async function submitLogin() {
             </template>
         </el-input>
         <AuthCaptcha v-if="loginModel" class="captcha" />
-        <button type="submit" class="submit">登录</button>
+        <button type="submit" class="submit" :disabled="auth.needCaptcha">
+            登录
+        </button>
     </form>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 .login-form {
     transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
     z-index: 10;
-}
-.login-form {
+
     position: fixed;
     top: 50dvh;
     left: 50dvw;
@@ -95,49 +98,59 @@ async function submitLogin() {
     background-color: var(--widget-background-color);
     backdrop-filter: saturate(180%) blur(10px);
     box-shadow: var(--widget-shadow-shadow);
-}
-.login-form.show {
-    transform: translate(-50%, -50%) scale(1);
-    opacity: 1;
-    visibility: visible;
-}
-.form-title {
-    font-size: 1.5rem;
-    font-weight: 500;
-}
-.input-username,
-.input-password {
-    width: 20rem;
-    height: 2.75rem;
 
-    color: var(--word-color-first);
-    background-color: var(--widget-background-color);
-    backdrop-filter: saturate(180%) blur(10px);
+    &.show {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+        visibility: visible;
+    }
 
-    border-radius: 0.5rem;
-    border: var(--border-sketch);
-    outline: none;
-    font-size: 1rem;
-}
-.input * {
-    box-shadow: none;
-    border-radius: 0.5rem;
-    --el-fill-color-light: transparent;
-}
-.input :deep(.el-input__wrapper) {
-    background-color: transparent;
-    box-shadow: none;
-}
-.input :deep(.el-input-group__prepend) {
-    padding: 0;
-    transform: translateX(40%);
-}
-.captcha {
-    width: 20rem;
-}
-.submit {
-    width: 100%;
-    padding: 0.5rem;
-    border: var(--border-sketch);
+    .form-title {
+        font-size: 1.5rem;
+        font-weight: 500;
+    }
+
+    .input {
+        &-username,
+        &-password {
+            width: 20rem;
+            height: 2.75rem;
+
+            color: var(--word-color-first);
+            background-color: var(--widget-background-color);
+            backdrop-filter: saturate(180%) blur(10px);
+
+            border-radius: 0.5rem;
+            border: var(--border-sketch);
+            outline: none;
+            font-size: 1rem;
+        }
+
+        * {
+            box-shadow: none;
+            border-radius: 0.5rem;
+            --el-fill-color-light: transparent;
+        }
+
+        :deep(.el-input__wrapper) {
+            background-color: transparent;
+            box-shadow: none;
+        }
+
+        :deep(.el-input-group__prepend) {
+            padding: 0;
+            transform: translateX(40%);
+        }
+    }
+
+    .captcha {
+        width: 20rem;
+    }
+
+    .submit {
+        width: 100%;
+        padding: 0.5rem;
+        border: var(--border-sketch);
+    }
 }
 </style>
