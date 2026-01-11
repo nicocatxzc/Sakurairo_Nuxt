@@ -82,6 +82,12 @@ export default [
                         value: "#00b0f0",
                     },
                     {
+                        $formkit: elColorPicker,
+                        name: "codeBlockBackgroundColor",
+                        label: "代码块背景色",
+                        value: "#e1e4e8",
+                    },
+                    {
                         $formkit: elSlider,
                         name: "widgetTransparency",
                         label: "组件透明度",
@@ -140,6 +146,12 @@ export default [
                         name: "activeColorDark",
                         label: "激活组件颜色",
                         value: "#FCCD00",
+                    },
+                    {
+                        $formkit: elColorPicker,
+                        name: "codeBlockBackgroundColorDark",
+                        label: "代码块背景色",
+                        value: "#24292e",
                     },
                     {
                         $formkit: elSlider,

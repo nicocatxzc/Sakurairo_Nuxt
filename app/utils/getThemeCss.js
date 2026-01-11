@@ -30,7 +30,7 @@ body {
     --border-sketch: 0.1rem solid rgba(var(--border-color-sketch),0.1);
     --border-shine: 0.1rem solid rgb(var(--border-color-shine));
     --page-background-color: rgba(255,255,255,var(--background-transparency));
-    --code-background: #e1e4e8;
+    --code-background: ${themeConfig.value?.codeBlockBackgroundColor ?? "#e1e4e8"};
 }
 :root.dark {
     --active-color: ${themeConfig.value?.activeColorDark || 
@@ -51,7 +51,7 @@ body {
     --border-sketch: 0.1rem solid var(--border-color-sketch);
     --border-shine: 0.1rem solid var(--border-color-shine);
     --page-background-color: rgba(51, 51, 51, var(--background-transparency));
-    --code-background: #24292e;
+    --code-background: ${themeConfig.value?.codeBlockBackgroundColorDark ?? "#24292e"};
     --image-bright:${themeConfig.value?.imgBrightDark ?? 0.7};
 }
 :root {
