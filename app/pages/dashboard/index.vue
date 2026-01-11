@@ -4,7 +4,11 @@ import { useThemeConfigStore } from "#imports";
 definePageMeta({
     layout: "dashboard",
 });
-const isNotPreview = window?.__hachimiPreview__ != true
+const isNotPreview = computed(() => {
+    if (import.meta.server) return true;
+    return window.__hachimiPreview__ !== true;
+});
+
 const themeConfig = useThemeConfigStore();
 const formData = ref(themeConfig.tempConfig); // 表单数据
 const groups = formSchema;
@@ -25,9 +29,9 @@ const postPreviewConfig = useDebounceFn(() => {
 
 const initDone = ref(false);
 onMounted(async () => {
-    if(!isNotPreview) {
-        ElMessage.error("请不要重复开启设置页！")
-        navigateBack()
+    if (!isNotPreview.value) {
+        ElMessage.error("请不要重复开启设置页！");
+        navigateBack();
     }
     try {
         Object.assign(
@@ -112,7 +116,7 @@ function navigateBack() {
 </script>
 
 <template>
-    <ClientOnly v-if="isNotPreview">
+    <ClientOnly>
         <div class="dashboard">
             <div
                 class="settings"
