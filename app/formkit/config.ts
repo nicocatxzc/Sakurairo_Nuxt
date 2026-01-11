@@ -213,7 +213,7 @@ export default [
 
                     {
                         $formkit: elText,
-                        name: "globalDefalutFount",
+                        name: "globalDefaultFont",
                         label: "默认字体",
                         value: "",
                         placeholder: "字体名称",
