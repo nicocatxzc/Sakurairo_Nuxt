@@ -25,6 +25,7 @@ export default [
                 name: "siteLogo",
                 label: "站点logo",
                 value: "",
+                help:"填写后将使用该图像作为站点logo，未填写将使用wordpress后端设置的图像或默认图像",
                 placeholder: "填写logo地址",
             },
             {

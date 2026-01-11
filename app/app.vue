@@ -8,6 +8,17 @@ const darkmode = useDarkmodeStore();
 const extraFontsCss = getExtraFontsCss();
 const themeCss = getThemeCss();
 const sysConfig = useSysConfig();
+if((themeConfig.value?.siteLogo ?? false) != '') {
+    const logo = useNuxtImg(themeConfig.value.siteLogo)
+    useHead({
+        link: [
+            {
+                rel:"icon",
+                href:logo
+            }
+        ]
+    })
+}
 useHead({
     htmlAttrs: {
         lang: "zh-CN",
