@@ -1,4 +1,4 @@
-<script lang="ts" setup>
+<script setup>
 let { post } = defineProps({
     post: {
         type: Object,
@@ -7,6 +7,31 @@ let { post } = defineProps({
 });
 const config = useThemeConfig();
 const localeTime = useLocalTime(post.modifiedGmt).format("LLL");
+function useRandom(url) {
+    if(url=='') return url;
+    const separator = url.includes('?') ? '&' : '?';
+    return `${url}${separator}t=${Date.now()}-${Math.random().toString(36).substring(2, 9)}`;
+}
+const postCover = computed(() => {
+    // 如果文章有封面图，直接使用
+    if (post.featuredImage?.node.sourceUrl) {
+        return post.featuredImage.node.sourceUrl;
+    }
+    
+    let url;
+    // 配置要求始终使用封面图且有随机图
+    if (
+        config.value?.postCardImageOption === "alwaysWithCover" &&
+        config.value?.randomPicUrlPc
+    ) {
+        url= useRandom(config.value.randomPicUrlPc);
+    }
+
+    url = url ?? (useRandom(config.value?.postCardImageUrl) || "");
+
+    // 使用默认卡片图片
+    return url;
+});
 </script>
 
 <!-- eslint-disable vue/no-v-html -->
@@ -15,7 +40,7 @@ const localeTime = useLocalTime(post.modifiedGmt).format("LLL");
         <div class="post-thumb">
             <nuxt-link :to="post.uri">
                 <NuxtPicture
-                    :src="post.featuredImage?.node.sourceUrl"
+                    :src="postCover"
                     :alt="`featured image for post ${post.title}`"
                 >
                 </NuxtPicture>
@@ -37,7 +62,7 @@ const localeTime = useLocalTime(post.modifiedGmt).format("LLL");
                 </span>
                 <span v-if="meta == 'category'">
                     <Icon :name="'fa7-solid:folder-open'"></Icon>
-                    {{ post.categories?.nodes[0].name }}
+                    {{ post.categories?.nodes[0].name || "未分类" }}
                 </span>
                 <span v-if="meta == 'commentCounts'">
                     <Icon :name="'fa7-solid:comment'"></Icon>
@@ -75,11 +100,9 @@ const localeTime = useLocalTime(post.modifiedGmt).format("LLL");
     margin: 1rem 0;
     position: relative;
     overflow: hidden;
-
     background-color: var(--widget-background-color);
     box-shadow: var(--widget-shadow-shine);
     border-radius: var(--post-card-border-radius, 0.62rem);
-
     transition: all 0.4s cubic-bezier(0.07, 0.53, 0.65, 0.95);
 
     &:hover {
@@ -102,7 +125,6 @@ const localeTime = useLocalTime(post.modifiedGmt).format("LLL");
     position: absolute;
     width: 100%;
     height: 68%;
-
     transition: inherit;
 
     img,
@@ -113,6 +135,23 @@ const localeTime = useLocalTime(post.modifiedGmt).format("LLL");
         object-fit: cover;
         transition: inherit;
     }
+
+    .no-image-placeholder {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(
+            135deg,
+            var(--widget-background-color) 0%,
+            #888 100%
+        );
+        color: var(--word-color-first);
+        font-size: 1.2rem;
+        padding: 1rem;
+        text-align: center;
+    }
 }
 
 .post-date,
@@ -121,7 +160,6 @@ const localeTime = useLocalTime(post.modifiedGmt).format("LLL");
     padding: 0.32rem 0.62rem;
     font-size: 0.75rem;
     white-space: nowrap;
-
     color: var(--meta-color);
     background-color: var(--meta-background);
     border: 0.08rem solid #7d7d7d30;
@@ -154,15 +192,12 @@ const localeTime = useLocalTime(post.modifiedGmt).format("LLL");
     position: absolute;
     bottom: 22%;
     left: 2%;
-
     max-width: 80%;
     max-height: 34%;
     width: fit-content;
     height: fit-content;
-
     padding: 0.63rem 1rem;
     font-size: var(--post-card-title-font-size, 1.1rem);
-
     color: var(--word-color-first);
     background-color: rgba(var(--widget-background), 0.7);
     border: 0.01rem solid var(--border-shine);
@@ -175,7 +210,6 @@ const localeTime = useLocalTime(post.modifiedGmt).format("LLL");
     bottom: 5%;
     left: 2%;
     width: 98%;
-
     padding: 0 0.63rem;
     margin-top: 0.3rem;
     color: var(--word-color-first);
@@ -194,6 +228,7 @@ const localeTime = useLocalTime(post.modifiedGmt).format("LLL");
         opacity: 0;
         transform: translateY(5rem);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);

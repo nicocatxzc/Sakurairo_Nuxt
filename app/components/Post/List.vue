@@ -71,11 +71,14 @@ function loadMore(inst = false) {
         }
     }
     if (timer) return;
-    timer = setTimeout(async () => {
-        // 设置定时计划
-        await loadPosts();
-        timer = null;
-    }, 3000);
+    if ((config.value?.pageAutoLoad ?? 3) !== 0) {
+        timer = setTimeout(async () => {
+            // 设置定时计划
+            await loadPosts();
+            timer = null;
+        }, config.value.pageAutoLoad);
+    }
+
     async function loadPosts() {
         query.value = api.value?.option?.fetchOptions?.query ?? {};
         query.value.page = page.value + 1; // 查询附上页码
@@ -117,15 +120,27 @@ const posts = computed(() => postList.value?.nodes);
     <div
         class="post-list"
         :style="{
-            '--post-card-border-radius': `${config?.postCardBorderRadius || 0.5}rem`,
-            '--post-card-meta-border-radius': `${config?.postCardMetaBorderRadius || 0.5}rem`,
-            '--post-card-title-border-radius': `${config?.postCardTitleBorderRadiusrem || 0.5}rem`,
-            '--post-card-title-font-size': `${config?.postCardTitleFontSize || 1.1}rem`,
+            '--post-card-border-radius': `${
+                config?.postCardBorderRadius || 0.5
+            }rem`,
+            '--post-card-meta-border-radius': `${
+                config?.postCardMetaBorderRadius || 0.5
+            }rem`,
+            '--post-card-title-border-radius': `${
+                config?.postCardTitleBorderRadiusrem || 0.5
+            }rem`,
+            '--post-card-title-font-size': `${
+                config?.postCardTitleFontSize || 1.1
+            }rem`,
         }"
     >
         <template v-for="(post, index) in posts" :key="index">
             <PostCardWithImage
                 v-if="post.featuredImage?.node?.sourceUrl"
+                :post="post"
+            />
+            <PostCardWithImage
+                v-else-if="config?.postCardImageOption !== 'onlyFeatherImage'"
                 :post="post"
             />
             <PostCardSimple v-else :post="post" />
