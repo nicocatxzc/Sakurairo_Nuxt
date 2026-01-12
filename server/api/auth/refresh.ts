@@ -17,7 +17,7 @@ export default defineEventHandler(async (event) => {
     } catch (e) {
         throw createError({
             statusCode: 401,
-            statusMessage: "Validate",
+            statusMessage: "Validate failed",
             message: "认证失败,令牌无效或已过期",
         });
     }

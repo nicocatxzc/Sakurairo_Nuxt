@@ -1,3 +1,6 @@
+/**
+ * 获取响应式的主题变量CSS字符串
+ */
 export default function getThemeCss() {
     const themeConfig = useThemeConfig();
     const themeCss = computed(() => {

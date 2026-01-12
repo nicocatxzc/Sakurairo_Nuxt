@@ -1,3 +1,8 @@
+/**
+ * 将用户输入的头部HTML提取为可供useHead()方法使用的结构对象:\
+ * useHead(astToHead(headHtml))
+ * @param {String} html 
+ */
 export default function astToHead(html) {
     const ast = parseHtmlToAst(html);
 

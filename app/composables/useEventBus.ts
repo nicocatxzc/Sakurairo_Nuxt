@@ -6,6 +6,9 @@ type Events = Record<string, any>;
 
 const emitter: Emitter<Events> = mitt<Events>();
 
+/**
+ * 全局单例的事件总线，仅可在vue上下文使用，组件卸载时自动回收
+ */
 export default function useEventBus() {
     if (!getCurrentScope()) {
         throw new Error("useEventBus()只能在vue组件作用域中生效。");

@@ -81,7 +81,8 @@ export default defineEventHandler(async (event) => {
         if (hasPostId === hasSearch) {
             throw createError({
                 statusCode: 400,
-                statusMessage: "Either postId or search must be provided",
+                statusMessage: "Param need",
+                message: "至少需要postId或search关键字"
             });
         }
 

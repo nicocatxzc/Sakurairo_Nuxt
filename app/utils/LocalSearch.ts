@@ -1,3 +1,6 @@
+/**
+ * 获取本地搜索引擎搜索方法
+ */
 export default async function LocalSearch() {
     const data = await $fetch("/api/content/search-index");
     const posts = (data?.posts?.nodes || []).map(

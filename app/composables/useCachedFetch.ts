@@ -33,6 +33,9 @@ export function useCachedFetch<T = any>(
     options?: CachedFetchOptions<T>
 ): UseCachedFetchClientReturn<T>;
 
+/**
+ * 通过缓存关键字 url 以及可选的AsyncData配置等生成一个服务端和客户端共享的带缓存的单例请求
+ */
 export function useCachedFetch<T = any>(
     key: string,
     url: string,

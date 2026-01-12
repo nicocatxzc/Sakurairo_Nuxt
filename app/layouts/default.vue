@@ -9,7 +9,7 @@ onMounted(() => {
 
 const headHtml = config.value?.customHeader ?? "";
 if (headHtml != "") {
-    useHead(useHeadAst(headHtml));
+    useHead(astToHead(headHtml));
 }
 
 const extraFontsCss = getExtraFontsCss();

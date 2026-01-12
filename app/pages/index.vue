@@ -45,7 +45,8 @@ useHead({
     <ContentContainer
         :style="{
             '--block-title-font': themeConfig?.blockTitleFont || '',
-            '--block-title-position': themeConfig?.blockTitlePosition || 'center'
+            '--block-title-position':
+                themeConfig?.blockTitlePosition || 'center',
         }"
     >
         <template

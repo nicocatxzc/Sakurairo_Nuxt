@@ -1,3 +1,6 @@
+/**
+ * 获取验证码方法
+ */
 export const useCaptcha = () => {
     const auth = useAuthStore();
     async function get() {
@@ -16,8 +19,8 @@ export const useCaptcha = () => {
             ElMessage.success("验证通过");
             return true;
         } catch (error) {
-            ElMessage.error(`回答错误或验证码已过期,错误详情${error}`);
-            console.log(error.data?.message)
+            ElMessage.error(`验证校验失败,错误详情${error?.data?.message}`);
+            console.error(error)
             return false;
         }
     }

@@ -1,5 +1,8 @@
 import { useThemeConfigStore } from "#imports";
 
+/**
+ * 获取响应式的主题配置对象，在预览模式下会自动切换为临时配置
+ */
 export const useThemeConfig = () => {
     const store = useThemeConfigStore();
     let previewMode = ref(false);

@@ -1,5 +1,8 @@
-// 获取来源地址
-export function useSiteOrigin() {
+/**
+ * 在客户端获取来源地址
+ * @returns string
+ */
+export default function useSiteOrigin() {
     if (import.meta.server) {
         const headers = useRequestHeaders(["host", "x-forwarded-proto"]);
 
@@ -17,5 +20,5 @@ export function useSiteOrigin() {
     }
 
     const config = useRuntimeConfig();
-    return config.public.siteUrl || "";
+    return config.public.siteUrl ?? "";
 }

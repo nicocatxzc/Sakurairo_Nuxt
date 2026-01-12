@@ -23,7 +23,7 @@ export default defineEventHandler(async (event) => {
             throw createError({
                 statusCode: 401,
                 statusMessage: "Login Failed",
-                message: "登录失败,用户名或密码错误",
+                message: "用户名或密码错误",
             });
         }
         auth = auth.data

@@ -1,4 +1,8 @@
-// 从avatar对象中获取可用头像
+/**
+ * 从头像字面量/字符串以及主题丢失头像配置中返回一个合适的头像url地址字符串
+ * @param {string | object} avatar 
+ * @returns {string}
+ */
 export function getUserAvatar(avatar) {
     const themeConfig = useThemeConfig();
 

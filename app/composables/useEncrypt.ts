@@ -2,6 +2,9 @@ import * as OTPAuth from "otpauth";
 import { useAuthStore } from "#imports";
 import { CompactEncrypt } from "jose";
 
+/**
+ * 将字符串打包为加密请求体对象
+ */
 export async function useEncrypt(payload: string) {
     const auth = useAuthStore();
     const dailySecret = auth.secret as string;
