@@ -1,3 +1,8 @@
+import type { AsyncData } from "#app";
+
+const clientPromiseCache = new Map<string, Promise<any>>();
+const clientDataCache = new Map<string, any>();
+
 interface CachedFetchOptions<T = any> {
     fetchOptions?: Parameters<typeof $fetch>[1];
     refresh?: boolean;
@@ -9,14 +14,30 @@ interface CachedFetchOptions<T = any> {
     };
 }
 
-const clientPromiseCache = new Map<string, Promise<any>>();
-const clientDataCache = new Map<string, any>();
+interface UseCachedFetchClientReturn<T> {
+    data: Ref<T | null>;
+    pending: ComputedRef<boolean>;
+    error: Ref<any>;
+    refresh: () => void;
+    promise?: Promise<T>;
+}
+export function useCachedFetch<T = any>(
+    key: string,
+    url: string,
+    options: CachedFetchOptions<T> & { server?: true }
+): AsyncData<T, any>;
 
-export function useCachedFetch<T>(
+export function useCachedFetch<T = any>(
+    key: string,
+    url: string,
+    options?: CachedFetchOptions<T>
+): UseCachedFetchClientReturn<T>;
+
+export function useCachedFetch<T = any>(
     key: string,
     url: string,
     options: CachedFetchOptions<T> = {}
-) {
+): any {
     const {
         fetchOptions = {},
         refresh = false,
@@ -44,20 +65,10 @@ export function useCachedFetch<T>(
         return useAsyncData<T>(
             `Async-${key}`,
             async () => {
-                // try {
-                    if (!refresh && state.value) return state.value;
-                    const data = await $fetch<T>(url, fetchOptions);
-                    if (!data || data?.type == "404") {
-                        throw createError({
-                            statusCode: 404,
-                            statusMessage: "Not found",
-                        });
-                    }
-                    state.value = data;
-                    return data;
-                // } catch (err) {
-                //     throw err;
-                // }
+                if (!refresh && state.value) return state.value;
+                const data = await $fetch<T>(url, fetchOptions);
+                state.value = data;
+                return data;
             },
             action
         );
