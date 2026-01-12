@@ -17,7 +17,7 @@ export const useCaptcha = () => {
             return true;
         } catch (error) {
             ElMessage.error(`回答错误或验证码已过期,错误详情${error}`);
-            console.log(error)
+            console.log(error.data?.message)
             return false;
         }
     }

@@ -11,7 +11,7 @@ export default function useOptionAPI() {
                     },
                 });
 
-                let siteConfig = await useWPsettings();
+                let siteConfig = await getWPsettings();
                 config = replaceWP(config.data.value);
                 return {
                     ...config,

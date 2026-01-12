@@ -14,7 +14,7 @@ const md = new MarkdownIt({ html: true }).use(texmath, {
     katexOptions: { throwOnError: false },
 });
 
-export default function useMarkdown(text) {
+export default function parseMarkdownSafe(text) {
 
     const html = md.render(text);
 

@@ -32,7 +32,7 @@ export default async function getSitemap(
 }
 
 async function getMainSitemap(event: H3Event<EventHandlerRequest>) {
-    const req = useSiteOrigin(event);
+    const req = getSiteOrigin(event);
 
     return /*xml*/ `<?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="/sitemap.xsl"?>
@@ -69,7 +69,7 @@ async function getPageSitemap(event: H3Event<EventHandlerRequest>) {
             }
         }
     `;
-    const req = useSiteOrigin(event);
+    const req = getSiteOrigin(event);
     const content = await useWPGraphql(query);
     let pages: string[] = [];
 
@@ -98,7 +98,7 @@ async function getPostSitemap(event: H3Event<EventHandlerRequest>) {
             }
         }
     `;
-    const req = useSiteOrigin(event);
+    const req = getSiteOrigin(event);
     const content = await useWPGraphql(query);
     let posts: string[] = [];
 
@@ -126,7 +126,7 @@ async function getCategories(event: H3Event<EventHandlerRequest>) {
             }
         }
     `;
-    const req = useSiteOrigin(event);
+    const req = getSiteOrigin(event);
     const content = await useWPGraphql(query);
     let categories: string[] = [];
 
@@ -154,7 +154,7 @@ async function getTags(event: H3Event<EventHandlerRequest>) {
             }
         }
     `;
-    const req = useSiteOrigin(event);
+    const req = getSiteOrigin(event);
     const content = await useWPGraphql(query);
     let tags: string[] = [];
 

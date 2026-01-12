@@ -2,14 +2,14 @@ export default defineEventHandler(async (event) => {
     try {
         const query = getQuery(event);
         
-        const sysConfig = await useThemeSysConfig()
+        const sysConfig = await getThemeSysConfig()
         const userID = sysConfig?.sysBangumiUserID ?? null;
 
         if(!userID) return;
 
         const page = parseInt(query.page) || 1;
 
-        const cache = useCache();
+        const cache = WPCache();
         const cacheKey = `bangumi-${userID}`;
         const perPage = query?.per_page ?? 12;
 

@@ -1,5 +1,5 @@
 export default defineEventHandler(async () => {
-    const themeConfig = await useThemeConfig();
+    const themeConfig = await getThemeConfig();
 
     return themeConfig;
 });

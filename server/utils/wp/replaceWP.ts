@@ -10,7 +10,7 @@ export default function replaceDomain(input: string | object,event:H3Event<Event
         result = result.replaceAll(`${wpUrl}/wp-includes`, "/includes");
         result = result.replaceAll(`${wpUrl}/wp-content`, "/content");
         result = result.replaceAll(`${wpUrl}/sitemap`, "/sitemap");
-        result = result.replaceAll(`${wpUrl}/`,event ? useSiteOrigin(event).baseURL : "/");
+        result = result.replaceAll(`${wpUrl}/`,event ? getSiteOrigin(event).baseURL : "/");
         return result;
     };
 

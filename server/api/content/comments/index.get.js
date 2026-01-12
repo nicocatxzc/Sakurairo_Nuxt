@@ -71,7 +71,7 @@ function useCommentQuery(query = {}) {
 
 export default defineEventHandler(async (event) => {
     try {
-        const settings = await useWPsettings();
+        const settings = await getWPsettings();
         const query = getQuery(event);
 
         const postId = Number(query.postId);
@@ -99,7 +99,7 @@ export default defineEventHandler(async (event) => {
         const comments = (res.data?.comments?.nodes ?? []).map((comment) => {
             return {
                 ...comment,
-                content: useMarkdown(comment.content),
+                content: parseMarkdownSafe(comment.content),
             };
         });
 

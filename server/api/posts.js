@@ -91,7 +91,7 @@ function usePostQuery(settings, query = {}) {
 
 export default defineEventHandler(async (event) => {
     try {
-        const settings = await useWPsettings();
+        const settings = await getWPsettings();
         const query = getQuery(event);
 
         // 每页文章数

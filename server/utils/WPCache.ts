@@ -1,4 +1,4 @@
-export default function useCache() {
+export default function WPCache() {
     return {
         /**
          * 写入缓存

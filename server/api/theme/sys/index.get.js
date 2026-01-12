@@ -3,6 +3,6 @@ export default defineEventHandler(async (event) => {
     if (!auth?.roles.includes("administrator") ) {
         return{}
     }
-    const config = await useThemeSysConfig();
+    const config = await getThemeSysConfig();
     return config;
 });

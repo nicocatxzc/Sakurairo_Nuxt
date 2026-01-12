@@ -2,7 +2,7 @@ import axios from "axios";
 export default defineEventHandler(async (event) => {
     const method = event.method;
     const config = useRuntimeConfig();
-    const themeConfig = await useThemeConfig();
+    const themeConfig = await getThemeConfig();
 
     if (method == "GET") {
         switch (themeConfig.captchaSelect ?? "builtIn") {
@@ -20,8 +20,8 @@ export default defineEventHandler(async (event) => {
     }
 
     if (method == "POST") {
-        const themeConfig = await useThemeConfig();
-        const sysConfig = await useThemeSysConfig();
+        const themeConfig = await getThemeConfig();
+        const sysConfig = await getThemeSysConfig();
 
         const body = await readBody(event);
 
@@ -52,6 +52,12 @@ export default defineEventHandler(async (event) => {
                 );
                 if (verify.data.success == true) {
                     ok = true;
+                } else {
+                    throw createError({
+                        statusCode: 403,
+                        statusMessage: "Verify Failed",
+                        message: "验证校验失败",
+                    });
                 }
                 break;
 
@@ -62,15 +68,14 @@ export default defineEventHandler(async (event) => {
                     body.hash,
                     body.answer
                 );
+                if (!ok) {
+                    throw createError({
+                        statusCode: 403,
+                        statusMessage: "Incorrect answer",
+                        message: "回答错误或验证码已过期",
+                    });
+                }
                 break;
-        }
-
-        if (!ok) {
-            throw createError({
-                statusCode: 403,
-                statusMessage: "Incorrect answer",
-                message: "验证校验失败",
-            });
         }
 
         const pair = await getVerifyPair();

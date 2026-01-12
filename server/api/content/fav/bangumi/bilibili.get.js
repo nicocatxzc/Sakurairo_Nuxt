@@ -4,7 +4,7 @@ export default defineEventHandler(async (event) => {
     try {
         const query = getQuery(event);
 
-        const sysConfig = await useThemeSysConfig();
+        const sysConfig = await getThemeSysConfig();
         const userID = sysConfig?.sysBilibiliUserId ?? null;
 
         if (!userID) return;
@@ -12,7 +12,7 @@ export default defineEventHandler(async (event) => {
         const page = query?.page ?? 1;
         const perPage = query?.per_page ?? 15;
 
-        const cache = useCache();
+        const cache = WPCache();
         const cacheKey = `bilibili-${userID}-${page}-${perPage}`;
 
         // 尝试从缓存获取数据
