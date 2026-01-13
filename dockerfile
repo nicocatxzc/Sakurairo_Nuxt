@@ -5,10 +5,13 @@ FROM node:krypton-trixie AS builder
 WORKDIR /opt/hachimi
 
 # 复制项目文件
-COPY . .
+COPY package.json pnpm-lock.yaml ./
 
 RUN npm install -g pnpm
 RUN pnpm install
+
+# 安装项目依赖
+COPY . .
 RUN pnpm run build
 
 # 运行时
