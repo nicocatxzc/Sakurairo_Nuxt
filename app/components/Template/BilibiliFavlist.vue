@@ -40,7 +40,9 @@ const pageLoading = ref(false);
 watch([() => currentPage.value, () => currentCategory.value], async () => {
     pageLoading.value = true;
     await loadCategory(currentCategory.value, currentPage.value);
-    pageLoading.value = false;
+    setTimeout(() => {
+        pageLoading.value = false;
+    }, 1);
 });
 </script>
 
