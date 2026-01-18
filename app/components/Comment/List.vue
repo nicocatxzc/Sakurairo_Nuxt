@@ -126,7 +126,7 @@ function getSubmit(comment) {
         </ul>
         <div v-if="pageList.pages.length != 1" class="comment-pagination flex-center">
             <!-- 跳到首页 -->
-            <span v-if="page !== 1" class="page-item" @click="page = 1">
+            <span v-if="page !== 1" class="page-item flex-center" @click="page = 1">
                 {{ "<" }}
             </span>
 
