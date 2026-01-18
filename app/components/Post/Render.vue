@@ -11,6 +11,7 @@
 import CodeHighlight from "@/components/CodeHighlight.vue";
 import TemplateFriendLink from "@/components/Template/FriendLink.vue";
 import TemplateBangumi from "@/components/Template/Bangumi.vue"
+import TemplateBilibiliFavlist from "@/components/Template/BilibiliFavlist.vue"
 const { html } = defineProps({
     html: {
         type: String,
@@ -217,5 +218,19 @@ const componentsMap = {
             };
         },
     },
+
+    bilibiliFavlist: {
+        conditions(node) {
+            if (!(node.type === "tag" && node.name === "div")) return false;
+            if (node.attrs.id == "hachimi-favlist") return true;
+            return false;
+        },
+        component: TemplateBilibiliFavlist,
+        propsMapper(node) {
+            return {
+                ...node.attrs,
+            };
+        },
+    }
 };
 </script>

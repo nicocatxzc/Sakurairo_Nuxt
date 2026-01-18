@@ -16,7 +16,8 @@ export default defineEventHandler(async (event) => {
         if (!favId || page < 1) {
             throw createError({
                 statusCode: 400,
-                statusMessage: "缺少必要参数",
+                statusMessage: "Params missing",
+                message: "缺少必要参数",
             });
         }
 
@@ -30,7 +31,8 @@ export default defineEventHandler(async (event) => {
         if (!targetFav) {
             throw createError({
                 statusCode: 404,
-                statusMessage: "不存在该收藏夹",
+                statusMessage: "Not found",
+                message: "不存在该收藏夹",
             });
         }
 
