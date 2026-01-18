@@ -26,7 +26,10 @@ export default function WPCache() {
                 });
                 return res?.data?.value ?? null;
             } catch (error) {
-                console.error("缓存获取失败", error);
+                if(error?.response?.status == 404) {
+                    return null
+                }
+                console.error(`缓存${key}获取失败`, error);
                 return null;
             }
         },
