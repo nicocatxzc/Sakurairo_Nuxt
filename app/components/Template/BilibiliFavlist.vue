@@ -10,7 +10,7 @@ const favlistAllData = await useCachedFetch(
     },
 );
 await favlistAllData.promise
-const favlistAll = computed(() => favlistAllData.data.value.list ?? []);
+const favlistAll = computed(() => favlistAllData.data.value?.list ?? []);
 
 // 载入分类
 const currentCategory = ref(favlistAll.value[0]?.id);
@@ -64,7 +64,7 @@ watch([() => currentPage.value, () => currentCategory.value], async () => {
                     }
                 "
             >
-                {{ category.title }}
+                {{ category?.title }}
             </button>
         </div>
         <div class="fav-content">

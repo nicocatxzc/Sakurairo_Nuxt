@@ -6,7 +6,7 @@ export default async function getSitemap(
     try {
         switch (pathname) {
             case "/sitemap-post.xml":
-                const posts = await getPageSitemap(event);
+                const posts = await getPostSitemap(event);
                 return posts;
             case "/sitemap-page.xml":
                 const pages = await getPageSitemap(event);

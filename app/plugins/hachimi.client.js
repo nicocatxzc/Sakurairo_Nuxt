@@ -11,6 +11,8 @@ export default defineNuxtPlugin((nuxtApp) => {
         getTextStyle("#65c9fe"),
         getTextStyle("inherit"),
         getTextStyle("#fabe03"),
-        getTextStyle("inherit")
+        getTextStyle("inherit"),
     );
+
+    console.log("Build version", "1.0.0.2");
 });
