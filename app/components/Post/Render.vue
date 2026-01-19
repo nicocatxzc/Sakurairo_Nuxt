@@ -4,14 +4,14 @@
         :components-map="componentsMap"
         container-tag="article"
     />
-    <NuxtLink to=""></NuxtLink>
 </template>
 
 <script setup>
 import CodeHighlight from "@/components/CodeHighlight.vue";
 import TemplateFriendLink from "@/components/Template/FriendLink.vue";
-import TemplateBangumi from "@/components/Template/Bangumi.vue"
-import TemplateBilibiliFavlist from "@/components/Template/BilibiliFavlist.vue"
+import TemplateBangumi from "@/components/Template/Bangumi.vue";
+import TemplateBilibiliFavlist from "@/components/Template/BilibiliFavlist.vue";
+import HtmlRender from "@/components/Html/Render.vue";
 const { html } = defineProps({
     html: {
         type: String,
@@ -36,6 +36,15 @@ function mapSrcsetToIPX(srcset) {
         .join(", ");
 }
 
+function decodeBase64(base64) {
+    const binary = atob(base64);
+    const bytes = new Uint8Array(binary.length);
+    for (let i = 0; i < binary.length; i++) {
+        bytes[i] = binary.charCodeAt(i);
+    }
+    return new TextDecoder().decode(bytes);
+}
+
 /* componentsMap 规则：
  - conditions(node): 判断是否匹配
  - component: Vue 组件名称
@@ -54,7 +63,7 @@ const componentsMap = {
         propsMapper(node) {
             // 查找<code>
             const codeNode = node.children?.find(
-                (c) => c.type === "tag" && c.name === "code"
+                (c) => c.type === "tag" && c.name === "code",
             );
 
             let codeText = "";
@@ -102,7 +111,7 @@ const componentsMap = {
             // 排除灯箱
             if (
                 (node.children || []).some(
-                    (child) => child.type === "tag" && child.name === "img"
+                    (child) => child.type === "tag" && child.name === "img",
                 )
             )
                 return false;
@@ -140,7 +149,7 @@ const componentsMap = {
 
             // 必须直接或间接包着 img
             return (node.children || []).some(
-                (child) => child.type === "tag" && child.name === "img"
+                (child) => child.type === "tag" && child.name === "img",
             );
         },
 
@@ -149,7 +158,7 @@ const componentsMap = {
         propsMapper(node) {
             // 找到第一个 img
             const img = (node.children || []).find(
-                (c) => c.type === "tag" && c.name === "img"
+                (c) => c.type === "tag" && c.name === "img",
             );
 
             if (!img) return {};
@@ -231,6 +240,51 @@ const componentsMap = {
                 ...node.attrs,
             };
         },
-    }
+    },
+
+    markdown: {
+        conditions(node) {
+            return (
+                node.type === "tag" &&
+                node.name === "div" &&
+                node.attrs?.id === "hachimi-markdown"
+            );
+        },
+
+        component: HtmlRender,
+        renderChildren: false,
+
+        propsMapper(node) {
+            const encoded = node.attrs?.["data-md"];
+
+            let rawMarkdown = "";
+
+            if (encoded) {
+                try {
+                    rawMarkdown = decodeBase64(encoded);
+                } catch (e) {
+                    console.warn("Markdown base64 decode failed", e);
+                }
+            }
+
+            if (!rawMarkdown) {
+                const pre = (node.children || []).find(
+                    (c) => c.type === "tag" && c.name === "pre",
+                );
+                rawMarkdown = (pre?.children || [])
+                    .filter((c) => c.type === "text")
+                    .map((c) => c.text)
+                    .join("");
+            }
+
+            const html = parseMarkdown(rawMarkdown);
+
+            return {
+                html,
+                "components-map": componentsMap,
+                "container-tag": "article",
+            };
+        },
+    },
 };
 </script>
