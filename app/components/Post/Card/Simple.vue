@@ -6,14 +6,17 @@ let { post } = defineProps({
     },
 });
 const config = useThemeConfig();
-const localeTime = getLocalTime(post.modifiedGmt).format("LLL");
+const localeTime = getLocalTime(post.modifiedGmt).format("LL");
 </script>
 
 <!-- eslint-disable vue/no-v-html -->
 <template>
     <article class="post-card">
         <NuxtLink :to="post.uri">
-            <h3 class="post-title" v-html="post.title" />
+            <h3 class="post-title">
+                <span v-if="post?.isSticky == true" class="sticky">&#x2B06;&#xFE0E;</span>
+                <span v-html="post.title"></span>
+            </h3>
         </NuxtLink>
         <NuxtLink :to="post.uri">
             <span class="post-excerpt" v-html="post.excerpt" />

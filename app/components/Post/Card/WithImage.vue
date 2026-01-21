@@ -6,7 +6,7 @@ let { post } = defineProps({
     },
 });
 const config = useThemeConfig();
-const localeTime = getLocalTime(post.modifiedGmt).format("LLL");
+const localeTime = getLocalTime(post.modifiedGmt).format("LL");
 function useRandom(url) {
     if(url=='') return url;
     const separator = url.includes('?') ? '&' : '?';
@@ -49,6 +49,7 @@ const postCover = computed(() => {
 
         <div class="post-date">
             <time :datetime="post.modifiedGmt"> 更新于:{{ localeTime }} </time>
+            <div v-if="post?.isSticky==true" class="sticky">&#x2605;&#xFE0E;置顶</div>
         </div>
 
         <div class="post-meta">
@@ -62,7 +63,9 @@ const postCover = computed(() => {
                 </span>
                 <span v-if="meta == 'category'">
                     <Icon :name="'fa7-solid:folder-open'"></Icon>
-                    {{ post.categories?.nodes[0].name || "未分类" }}
+                    <NuxtLink :to="post.categories?.nodes[0].uri">
+                        {{ post.categories?.nodes[0].name || "未分类" }}
+                    </NuxtLink>
                 </span>
                 <span v-if="meta == 'commentCounts'">
                     <Icon :name="'fa7-solid:comment'"></Icon>
@@ -170,6 +173,9 @@ const postCover = computed(() => {
 .post-date {
     top: 1rem;
     left: 1rem;
+    .sticky {
+        color: gold;
+    }
 }
 
 .post-meta {
@@ -185,6 +191,12 @@ const postCover = computed(() => {
     span {
         display: flex;
         align-items: center;
+    }
+    a {
+        color: inherit;
+        &:hover {
+            color: var(--active-color);
+        }
     }
 }
 
