@@ -3,7 +3,7 @@ import { JSDOM } from "jsdom";
 export default async function useWPPageStyles(path) {
     try {
         const head = await useWP.get(path, {
-            params: { onlyhead: true },
+            params: { headless: true },
         });
 
         const dom = new JSDOM(head.data);

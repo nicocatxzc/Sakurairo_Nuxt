@@ -22,9 +22,11 @@ useHead({
     },
     style: [
         {
+            id:"global-styles-inline-css",
             innerHTML: sysConfig.value?.global_style,
         },
         {
+            id:"hachimi-theme-defination-inline-css",
             innerHTML: `
         ${extraFontsCss.value}
         ${themeCss.value}`,
