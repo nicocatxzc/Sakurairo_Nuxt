@@ -30,23 +30,24 @@ function generateDescription(content, length = 125) {
 }
 
 function getDesc() {
+    const seoSource = themeConfig.value?.siteSeoSource ?? ["excerpt"];
     // 摘要
-    if (post.value?.excerpt && post.value.excerpt.trim() !== "") {
+    if (post.value?.excerpt && post.value.excerpt.trim() !== "" && seoSource.includes("excerpt")) {
         return post.value.excerpt.replace(/<[^>]*>/g, '');
     }
     
     // 正文截取
-    if (post.value?.content && post.value.content.trim() !== "") {
+    if (post.value?.content && post.value.content.trim() !== "" && seoSource.includes("postContent")) {
         return generateDescription(post.value.content);
     }
     
     // 站点配置描述
-    if (themeConfig.value?.siteSeoDesc && themeConfig.value.siteSeoDesc.trim() !== "") {
+    if (themeConfig.value?.siteSeoDesc && themeConfig.value.siteSeoDesc.trim() !== "" && seoSource.includes("siteSeoDesc")) {
         return themeConfig.value.siteSeoDesc;
     }
     
     // 站点原始描述
-    if (themeConfig.value?.siteDesc && themeConfig.value.siteDesc.trim() !== "") {
+    if (themeConfig.value?.siteDesc && themeConfig.value.siteDesc.trim() !== "" && seoSource.includes("siteDesc")) {
         return themeConfig.value.siteDesc;
     }
     

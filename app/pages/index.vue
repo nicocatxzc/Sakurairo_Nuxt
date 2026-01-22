@@ -11,11 +11,10 @@ const { data, promise } = await useCachedFetch(api.key, api.url, api.option);
 await promise;
 const posts = computed(() => (data.value?.posts ? data.value.posts : {}));
 
-const title = themeConfig.value?.siteName || "未命名";
+// 准备SEO信息
+const title = themeConfig.value?.siteName || "";
 const desc =
-    themeConfig.value?.siteSeoDesc ||
-    themeConfig.value?.siteDesc ||
-    "这家伙很懒,什么都没有写";
+    themeConfig.value?.siteSeoDesc || themeConfig.value?.siteDesc || "";
 const icon =
     themeConfig.value?.siteLogo ||
     themeConfig.value?.navLogo ||

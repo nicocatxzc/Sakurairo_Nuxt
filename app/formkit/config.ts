@@ -25,7 +25,7 @@ export default [
                 name: "siteLogo",
                 label: "站点logo",
                 value: "",
-                help:"填写后将使用该图像作为站点logo，未填写将使用wordpress后端设置的图像或默认图像",
+                help: "填写后将使用该图像作为站点logo，未填写将使用wordpress后端设置的图像或默认图像",
                 placeholder: "填写logo地址",
             },
             {
@@ -43,6 +43,19 @@ export default [
                 value: "",
                 placeholder: "比如'一个不一般的个人博客'",
                 help: "在页面没有正文内容时会作为替代显示在搜索结果词条的描述中",
+            },
+            {
+                $formkit: elCheckboxGroup,
+                name: "siteSeoSource",
+                label: "seo数据来源",
+                value: ["excerpt"],
+                options: [
+                    { label: "文章摘要", value: "excerpt" },
+                    { label: "文章内容", value: "postContent" },
+                    { label: "seo描述", value: "siteSeoDesc" },
+                    { label: "站点描述", value: "siteDesc" },
+                ],
+                help:"文章和页面seo描述的来源"
             },
         ],
     },
