@@ -11,6 +11,7 @@ import CodeHighlight from "@/components/CodeHighlight.vue";
 import TemplateFriendLink from "@/components/Template/FriendLink.vue";
 import TemplateBangumi from "@/components/Template/Bangumi.vue";
 import TemplateBilibiliFavlist from "@/components/Template/BilibiliFavlist.vue";
+import TemplateArchive from "@/components/Template/Archive.vue"
 import HtmlRender from "@/components/Html/Render.vue";
 const { html } = defineProps({
     html: {
@@ -235,6 +236,20 @@ const componentsMap = {
             return false;
         },
         component: TemplateBilibiliFavlist,
+        propsMapper(node) {
+            return {
+                ...node.attrs,
+            };
+        },
+    },
+
+    archive: {
+        conditions(node) {
+            if (!(node.type === "tag" && node.name === "div")) return false;
+            if (node.attrs.id == "hachimi-archive") return true;
+            return false;
+        },
+        component: TemplateArchive,
         propsMapper(node) {
             return {
                 ...node.attrs,
