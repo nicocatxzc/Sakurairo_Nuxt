@@ -12,7 +12,7 @@ const { data, promise, error } = await useCachedFetch(
                 path: route.path,
             },
         },
-    }
+    },
 );
 await promise;
 if (error.value) {
@@ -24,7 +24,11 @@ if (error.value) {
 
 let page = computed(() => {
     if (data.value?.type == "404") {
-        showError({ statusCode: 404, statusMessage: "页面不存在" });
+        showError({
+            statusCode: 404,
+            statusMessage: "Not Found",
+            message: "页面不存在",
+        });
     }
     let canonical;
     if (data.value?.canonical) {
