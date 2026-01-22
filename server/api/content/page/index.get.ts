@@ -22,6 +22,7 @@ const GetPage = /* GraphQL */ `
             hasPassword
             modifiedGmt
             commentStatus
+            commentCount
             title(format: RENDERED)
         }
     }
