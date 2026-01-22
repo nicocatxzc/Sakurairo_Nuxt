@@ -5,7 +5,7 @@ export default defineEventHandler(async (event) => {
     try {
         const query = getQuery(event);
         auth = await useWP.post("/wp-json/hachimi/v1/auth/sso/exchange", {
-            code:query.code,
+            code: query.code,
         });
 
         auth = auth.data;
@@ -14,6 +14,7 @@ export default defineEventHandler(async (event) => {
             secure: true,
             sameSite: "lax",
             path: "/",
+            expires: new Date(auth.expire * 1000),
         });
         return { expire: auth?.expire };
     } catch (e) {

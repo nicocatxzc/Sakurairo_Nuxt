@@ -12,6 +12,7 @@ export default defineEventHandler(async (event) => {
             secure: true,
             sameSite: "lax",
             path: "/",
+            expires: new Date(auth.expire * 1000)
         });
         return { expire: auth?.expire };
     } catch (e) {

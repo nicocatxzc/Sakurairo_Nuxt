@@ -3,7 +3,11 @@ export default defineEventHandler(async (event) => {
 
     if (event.method == "POST") {
         post = await readBody(event);
-        let res:any = await useDecrypt(post?.verify,post?.token, post?.payload);
+        let res: any = await useDecrypt(
+            post?.verify,
+            post?.token,
+            post?.payload,
+        );
         try {
             res = JSON.parse(res);
         } catch (e) {
@@ -26,12 +30,13 @@ export default defineEventHandler(async (event) => {
                 message: "用户名或密码错误",
             });
         }
-        auth = auth.data
+        auth = auth.data;
         setCookie(event, "auth_token", auth.token, {
             httpOnly: true,
             secure: true,
             sameSite: "lax",
             path: "/",
+            expires: new Date(auth.user.expire * 1000),
         });
         return auth.user;
     } else {
