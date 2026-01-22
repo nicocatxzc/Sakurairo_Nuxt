@@ -23,6 +23,7 @@ const GetPage = /* GraphQL */ `
             modifiedGmt
             commentStatus
             commentCount
+            excerpt(format: RENDERED)
             title(format: RENDERED)
         }
     }
