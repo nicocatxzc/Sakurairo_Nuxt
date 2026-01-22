@@ -84,13 +84,19 @@ useHead({
     ],
 });
 let zoom;
-onMounted(() => {
+onMounted(async() => {
     zoom = mediumZoom("[data-zoomable]", {
         background: "#0000001a",
     });
     onBeforeUnmount(() => {
         zoom.detach();
     });
+    const views = await $fetch("/api/content/statistics/views",{
+        method:"POST",
+        query:{
+            post_id:props.page.id
+        }
+    })
 });
 </script>
 
