@@ -29,6 +29,14 @@ export default defineNuxtConfig({
             },
         },
     },
+    icon: {
+        customCollections: [
+            {
+                prefix:"local",
+                dir:"./app/icons"
+            }
+        ]
+    },
     formkit: {
         autoImport: true,
     },

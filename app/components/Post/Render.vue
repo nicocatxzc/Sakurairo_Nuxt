@@ -12,6 +12,7 @@ import TemplateFriendLink from "@/components/Template/FriendLink.vue";
 import TemplateBangumi from "@/components/Template/Bangumi.vue";
 import TemplateBilibiliFavlist from "@/components/Template/BilibiliFavlist.vue";
 import TemplateArchive from "@/components/Template/Archive.vue"
+import TemplateGithubRepoCard from "@/components/Template/GithubRepoCard.vue"
 import HtmlRender from "@/components/Html/Render.vue";
 const { html } = defineProps({
     html: {
@@ -298,6 +299,20 @@ const componentsMap = {
                 html,
                 "components-map": componentsMap,
                 "container-tag": "article",
+            };
+        },
+    },
+
+    githubRepoCard: {
+        conditions(node) {
+            if (!(node.type === "tag" && node.name === "div")) return false;
+            if (node.attrs.class == "hachimi-ghcard") return true;
+            return false;
+        },
+        component: TemplateGithubRepoCard,
+        propsMapper(node) {
+            return {
+                ...node.attrs,
             };
         },
     },
