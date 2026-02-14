@@ -1,4 +1,4 @@
-# Hachimi headless WordPress theme
+# Sakurairo_Nuxt headless WordPress theme
 
 基于[WordPress Theme Sakurairo](https://github.com/mirai-mamori/Sakurairo)的样式重构的Nuxt headless WordPress主题
 

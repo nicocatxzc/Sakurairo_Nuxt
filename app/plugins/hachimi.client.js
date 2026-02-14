@@ -4,7 +4,7 @@ export default defineNuxtPlugin((nuxtApp) => {
     };
 
     console.log(
-        `%cTHEME \n%cHachimi \n%cINSPIRED %cBY \n%cSAKURAIR%cO \n%chttps://github.com/nicocatxzc/hachimi \nhttps://github.com/mirai-mamori/Sakurairo`,
+        `%cTHEME \n%cSakurairo_Nuxt \n%cINSPIRED %cBY \n%cSAKURAIR%cO \n%chttps://github.com/nicocatxzc/Sakurairo_Nuxt \nhttps://github.com/mirai-mamori/Sakurairo`,
         getTextStyle("inherit"),
         getTextStyle("#f1e05a"),
         getTextStyle("inherit"),

@@ -1,11 +1,11 @@
 <script setup>
 const about = parseMarkdown(/* markdown */`
-# Theme Hachimi
+# Sakurairo_Nuxt
 ## 关于主题
 
 ### 开源相关
 本主题基于[Theme Sakurairo](https://github.com/mirai-mamori/Sakurairo)主题进行重构开发，使用GPL2协议开源
-本主题的仓库地址：[Theme Hachimi](https://github.com/nicocatxzc/hachimi)
+本主题的仓库地址：[Sakurairo_Nuxt](https://github.com/nicocatxzc/Sakurairo_Nuxt)
 
 ### 引用相关
 本主题使用了以下图标库：
@@ -23,9 +23,9 @@ const about = parseMarkdown(/* markdown */`
 
 其余依赖可以在仓库依赖列表查看
 
-### Hachimi的贡献者
+### Sakurairo_Nuxt的贡献者
 
-[![Contributors](https://contrib.rocks/image?repo=nicocatxzc/Hachimi)](https://github.com/mirai-mamori/Sakurairo/graphs/contributors)
+[![Contributors](https://contrib.rocks/image?repo=nicocatxzc/Sakurairo_Nuxt)](https://contrib.rocks/image?repo=nicocatxzc/Sakurairo_Nuxt)
 
 ### Sakurairo的贡献者
 
