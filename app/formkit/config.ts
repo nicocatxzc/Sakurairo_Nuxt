@@ -1029,6 +1029,11 @@ export default [
                     },
                 ],
             },
+            {
+                key: "backup",
+                title: "备份和恢复",
+                schema: [],
+            },
         ],
     },
     {

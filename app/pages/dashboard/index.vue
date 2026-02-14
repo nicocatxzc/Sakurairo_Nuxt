@@ -226,6 +226,7 @@ function navigateBack() {
                                 </template>
                             </template>
                             <PageAbout v-show="current === 'about'" />
+                            <PageBackup v-show="current === 'backup'" v-model="formData" @submit="saveSettings"/>
                         </FormKit>
                     </div>
                 </div>
