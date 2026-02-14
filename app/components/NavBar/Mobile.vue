@@ -79,9 +79,10 @@ onMounted(() => {
             });
         }
     });
-    document.addEventListener("pjax:complete", () => {
-        collpase();
-    });
+    document.addEventListener("pjax:complete", collpase());
+    onBeforeUnmount(()=>{
+        document.removeEventListener("pjax:complete", collpase());
+    })
 });
 
 const [menuScope, menuAnimate] = useAnimate();
