@@ -61,7 +61,7 @@ useStyleTag(
         <div class="layout-slot">
             <div class="background-filter" />
             <slot />
-            <SiteFooter class="site-footer" />
+            <SiteFooter class="site-footer" hydrate-on-idle/>
             <Particle class="particle" />
         </div>
 

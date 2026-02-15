@@ -36,7 +36,7 @@ onMounted(() => {
         {
             threshold: 0.1,
             rootMargin: "50px",
-        }
+        },
     );
 
     let stopwatch = watch(
@@ -49,7 +49,7 @@ onMounted(() => {
         },
         {
             immediate: true,
-        }
+        },
     );
 
     onUnmounted(() => {
@@ -94,7 +94,7 @@ function loadMore(inst = false) {
                         ...query.value, // 展开查询参数
                     },
                 },
-            }
+            },
         );
         message.value = "正在加载...";
         await promise;
@@ -138,12 +138,14 @@ const posts = computed(() => postList.value?.nodes);
             <PostCardWithImage
                 v-if="post.featuredImage?.node?.sourceUrl"
                 :post="post"
+                hydrate-on-idle
             />
             <PostCardWithImage
                 v-else-if="config?.postCardImageOption !== 'onlyFeatherImage'"
                 :post="post"
+                hydrate-on-idle
             />
-            <PostCardSimple v-else :post="post" />
+            <PostCardSimple v-else :post="post" hydrate-on-idle />
         </template>
         <div v-if="api" ref="pagination" class="pagination">
             <button v-if="haveMore" @click="loadMore(true)">
