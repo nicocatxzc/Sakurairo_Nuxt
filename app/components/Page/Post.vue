@@ -109,7 +109,7 @@ onMounted(async() => {
         <PostHeader v-else :post="post" />
         <ContentContainer>
             <div class="post-content">
-                <PostRender v-if="post.content" :html="post.content" hydrate-on-idle/>
+                <LazyPostRender v-if="post.content" :html="post.content" hydrate-on-idle/>
             </div>
             <ClientOnly>
                 <PostToc

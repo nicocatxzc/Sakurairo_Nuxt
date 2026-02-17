@@ -135,17 +135,17 @@ const posts = computed(() => postList.value?.nodes);
         }"
     >
         <template v-for="(post, index) in posts" :key="index">
-            <PostCardWithImage
+            <LazyPostCardWithImage
                 v-if="post.featuredImage?.node?.sourceUrl"
                 :post="post"
                 hydrate-on-idle
             />
-            <PostCardWithImage
+            <LazyPostCardWithImage
                 v-else-if="config?.postCardImageOption !== 'onlyFeatherImage'"
                 :post="post"
                 hydrate-on-idle
             />
-            <PostCardSimple v-else :post="post" hydrate-on-idle />
+            <LazyPostCardSimple v-else :post="post" hydrate-on-idle />
         </template>
         <div v-if="api" ref="pagination" class="pagination">
             <button v-if="haveMore" @click="loadMore(true)">
