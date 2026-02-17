@@ -10,6 +10,7 @@ const repo = computed(() => {
     try {
         return JSON.parse(dataInfo);
     } catch (error) {
+        console.log(dataInfo);
         return {
             url: "#",
             name: "无法解析的仓库",
@@ -24,46 +25,53 @@ const repo = computed(() => {
 </script>
 
 <template>
-    <div class="github-card">
-        <a :href="repo?.url" target="_blank" rel="noopener">
-            <header class="repo-name">
-                <span class="title-text">
-                    <Icon name="local:repo" mode="svg" class="icon"></Icon>
-                    {{ repo?.name }}
-                </span>
-            </header>
+    <div class="block-ghcard">
+        <div class="github-card">
+            <a :href="repo?.url" target="_blank" rel="noopener">
+                <header class="repo-name">
+                    <span class="title-text">
+                        <Icon name="local:repo" mode="svg" class="icon"></Icon>
+                        {{ repo?.name }}
+                    </span>
+                </header>
 
-            <div class="repo-desc">
-                {{ repo?.description }}
-            </div>
+                <div class="repo-desc">
+                    {{ repo?.description }}
+                </div>
 
-            <div class="repo-meta">
-                <span class="lang" v-if="repo?.language">
-                    <span
-                        class="dot"
-                        :style="{
-                            backgroundColor: colors[repo?.language] ?? '#999',
-                        }"
-                    />
-                    {{ repo?.language }}
-                </span>
+                <div class="repo-meta">
+                    <span class="lang" v-if="repo?.language">
+                        <span
+                            class="dot"
+                            :style="{
+                                backgroundColor:
+                                    colors[repo?.language] ?? '#999',
+                            }"
+                        />
+                        {{ repo?.language }}
+                    </span>
 
-                <span class="stars">
-                    <Icon name="local:star" mode="svg" class="icon"></Icon>
-                    {{ repo?.stars }}
-                </span>
+                    <span class="stars">
+                        <Icon name="local:star" mode="svg" class="icon"></Icon>
+                        {{ repo?.stars }}
+                    </span>
 
-                <span class="forks">
-                    <Icon name="local:fork" mode="svg" class="icon"></Icon>
-                    {{ repo?.forks }}
-                </span>
+                    <span class="forks">
+                        <Icon name="local:fork" mode="svg" class="icon"></Icon>
+                        {{ repo?.forks }}
+                    </span>
 
-                <span class="license">
-                    <Icon name="local:license" mode="svg" class="icon"></Icon>
-                    {{ repo?.license }}
-                </span>
-            </div>
-        </a>
+                    <span class="license">
+                        <Icon
+                            name="local:license"
+                            mode="svg"
+                            class="icon"
+                        ></Icon>
+                        {{ repo?.license }}
+                    </span>
+                </div>
+            </a>
+        </div>
     </div>
 </template>
 
@@ -73,11 +81,30 @@ const repo = computed(() => {
     box-sizing: border-box;
 }
 
-.github-card {
-    width: 25rem;
-    height: 7.5rem;
-    padding: 1rem 1.1rem;
+.block-ghcard {
+    --design-width: 25rem;
+    --design-height: 7.5rem;
 
+    --max-width: 75dvw;
+
+    /* 缩放比例 */
+    --scale: min(1, calc(var(--max-width) / var(--design-width)));
+
+    /* 真实占位尺寸 */
+    width: calc(var(--design-width) * var(--scale));
+    height: calc(var(--design-height) * var(--scale));
+
+    position: relative;
+    overflow: hidden;
+}
+
+.github-card {
+    width: var(--design-width);
+    height: var(--design-height);
+    transform: scale(var(--scale));
+    transform-origin: top left;
+
+    padding: 1rem 1.1rem;
     border-radius: 0.5rem;
     border: var(--border-sketch);
     background: rgb(var(--widget-background));
