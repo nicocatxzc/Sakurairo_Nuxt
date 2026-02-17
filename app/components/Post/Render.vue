@@ -7,6 +7,7 @@
 </template>
 
 <script setup>
+import "katex/dist/katex.min.css";
 import CodeHighlight from "@/components/CodeHighlight.vue";
 import TemplateFriendLink from "@/components/Template/FriendLink.vue";
 import TemplateBangumi from "@/components/Template/Bangumi.vue";
