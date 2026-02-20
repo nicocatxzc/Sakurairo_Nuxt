@@ -1,10 +1,17 @@
 <script setup>
 import formSchema from "@/formkit/config";
 import { useThemeConfigStore } from "#imports";
-import _ from "lodash-es"
+import _ from "lodash-es";
 definePageMeta({
     layout: "dashboard",
 });
+const route = useRoute();
+const router = useRouter();
+const current = computed(() => {
+    const h = route.hash?.replace("#", "");
+    return h || "basicSettings";
+});
+
 const isNotPreview = computed(() => {
     if (import.meta.server) return true;
     return window.__hachimiPreview__ !== true;
@@ -13,7 +20,6 @@ const isNotPreview = computed(() => {
 const themeConfig = useThemeConfigStore();
 const formData = ref(themeConfig.tempConfig); // 表单数据
 const groups = formSchema;
-let current = ref("basicSettings");
 let title = ref("基础设置");
 let expand = ref(true);
 const showMode = ref("wide");
@@ -122,12 +128,12 @@ function splitSysConfig(source) {
 }
 
 function navigateBack() {
+    if (expand.value == true && showMode.value == "wide") {
+        navigateTo("/");
+    }
     if (title.value != "") {
         title.value = "";
     } else {
-        navigateTo("/");
-    }
-    if (expand.value == true && showMode == "wide") {
         navigateTo("/");
     }
 }
@@ -178,7 +184,10 @@ function navigateBack() {
                             unique-opened
                             @select="
                                 (key) => {
-                                    current = key;
+                                    navigateTo({
+                                        path: '/dashboard',
+                                        hash: `#${key}`,
+                                    });
                                 }
                             "
                         >
