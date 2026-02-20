@@ -15,6 +15,11 @@ import TemplateBilibiliFavlist from "@/components/Template/BilibiliFavlist.vue";
 import TemplateArchive from "@/components/Template/Archive.vue"
 import TemplateGithubRepoCard from "@/components/Template/GithubRepoCard.vue"
 import HtmlRender from "@/components/Html/Render.vue";
+
+import BlockNotice from "@/components/Block/Notice.vue"
+import BlockShowcard from "@/components/Block/Showcard.vue"
+import BlockConversation from "@/components/Block/Conversation.vue"
+import BlockBvideo from "@/components/Block/Bvideo.vue"
 const { html } = defineProps({
     html: {
         type: String,
@@ -311,6 +316,62 @@ const componentsMap = {
             return false;
         },
         component: TemplateGithubRepoCard,
+        propsMapper(node) {
+            return {
+                ...node.attrs,
+            };
+        },
+    },
+
+    blockNotice: {
+        conditions(node) {
+            if (!(node.type === "tag" && node.name === "div")) return false;
+            if (node.attrs.class == "hachimi-notice") return true;
+            return false;
+        },
+        component: BlockNotice,
+        propsMapper(node) {
+            return {
+                ...node.attrs,
+            };
+        },
+    },
+
+    showcard: {
+        conditions(node) {
+            if (!(node.type === "tag" && node.name === "div")) return false;
+            if (node.attrs.class == "hachimi-showcard") return true;
+            return false;
+        },
+        component: BlockShowcard,
+        propsMapper(node) {
+            return {
+                ...node.attrs,
+            };
+        },
+    },
+
+    conversation: {
+        conditions(node) {
+            if (!(node.type === "tag" && node.name === "div")) return false;
+            if (node.attrs.class == "hachimi-conversation") return true;
+            return false;
+        },
+        component: BlockConversation,
+        propsMapper(node) {
+            return {
+                ...node.attrs,
+            };
+        },
+    },
+
+    bvideo: {
+        conditions(node) {
+            if (!(node.type === "tag" && node.name === "div")) return false;
+            if (node.attrs.class == "hachimi-bvideo") return true;
+            return false;
+        },
+        component: BlockBvideo,
         propsMapper(node) {
             return {
                 ...node.attrs,
