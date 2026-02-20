@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   hachimi:
-    image: nicocatxzc/hachimi:dev
+    image: nicocatxzc/hachimi
     container_name: hachimi
     restart: always
 
