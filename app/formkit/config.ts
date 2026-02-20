@@ -642,7 +642,7 @@ export default [
                         $formkit: elText,
                         name: "randomPicUrlPc",
                         label: "PC端封面随机图片地址",
-                        value: "https://moeapi.moecat.cc/imgs/pc",
+                        value: "",
                         help: "输入图片的url可以实现封面固定的效果",
                         placeholder: "请输入图片链接或api地址",
                     },
@@ -651,7 +651,7 @@ export default [
                         $formkit: elText,
                         name: "randomPicUrlMb",
                         label: "移动端封面随机图片地址",
-                        value: "https://moeapi.moecat.cc/imgs/mb",
+                        value: "",
                         placeholder: "请输入图片链接或api地址",
                     },
 
