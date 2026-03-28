@@ -67,6 +67,7 @@ export default defineNuxtConfig({
                 "highlight.js",
                 "otpauth",
                 "jose",
+                'dayjs/plugin/*.js',
             ],
         },
     },
