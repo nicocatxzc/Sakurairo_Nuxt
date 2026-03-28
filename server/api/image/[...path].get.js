@@ -79,13 +79,25 @@ export default defineEventHandler(async (event) => {
 
     // 其他情况302返回
     if (!isAllowed) {
-        res.writeHead(302, { Location: originalSrc });
-        res.end();
-        return;
-    }
+        let redirectURL;
 
-    if (originalSrc.endsWith(".gif") || originalSrc.endsWith(".webp")) {
-        return proxyRequest(event, originalSrc);
+        try {
+            if (/^https?:\/\//.test(originalSrc)) {
+                redirectURL = new URL(originalSrc).toString();
+            } else {
+                redirectURL = new URL(
+                    originalSrc.replace(/^\/+/, ""),
+                    wp.origin + "/",
+                ).toString();
+            }
+        } catch {
+            redirectURL = wp.origin;
+        }
+
+        res.writeHead(302, {
+            Location: redirectURL,
+        });
+        res.end();
     }
 
     res.setHeader("Cache-Control", "public, max-age=86400");
