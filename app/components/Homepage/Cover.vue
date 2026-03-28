@@ -83,7 +83,12 @@ onMounted(() => {
                             <Icon :name="'fa7-solid:quote-right'" />
                         </div>
                         <div class="signature">
-                            <p>
+                            <p
+                                :style="{
+                                    fontFamily:
+                                        config?.coverSignatureFont || '',
+                                }"
+                            >
                                 {{ config?.coverSignature }}
                             </p>
                         </div>
