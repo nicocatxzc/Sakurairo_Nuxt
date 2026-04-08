@@ -12,7 +12,7 @@ RUN pnpm install
 
 # 安装项目依赖
 COPY . .
-ENV NODE_OPTIONS="--max-old-space-size=4096"
+ENV NODE_OPTIONS="--max-old-space-size=8192"
 RUN pnpm run build
 
 # 运行时
