@@ -32,21 +32,18 @@ export default defineNuxtConfig({
     icon: {
         customCollections: [
             {
-                prefix:"local",
-                dir:"./app/icons"
-            }
-        ]
+                prefix: "local",
+                dir: "./app/icons",
+            },
+        ],
     },
     formkit: {
         autoImport: true,
     },
     modules: [
         "@nuxt/eslint",
-        "@nuxt/fonts",
-        "@nuxt/hints",
         "@nuxt/icon",
         "@nuxt/image",
-        "@nuxt/scripts",
         "@element-plus/nuxt",
         "@pinia/nuxt",
         "@vueuse/nuxt",
@@ -58,16 +55,42 @@ export default defineNuxtConfig({
     vite: {
         optimizeDeps: {
             include: [
+                // UI
                 "element-plus",
                 "@element-plus/icons-vue",
-                "dayjs",
+                "lodash-unified",
+
+                // 状态
                 "@vueuse/core",
                 "pinia",
                 "pinia-plugin-persistedstate",
+
+                // dayjs
+                "dayjs",
+                "dayjs/plugin/timezone",
+                "dayjs/plugin/localeData",
+                "dayjs/plugin/localizedFormat",
+                "dayjs/plugin/utc",
+                "dayjs/locale/zh",
+                "dayjs/locale/en",
+
+                // 工具
                 "highlight.js",
                 "otpauth",
                 "jose",
-                'dayjs/plugin/*.js',
+                "lodash-es",
+                "htmlparser2",
+                "markdown-it",
+                "markdown-it-texmath",
+                "katex",
+                "medium-zoom",
+                "tocbot",
+                "@tsparticles/engine",
+                "@tsparticles/all",
+                "typed.js",
+                "mitt",
+                "vue-cloudflare-turnstile",
+                'md5',
             ],
         },
     },
