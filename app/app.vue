@@ -86,19 +86,20 @@ html {
     a {
         background-color: transparent;
         text-decoration: none;
-        color: var(--word-color-first, #505050);
+        color: var(--active-color,#00b0f0);
         outline: 0;
         transition: all 0.2s ease-in-out;
         word-break: break-word;
+    }
+
+    a:hover,a:active {
+        color: var(--active-color-reverse,#FCCD00);
     }
 
     a:hover,
     a:active,
     a:focus {
         transition: all 0.2s ease-in-out;
-    }
-    a:hover {
-        color: var(--active-color);
     }
 
     p {

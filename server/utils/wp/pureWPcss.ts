@@ -36,10 +36,11 @@ export default function pureWPcss(css: string) {
         }
 
         // 正则排除 tag + :where(:not(...))
-        const hasTagWhereNot = selectors.some((s) =>
+        if (selectors.some((s) =>
             /^[a-z]+:where\(:not\([^)]+\)\)/i.test(s.trim())
-        );
-        if (hasTagWhereNot) {
+        ) || selectors.some((s) =>
+            /:root\s+:where\([^)]*:not\([^)]*\)[^)]*\)/i.test(s.trim())
+        )) {
             rule.remove();
             return;
         }

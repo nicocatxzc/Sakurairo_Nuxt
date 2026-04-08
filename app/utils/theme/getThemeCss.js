@@ -8,13 +8,14 @@ export default function getThemeCss() {
 :root {
     --global-font-size:${themeConfig.value?.globalFontSize ?? 16}px;
     --global-font-weight:${themeConfig.value?.globalFontWeight ?? 300};
-    ${(themeConfig.value?.globalDefaultFont ?? false) ? 'font-family:'+themeConfig.value?.globalDefaultFont : ''}
+    ${(themeConfig.value?.globalDefaultFont ?? false) ? "font-family:" + themeConfig.value?.globalDefaultFont : ""}
 }
 body {
     background-image: url("${themeConfig.value?.frontendDefaultBackground}");
 }
 :root {
     --active-color: ${themeConfig.value?.activeColor || "#00b0f0"};
+    --active-color-reverse: ${themeConfig.value?.activeColorDark || "#FCCD00"};
     --widget-transparency: ${themeConfig.value?.widgetTransparency ?? 0.8};
     --background-transparency: ${
         themeConfig.value?.backgroundTransparency ?? 0.8
@@ -36,8 +37,8 @@ body {
     --code-background: ${themeConfig.value?.codeBlockBackgroundColor ?? "#e1e4e8"};
 }
 :root.dark {
-    --active-color: ${themeConfig.value?.activeColorDark || 
-"#FCCD00"};
+    --active-color: ${themeConfig.value?.activeColorDark || "#FCCD00"};
+    --active-color-reverse: ${themeConfig.value?.activeColor || "#00b0f0"};
     --widget-transparency: ${themeConfig.value?.widgetTransparencyDark ?? 0.8};
     --background-transparency: ${themeConfig.value?.backgroundTransparencyDark ?? 0.7};
     --word-color-first: ${themeConfig.value?.wordColorFirstDark || "#CCCCCC"};
