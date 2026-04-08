@@ -5,16 +5,16 @@ const themeConfig = useThemeConfig();
 const darkmode = useDarkmodeStore();
 
 // 初始化样式
-if((themeConfig.value?.siteLogo ?? false) != '') {
-    const logo = getNuxtImg(themeConfig.value.siteLogo)
+if ((themeConfig.value?.siteLogo ?? false) != "") {
+    const logo = getNuxtImg(themeConfig.value.siteLogo);
     useHead({
         link: [
             {
-                rel:"icon",
-                href:logo
-            }
-        ]
-    })
+                rel: "icon",
+                href: logo,
+            },
+        ],
+    });
 }
 
 // 初始化客户端逻辑
@@ -35,8 +35,17 @@ onMounted(() => {
 
 <style lang="scss">
 html {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-        "Microsoft YaHei", Roboto, Ubuntu, "Helvetica Neue", Arial, sans-serif;
+    font-family:
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        "Microsoft YaHei",
+        Roboto,
+        Ubuntu,
+        "Helvetica Neue",
+        Arial,
+        sans-serif;
     overflow-x: hidden;
     box-sizing: border-box;
     font-size: var(--global-font-size, 16px);
@@ -86,14 +95,16 @@ html {
     a {
         background-color: transparent;
         text-decoration: none;
-        color: var(--active-color,#00b0f0);
+        color: var(--word-color-first, #505050);
         outline: 0;
         transition: all 0.2s ease-in-out;
         word-break: break-word;
     }
 
-    a:hover,a:active {
-        color: var(--active-color-reverse,#FCCD00);
+    
+    a:hover,
+    a:active {
+        color: var(--active-color);
     }
 
     a:hover,

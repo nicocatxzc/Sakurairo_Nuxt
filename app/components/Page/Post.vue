@@ -145,7 +145,17 @@ article.post {
     flex-shrink: 0;
 }
 </style>
-<style>
+<style lang="scss">
+.post-content {
+    a {
+        color: var(--active-color, #00b0f0);
+    }
+
+    a:hover,
+    a:active {
+        color: var(--active-color-reverse, #fccd00);
+    }
+}
 .medium-zoom-image {
     z-index: 999;
 }
