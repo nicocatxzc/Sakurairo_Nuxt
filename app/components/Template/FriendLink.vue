@@ -12,37 +12,38 @@ onMounted(async()=>{
     }
 })
 
-const categories = computed(() => {
-    if (!linksData.value?.categories || !linksData.value?.links) return [];
+const categories = shallowRef([]);
 
-    // 构建分类映射表
-    const categoryMap = {};
-    linksData.value.categories.forEach((cat) => {
-        categoryMap[cat.id] = { ...cat, links: [] };
-    });
+watchEffect(() => {
+    if (!linksData.value?.categories || !linksData.value?.links) {
+        categories.value = [];
+        return;
+    }
 
-    // 将链接快速分配到对应分类
-    linksData.value.links.forEach((link) => {
-        link.category_ids.forEach((catId) => {
-            if (categoryMap[catId]) {
-                categoryMap[catId].links.push(link);
-            }
-        });
-    });
+    const categoryMap = new Map();
 
-    // 过滤空分类 & 排序
-    let categories = Object.values(categoryMap)
-        .filter((cat) => cat.links.length > 0)
-        .map((cat) => {
-            // 分类内链接按 priority 排序
-            cat.links.sort((a, b) => b.priority - a.priority);
-            return cat;
-        });
+    // 获取分类列表
+    for (const cat of linksData.value.categories) {
+        categoryMap.set(cat.id, { ...cat, links: [] });
+    }
 
-    // 分类按首字母排序
-    categories.sort((a, b) => a.name.localeCompare(b.name));
+    for (const link of linksData.value.links) {
+        for (const catId of link.category_ids) {
+            const cat = categoryMap.get(catId);
+            if (cat) cat.links.push(link);
+        }
+    }
 
-    return categories;
+    // 分类排序
+    const result = Array.from(categoryMap.values())
+        .filter(c => c.links.length > 0)
+        .map(c => ({
+            ...c,
+            links: [...c.links].sort((a,b)=>b.priority-a.priority)
+        }))
+        .sort((a,b)=>a.name.localeCompare(b.name));
+
+    categories.value = result;
 });
 </script>
 
