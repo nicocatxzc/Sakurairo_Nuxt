@@ -26,7 +26,13 @@ export default async function getWPPageStyles(path) {
         const link = [...document.querySelectorAll('link[rel="stylesheet"]')]
             .filter((el) => !el?.href.includes("/themes/"))
             .map((el) => {
-                const url = new URL(el.href);
+                let url;
+                try {
+                    url = new URL(el.href);
+                } catch (e) {
+                    // 可能是相对路径
+                    url = el.href;
+                }
 
                 return {
                     id: el.id || undefined,
