@@ -1,7 +1,14 @@
+allowBuilds:
+  '@parcel/watcher': true
+  '@tsparticles/engine': true
+  esbuild: true
+  sharp: true
+  unrs-resolver: true
+  vue-demi: true
 onlyBuiltDependencies:
-    - "@tsparticles/engine"
-    - "@parcel/watcher"
-    - esbuild
-    - sharp
-    - unrs-resolver
-    - vue-demi
+  - "@tsparticles/engine"
+  - "@parcel/watcher"
+  - esbuild
+  - sharp
+  - unrs-resolver
+  - vue-demi
