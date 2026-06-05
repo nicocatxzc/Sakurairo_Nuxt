@@ -5,7 +5,7 @@ FROM node:24.13.0-trixie AS builder
 WORKDIR /opt/hachimi
 
 # 复制项目文件
-COPY package.json pnpm-lock.yaml ./
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 
 RUN npm install -g pnpm
 RUN pnpm install
