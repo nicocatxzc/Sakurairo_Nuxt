@@ -46,6 +46,7 @@ function render(field, item) {
                 input: (v) => (model.value = v),
             },
             classes: {},
+            ...field,
         },
     });
 }
