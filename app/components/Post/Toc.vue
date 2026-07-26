@@ -18,13 +18,13 @@ onMounted(() => {
     });
     router.afterEach(() => {
         // 修复VUE导航下tocbot在hash锚点下行为异常的问题
-        setTimeout(() => {
-            history.replaceState(
-                null,
-                "",
-                window.location.pathname + window.location.search
-            );
-        }, 0);
+        // setTimeout(() => {
+        //     history.replaceState(
+        //         null,
+        //         "",
+        //         window.location.pathname + window.location.search
+        //     );
+        // }, 0);
     });
 });
 </script>
@@ -38,8 +38,8 @@ onMounted(() => {
 <style lang="scss">
 .toc-container {
     position: absolute;
-    top: 20%;
-    height: 80%;
+    top: 20dvh;
+    height: 100%;
     width: 12rem;
     left: calc(100% + 0.5rem);
     #toc {
@@ -88,7 +88,7 @@ onMounted(() => {
         }
     }
 }
-@media screen and (min-width: 75rem) {
+@media screen and (max-width: 75rem) {
     .toc-container {
         display: none;
     }

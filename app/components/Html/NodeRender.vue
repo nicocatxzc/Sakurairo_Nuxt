@@ -36,6 +36,7 @@ const resolvedComponent = computed(() => {
 // 传递节点数据
 const resolvedProps = computed(() => {
     const baseAttrs = props.node.attrs || {};
+    // console.log(props.node)
     if (
         matchedRule.value &&
         typeof matchedRule.value.propsMapper === "function"
@@ -45,6 +46,9 @@ const resolvedProps = computed(() => {
         } catch (e) {
             return baseAttrs;
         }
+    }
+    if (!baseAttrs?.id && ['h1','h2','h3','h4','h5'].includes(props.node.name)) {
+        baseAttrs.id = props.node.raw?.children[0]?.data
     }
     return baseAttrs;
 });
