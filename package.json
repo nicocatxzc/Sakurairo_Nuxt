@@ -42,7 +42,7 @@
         "medium-zoom": "^1.1.0",
         "mitt": "^3.0.1",
         "monaco-editor": "^0.55.1",
-        "motion-v": "^2.2.0",
+        "motion-v": "^2.3.0",
         "nuxt-monaco-editor": "1.4.0",
         "otpauth": "^9.5.0",
         "pinia": "^3.0.4",

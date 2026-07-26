@@ -50,26 +50,30 @@ async function toggleMenu(menu) {
         animateOpen(menu);
         return;
     }
-
+    
     if (menu === currentMenu.value) {
         // 点击同一个收起
         await animateClose(menu);
         currentMenu.value = "";
         return;
     }
-
+    
     // 不同的菜单
     const old = currentMenu.value;
     await animateClose(old);
-
+    
     // 收起再开新的
     currentMenu.value = menu;
     animateOpen(menu);
+    console.log(currentMenu.value)
 }
 
 const headRef = useTemplateRef("header");
-const menuRef = useTemplateRef("menuScope");
-const userRef = useTemplateRef("userScope");
+const [menuScope, menuAnimate] = useAnimate();
+const [userScope, userAnimate] = useAnimate();
+
+const menuRef = menuScope
+const userRef = userScope
 
 onMounted(() => {
     watch([() => menuRef.value, () => userRef.value], () => {
@@ -79,14 +83,11 @@ onMounted(() => {
             });
         }
     });
-    document.addEventListener("pjax:complete", collpase());
+    document.addEventListener("pjax:complete", collpase);
     onBeforeUnmount(()=>{
-        document.removeEventListener("pjax:complete", collpase());
+        document.removeEventListener("pjax:complete", collpase);
     })
 });
-
-const [menuScope, menuAnimate] = useAnimate();
-const [userScope, userAnimate] = useAnimate();
 
 function animateOpen(name) {
     const animate = name === "menu" ? menuAnimate : userAnimate;
