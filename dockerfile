@@ -1,5 +1,5 @@
 # 构建
-FROM node:24.13.0-trixie AS builder
+FROM node:24.18.0-trixie AS builder
 
 # 设置工作目录
 WORKDIR /opt/hachimi
@@ -16,7 +16,7 @@ ENV NODE_OPTIONS="--max-old-space-size=8192"
 RUN pnpm run build
 
 # 运行时
-FROM node:24.13.0-trixie-slim
+FROM node:24.18.0-trixie-slim
 
 WORKDIR /opt/hachimi
 
