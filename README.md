@@ -2,6 +2,11 @@
 
 基于[WordPress Theme Sakurairo](https://github.com/mirai-mamori/Sakurairo)的样式重构的Nuxt headless WordPress主题
 
+## Tip
+
+它可以作为一个功能完备的Headless WordPress框架使用，本主题基本按照Nuxt官方的实践进行，修改pages/components/layouts即可进行深度外观定制，大部分模块都是解耦出来的，工具函数和模板组件相互独立运作
+另外，它还带一个类似WordPress Customizer的设置框架
+
 ## 功能
 
 目前主题外观已基本和Sakurairo对齐，且额外实现了大量性能相关工作，不过仍然有部分原版支持功能未实现:
