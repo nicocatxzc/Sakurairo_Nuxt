@@ -356,7 +356,6 @@ export default [
                                 $formkit: elText,
                                 name: "name",
                                 label: "字体名称",
-                                value: "",
                                 placeholder: "请输入字体名称",
                             },
                         ],
@@ -677,7 +676,6 @@ export default [
                                 $formkit: elText,
                                 name: "iconUrl",
                                 label: "图标链接地址",
-                                value: "",
                                 placeholder: "请输入图片链接",
                             },
 
@@ -685,7 +683,6 @@ export default [
                                 $formkit: elText,
                                 name: "linkUrl",
                                 label: "链接地址",
-                                value: "",
                                 placeholder: "请输入跳转地址",
                             },
                         ],
