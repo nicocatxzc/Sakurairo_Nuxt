@@ -2,7 +2,7 @@ import {
     createIPX,
     ipxFSStorage,
     ipxHttpStorage,
-    createIPXNodeServer,
+    createIPXFetchHandler,
 } from "ipx";
 import { decode } from "ufo";
 
@@ -23,10 +23,13 @@ function parseIPXPath(pathname) {
     const id = safeString(decode(idSegments.join("/")));
 
     const modifiers = Object.create(null);
+
     if (modifiersString && modifiersString !== "_") {
         for (const p of modifiersString.split(MODIFIER_SEP)) {
             const [key, ...values] = p.split(MODIFIER_VAL_SEP);
+
             if (!key) continue;
+
             modifiers[safeString(key)] = values
                 .map((v) => safeString(decode(v)))
                 .join("_");
@@ -35,37 +38,46 @@ function parseIPXPath(pathname) {
 
     return { modifiers, id };
 }
-const nuxtconfig = useRuntimeConfig();
-const wp = new URL(nuxtconfig.wordpressURL);
-
-const ipx = createIPX({
-    storage: ipxFSStorage({ dir: "./public" }),
-    httpStorage: ipxHttpStorage({ domains: [wp.host] }),
-    alias: { "/content": `${wp.origin}/wp-content` },
-});
-
-const ipxHandler = createIPXNodeServer(ipx);
 
 export default defineEventHandler(async (event) => {
-    const { req, res } = event.node;
+    const nuxtconfig = useRuntimeConfig();
+    const wp = new URL(nuxtconfig.wordpressURL);
+
+    const ipx = createIPX({
+        storage: ipxFSStorage({
+            dir: "./public",
+        }),
+
+        httpStorage: ipxHttpStorage({
+            domains: [wp.host],
+        }),
+
+        alias: {
+            "/content": `${wp.origin}/wp-content`,
+        },
+    });
+
+    const ipxHandler = createIPXFetchHandler(ipx);
 
     const allowedDomains = new Set([wp.host]);
 
-    // 修改请求路径，移除 /api/image 前缀
+    // 移除 /api/image 或 /static/image 前缀
     const url =
         event.path
             .replace(/^\/api\/image/, "")
             .replace(/^\/static\/image/, "") || "/";
-    req.url = url;
 
     const { modifiers, id } = parseIPXPath(url);
+
     const originalSrc = id.replace(/^"|"$/g, "");
 
     let isAllowed = false;
+
     try {
         if (/^[a-zA-Z][a-zA-Z0-9+.-]*:\/\//.test(originalSrc)) {
             // 完整 URL，判断 host 是否在白名单
             const parsed = new URL(originalSrc);
+
             isAllowed = allowedDomains.has(parsed.host);
         } else {
             // 本地 alias
@@ -94,18 +106,16 @@ export default defineEventHandler(async (event) => {
             redirectURL = wp.origin;
         }
 
-        res.writeHead(302, {
-            Location: redirectURL,
-        });
-        res.end();
+        return sendRedirect(event, redirectURL, 302);
     }
 
-    res.setHeader("Cache-Control", "public, max-age=86400");
+    setResponseHeader(event, "Cache-Control", "public, max-age=86400");
 
-    // 交给 IPX 处理
-    // return event.path
-    await ipxHandler(req, res);
-
-    // 标记已处理
-    event._handled = true;
+    // IPX v4 使用 Fetch handler
+    return ipxHandler(
+        new Request(new URL(url, getRequestURL(event).origin), {
+            method: event.method,
+            headers: getRequestHeaders(event),
+        }),
+    );
 });
