@@ -22,7 +22,7 @@ onMounted(() => {
         () => showBackground.value,
         () => {
             docScrollLock.value = showBackground.value;
-        }
+        },
     );
     onUnmounted(() => {
         docScrollLock.value = false;

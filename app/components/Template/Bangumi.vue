@@ -50,7 +50,6 @@ const bangumiCard = useTemplateRef("bangumi-card");
             >
                 <div
                     class="anime-content"
-                    href="https://bgm.tv/subject/260772"
                     target="_blank"
                     rel="nofollow"
                 >
